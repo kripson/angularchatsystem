@@ -1,0 +1,121 @@
+
+#center
+{
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto; 
+	z-index: -1;
+	position: absolute;
+	top: 1em;
+	left: 10em;
+
+
+}
+#userlist
+{
+	position: absolute;
+	top: 5em;
+	right: 1em;
+	height:500px;
+	width: 25%;
+	border:2px solid black;
+	box-shadow: 10px 10px 30px black;
+	overflow-x: scroll;
+}
+
+#userlist h3
+{
+	text-align: center;
+}
+
+#userlist ul
+{
+	list-style: none;
+}
+
+
+#grouplist
+{
+	position: absolute;
+	width: 30%;
+	bottom:2em;
+	height: 300px;
+	right: 1em;
+	border:2px solid black;
+	box-shadow: 10px 10px 30px black;
+	overflow-x: scroll;
+
+}
+#grouplist ul
+{
+	list-style: none;
+}
+
+#grouplist ul li:hover
+{
+	cursor: pointer;
+}
+
+#grouplist img
+{
+	height: 40px;
+	width: 40px;
+}
+#grouplist h3
+{
+	text-align: center;
+}
+
+
+#groupdetails 
+{
+	position: relative;
+	border:2px solid black;
+	box-shadow: 10px 10px 30px black;
+	overflow-x: scroll;
+	width: 70%;
+	padding: 1em;
+	margin-bottom:  2em;
+}
+
+#close
+{
+	position: absolute;
+	top: 1em;
+	right: 1em;
+
+}
+#close:hover
+{
+	cursor: pointer;
+
+}
+
+#newuserform
+{
+	box-shadow: 10px 10px 50px grey;
+	overflow-x: scroll;
+	width: 70%;
+	padding: 1em;
+	margin:2em 2em;
+	border-radius: 15px;
+}
+
+#newgroupform
+{
+	box-shadow: 10px 10px 50px grey;
+	overflow-x: scroll;
+	width: 70%;
+	padding: 1em;
+	margin:2em 2em;
+	border-radius: 15px;
+}
+
+#logout
+{
+	position: absolute;
+	top: 0;
+	right: 1em;
+}
+
+
