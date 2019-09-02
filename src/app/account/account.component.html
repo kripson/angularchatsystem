@@ -36,17 +36,17 @@
 		<button (click) = "turn(1)">Create a new user and add to the group</button>
 		<button (click) = "turn(2)">Add an existing user to the group</button>
 		<div *ngIf ="createnewgroupuser">
-		<input type="text" [(ngModel)]="ngroupusername" name="ngroupusername" placeholder="username"><br><br>
-       <input type="text" [(ngModel)]="ngroupbirthdate" name="ngroupbirthdate" placeholder="birthdate"><br><br>
-        <input type="text" [(ngModel)]="ngroupage" name="ngroupage" placeholder="age"><br><br>
-         <input type="text" [(ngModel)]="ngroupemail" name="ngroupemail" placeholder="email"><br><br>
-         <input type="text" [(ngModel)]="nofgroupasis" name="nofgroupasis" placeholder="asis role?"><br><br>
-     	 <input type="password" [(ngModel)]="ngrouppassword" name="ngrouppassword" placeholder="password"><br><br>
+		<input type="text" [(ngModel)]="ngroupusername" name="ngroupusername" placeholder="username" ><br><br>
+       <input type="text" [(ngModel)]="ngroupbirthdate" name="ngroupbirthdate" placeholder="birthdate" required><br><br>
+        <input type="text" [(ngModel)]="ngroupage" name="ngroupage" placeholder="age" required><br><br>
+         <input type="text" [(ngModel)]="ngroupemail" name="ngroupemail" placeholder="email" required><br><br>
+         <input type="text" [(ngModel)]="nofgroupasis" name="nofgroupasis" placeholder="asis role?" required><br><br>
+     	 <input type="password" [(ngModel)]="ngrouppassword" name="ngrouppassword" placeholder="password" required><br><br>
 		<button (click) = "addNewUserToGroup()">Create a new user and add to the group</button></div>
 
 	<div *ngIf = "addnewgroupuser">
-		<input type="text" [(ngModel)]="groupusername" name="groupusername" placeholder="username"><br><br>
-       <input type="text" [(ngModel)]="ofgroupasis" name="ofgroupasis" placeholder="group asis?"><br><br>
+		<input type="text" [(ngModel)]="groupusername" name="groupusername" placeholder="username" required><br><br>
+       <input type="text" [(ngModel)]="ofgroupasis" name="ofgroupasis" placeholder="group asis?" required><br><br>
 		<button (click) = "addExistingUserToGroup()">Add a current user to the group</button></div>
 
 </div>
@@ -62,11 +62,11 @@
 	<h1> Create A New User Here<img src="https://img.icons8.com/bubbles/50/000000/user.png"></h1>
 	<form>
   
-      <input type="text" [(ngModel)]="nusername" name="nusername" placeholder="username"><br><br>
-       <input type="text" [(ngModel)]="nbirthdate" name="nbirthdate" placeholder="birthdate"><br><br>
-        <input type="text" [(ngModel)]="nage" name="nage" placeholder="age"><br><br>
-         <input type="text" [(ngModel)]="nemail" name="nemail" placeholder="email"><br><br>
-            <input type="text" [(ngModel)]="nofgroupadmin" name="nofgroupadmin" placeholder="admin role?"><br><br>
+      <input type="text" [(ngModel)]="nusername" name="nusername" placeholder="username" required><br><br>
+       <input type="text" [(ngModel)]="nbirthdate" name="nbirthdate" placeholder="birthdate" required><br><br>
+        <input type="text" [(ngModel)]="nage" name="nage" placeholder="age" required><br><br>
+         <input type="text" [(ngModel)]="nemail" name="nemail" placeholder="email" required><br><br>
+            <input type="text" [(ngModel)]="nofgroupadmin" name="nofgroupadmin" placeholder="admin role?" required><br><br>
 
 
       <input type="password" [(ngModel)]="npassword" name="npassword" placeholder="password"><br><br>
@@ -83,7 +83,7 @@
   	<h1> Create A New group Here<img src="https://img.icons8.com/dusk/64/000000/groups.png"></h1>
 	<form>
   
-      <input type="text" [(ngModel)]="ngroupname" name="ngroupname" placeholder="groupname"><br><br>
+      <input type="text" [(ngModel)]="ngroupname" name="ngroupname" placeholder="groupname" ><br><br>
 
 
 

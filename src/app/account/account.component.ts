@@ -142,6 +142,10 @@ export class AccountComponent implements OnInit {
 
   createNewUser()
   {
+    if(this.nofgroupadmin != "" && this.nusername != "" && this.nage != "" && this.nbirthdate != ""  && this.nemail != "" && this.npassword != "")
+    {
+
+  
   		if (this.nofgroupadmin == "true")
   		{
   			this.nofgroupadmin = true;
@@ -161,7 +165,7 @@ export class AccountComponent implements OnInit {
                 valid:this.nvalid
   		}
 
-  		this.httpClient.post<Users>("http://localhost:3000/createuser",nuser).subscribe(res => {  
+  		this.httpClient.post<Users>("http://localhost:3000/createuser",nuser).subscribe(res => {
                 
           
                 if (typeof(Storage) !== "undefined")
@@ -179,11 +183,21 @@ export class AccountComponent implements OnInit {
                 alert('Cannot Create User');
               }
           });
+        }
+        else
+        {
+          alert("Please fill out the form completely")
+        }
 
   }
 
   createNewGroup()
   {
+
+    if(this.ngroupname != "")
+    {
+
+    
   		
   		var ngroup = {
   				groupname:this.ngroupname,
@@ -201,7 +215,7 @@ export class AccountComponent implements OnInit {
   			ngroup.asis.pop();
   		}
 
-  		this.httpClient.post<Groups>("http://localhost:3000/creategroup",ngroup).subscribe(res => {  
+  		this.httpClient.post<Groups>("http://localhost:3000/creategroup",ngroup).subscribe(res => { 
                 
           
                 if (typeof(Storage) !== "undefined")
@@ -213,14 +227,19 @@ export class AccountComponent implements OnInit {
                   this.grouplist = res.grouplist;
                   alert((sessionStorage.getItem("currentUser")));
                 }
-              
                else
               {
                 alert('Cannot Create Group');
               }
           });
+      }
+      else
+      {
+        alert("Please enter a group name");
+      }
 
   }
+
   deleteUser(user)
   {
   	var deluser = {
@@ -331,6 +350,10 @@ export class AccountComponent implements OnInit {
 
 addNewUserToGroup()
 {
+  if(this.ngroupusername != "" && this.nofgroupasis != "" && this.ngroupage != "" && this.ngroupbirthdate != ""  && this.ngroupemail != "" && this.ngrouppassword != "")
+  {
+
+  
 	if (this.nofgroupasis == "true")
   		{
   			this.nofgroupasis = true;
@@ -372,13 +395,20 @@ addNewUserToGroup()
               }
               this.createnewgroupuser = false;
               this.addnewgroupuser = false;
-          });                  
+          });     
+        }
+        else
+        {
+          alert("Please fill out the form completely");
+        }             
 
 
 }
 
 addExistingUserToGroup()
 {
+  if(this.groupusername != "" && this.ofgroupasis != "")
+  {
 	if (this.ofgroupasis == "true")
   		{
   			this.ofgroupasis = true;
@@ -411,7 +441,12 @@ addExistingUserToGroup()
               }
               this.createnewgroupuser = false;
               this.addnewgroupuser = false;
-          });                  
+          }); 
+        }
+        else
+        {
+          alert("Please fill out the form properly");
+        }                 
 
 
 }

@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<h1> Account Page </h1>\n\n<p>{{username}}</p>\n<p>{{birthdate}}</p>\n<p>{{age}}</p>\n<p>{{email}}</p>\n\n\n<button (click) = \"logout()\">Log Out</button>\n"
+module.exports = "<div id=\"center\">\r\n<h1> Account Page </h1>\r\n\r\n<p><img src=\"https://img.icons8.com/bubbles/50/000000/user.png\">{{username}}</p>\r\n<p><img src=\"https://img.icons8.com/cute-clipart/64/000000/birthday-cake.png\">{{birthdate}}</p>\r\n<p>Age: {{age}}</p>\r\n<p>Email:{{email}}</p>\r\n</div>\r\n\r\n<div id=\"userlist\" *ngIf = \"userlist.length\">\r\n\t<h3><img src=\"https://img.icons8.com/bubbles/50/000000/user.png\"> Users List</h3>\r\n\t\r\n\t<ul>\r\n\t\t<li *ngFor = \"let user of userlist\">{{user}}<br><button (click) = \"deleteUser(user)\">Delete this user</button><button (click) = \"promoteToGroupAdmin(user)\">Promote to Group Admin</button></li>\r\n\r\n\t</ul>\r\n</div>\r\n\r\n<div id=\"grouplist\" *ngIf=\"grouplist.length\">\r\n\t<h3><img src=\"https://img.icons8.com/dusk/64/000000/groups.png\">Your Groups</h3>\r\n\t<ul>\r\n\t\t<li *ngFor = \"let group of grouplist\"><a  (click) = \"groupDetail(group)\">{{group}}</a><div *ngIf=\"ofgroupadmin\"><button (click) = \"deleteGroup(group)\">Delete Group</button></div></li>\r\n\t</ul>\r\n</div>\r\n\r\n\r\n<div id=\"groupdetails\" *ngIf=\"detailedgroup.groupname\">\r\n\t<h1>Group Details</h1>\r\n\t<h1>{{detailedgroup.groupname}}</h1>\r\n\t<h2><img src=\"https://img.icons8.com/dusk/64/000000/groups.png\">{{detailedgroup.membercount }} members </h2>\r\n\t<ul>\r\n\t\t<li *ngFor = \"let channel of detailedgroup.channels\"><a  (click) = \"channelDetail(channel)\">{{channel}}</a><!-- <button (click) = \"deleteChannel(group)\">Delete Group</button> --></li>\r\n\t</ul>\r\n\t<img id=\"close\" (click) = \"removegroupdetails()\" src=\"https://img.icons8.com/flat_round/64/000000/delete-sign.png\">\r\n\t<div *ngIf=\"detailedgroup.isofadmin\">\r\n\t\t<button (click) = \"turn(1)\">Create a new user and add to the group</button>\r\n\t\t<button (click) = \"turn(2)\">Add an existing user to the group</button>\r\n\t\t<div *ngIf =\"createnewgroupuser\">\r\n\t\t<input type=\"text\" [(ngModel)]=\"ngroupusername\" name=\"ngroupusername\" placeholder=\"username\"><br><br>\r\n       <input type=\"text\" [(ngModel)]=\"ngroupbirthdate\" name=\"ngroupbirthdate\" placeholder=\"birthdate\"><br><br>\r\n        <input type=\"text\" [(ngModel)]=\"ngroupage\" name=\"ngroupage\" placeholder=\"age\"><br><br>\r\n         <input type=\"text\" [(ngModel)]=\"ngroupemail\" name=\"ngroupemail\" placeholder=\"email\"><br><br>\r\n         <input type=\"text\" [(ngModel)]=\"nofgroupasis\" name=\"nofgroupasis\" placeholder=\"asis role?\"><br><br>\r\n     \t <input type=\"password\" [(ngModel)]=\"ngrouppassword\" name=\"ngrouppassword\" placeholder=\"password\"><br><br>\r\n\t\t<button (click) = \"addNewUserToGroup()\">Create a new user and add to the group</button></div>\r\n\r\n\t<div *ngIf = \"addnewgroupuser\">\r\n\t\t<input type=\"text\" [(ngModel)]=\"groupusername\" name=\"groupusername\" placeholder=\"username\"><br><br>\r\n       <input type=\"text\" [(ngModel)]=\"ofgroupasis\" name=\"ofgroupasis\" placeholder=\"group asis?\"><br><br>\r\n\t\t<button (click) = \"addExistingUserToGroup()\">Add a current user to the group</button></div>\r\n\r\n</div>\r\n\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n<div id=\"newuserform\" *ngIf=\"username == 'super'\">\r\n\t<h1> Create A New User Here<img src=\"https://img.icons8.com/bubbles/50/000000/user.png\"></h1>\r\n\t<form>\r\n  \r\n      <input type=\"text\" [(ngModel)]=\"nusername\" name=\"nusername\" placeholder=\"username\"><br><br>\r\n       <input type=\"text\" [(ngModel)]=\"nbirthdate\" name=\"nbirthdate\" placeholder=\"birthdate\"><br><br>\r\n        <input type=\"text\" [(ngModel)]=\"nage\" name=\"nage\" placeholder=\"age\"><br><br>\r\n         <input type=\"text\" [(ngModel)]=\"nemail\" name=\"nemail\" placeholder=\"email\"><br><br>\r\n            <input type=\"text\" [(ngModel)]=\"nofgroupadmin\" name=\"nofgroupadmin\" placeholder=\"admin role?\"><br><br>\r\n\r\n\r\n      <input type=\"password\" [(ngModel)]=\"npassword\" name=\"npassword\" placeholder=\"password\"><br><br>\r\n\r\n\r\n\r\n      <button (click) = \"createNewUser()\">Submit</button>\r\n  \r\n\r\n  </form>\r\n</div>\r\n\r\n  <div id=\"newgroupform\" *ngIf=\"ofgroupadmin\">\r\n  \t<h1> Create A New group Here<img src=\"https://img.icons8.com/dusk/64/000000/groups.png\"></h1>\r\n\t<form>\r\n  \r\n      <input type=\"text\" [(ngModel)]=\"ngroupname\" name=\"ngroupname\" placeholder=\"groupname\"><br><br>\r\n\r\n\r\n\r\n      <button (click) = \"createNewGroup()\">Submit</button>\r\n  \r\n\r\n  </form>\r\n\r\n\r\n\r\n\r\n</div>\r\n<div id=\"logout\">\r\n<img (click) = \"logout()\" src=\"https://img.icons8.com/bubbles/50/000000/exit.png\">\r\n<button (click) = \"logout()\">Log Out</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = "\n<h1> Account Page </h1>\n\n<p>{{username}}</p>\n<p>{{birthda
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<nav class=\"navbar navbar-default\">\n  <div class=\"container-fluid\">\n    <ul class=\"nav navbar-nav\">\n\n\n\t\t<li class=\"active\"><a class=\"nav-link\" routerLink=\"/\">Home</a></li> \n\t\t<li> <a class=\"nav-link\" routerLink=\"/login\">login</a></li>\n\t\t<li><a class=\"nav-link\" routerLink=\"/account\">Account</a></li>\n\t\t<li><a class=\"nav-link\" routerLink=\"/profile\">Profile</a></li>\n\t\t<li><a class=\"nav-link\" routerLink=\"/chat\">Chat</a></li>\n\t</ul> \n\n  </div>\n</nav>\n\n\n\n<div class=\"container\">\n<router-outlet></router-outlet>\n</div>\n\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<nav class=\"navbar navbar-default\">\r\n  <div class=\"container-fluid\">\r\n    <ul class=\"nav navbar-nav\">\r\n\r\n\r\n\t\t<li class=\"active\"><a class=\"nav-link\" routerLink=\"/\">Home</a></li> \r\n\t\t<li> <a class=\"nav-link\" routerLink=\"/login\">login</a></li>\r\n\t\t<li><a class=\"nav-link\" routerLink=\"/account\">Account</a></li>\r\n\t\t<li><a class=\"nav-link\" routerLink=\"/profile\">Profile</a></li>\r\n\t\t<li><a class=\"nav-link\" routerLink=\"/chat\">Chat</a></li>\r\n\t</ul> \r\n\r\n  </div>\r\n</nav>\r\n\r\n\r\n\r\n<div class=\"container\">\r\n<router-outlet></router-outlet>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -52,7 +52,7 @@ module.exports = "<!--The content below is only a placeholder and can be replace
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form>\n\t\n\t<label for=\"messagecontent\">Your Message</label>\n\t<input type=\"text\" [(ngModel)]=\"messagecontent\" name=\"messagecontent\" id=\"messagecontent\" >\n\n\t<button (click)=\"chat(messagecontent)\">Chat</button>\n</form>\n\n\n\n\n<h1> Chat Messages</h1>\n<div>\n\t\n\t<ul>\n\t\t<li *ngFor = \"let message of messages\">{{message}}</li>\n\t</ul>\n</div>\n"
+module.exports = "<form>\r\n\t\r\n\t<label for=\"messagecontent\">Your Message</label>\r\n\t<input type=\"text\" [(ngModel)]=\"messagecontent\" name=\"messagecontent\" id=\"messagecontent\" >\r\n\r\n\t<button (click)=\"chat(messagecontent)\">Chat</button>\r\n</form>\r\n\r\n\r\n\r\n\r\n<h1> Chat Messages</h1>\r\n<div>\r\n\t\r\n\t<ul>\r\n\t\t<li *ngFor = \"let message of messages\">{{message}}</li>\r\n\t</ul>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -63,7 +63,7 @@ module.exports = "<form>\n\t\n\t<label for=\"messagecontent\">Your Message</labe
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class = \"loginForm\">\n  <form>\n  \n      <input type=\"text\" [(ngModel)]=\"firstName\" name=\"firstName\" placeholder=\"username\"><br><br>\n\n      <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" placeholder=\"password\"><br><br>\n      <button (click) = \"nav()\">Submit</button>\n  \n\n  </form>\n</div>\n  "
+module.exports = "\r\n<div class = \"loginForm\">\r\n  <form>\r\n  \r\n      <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" placeholder=\"username\"><br><br>\r\n\r\n      <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" placeholder=\"password\"><br><br>\r\n      <button (click) = \"nav()\">Submit</button>\r\n  \r\n\r\n  </form>\r\n</div>\r\n  "
 
 /***/ }),
 
@@ -74,7 +74,7 @@ module.exports = "\n<div class = \"loginForm\">\n  <form>\n  \n      <input type
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class = \"profileForm\">\n  <form>\n  \t\t<!-- Place to edit the details for a user -->\n  \t\t<p>Username:</p>\n      <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" placeholder=\"{{username}}\"><br><br>\n\n      <p>Birthdate:</p>\n      <input type=\"text\" [(ngModel)]=\"birthdate\" name=\"birthdate\" placeholder=\"{{birthdate}}\"><br><br>\n\n\t<p>Age:</p>\t\n       <input type=\"text\" [(ngModel)]=\"age\" name=\"age\" placeholder=\"{{age}}\"><br><br>\n       <p>Email:</p>\n      <input type=\"text\" [(ngModel)]=\"email\" name=\"email\" placeholder=\"{{email}}\"><br><br>\n\n\n  \n\n\n\n\n\n\n\n\n\n\n      <button (click) = \"change()\">Submit</button>\n\n      <button (click) = \"goToAccount()\">Go To Account</button>\n  \n\n  </form>\n</div>\n"
+module.exports = "<div class = \"profileForm\">\r\n  <form>\r\n  \t\t<!-- Place to edit the details for a user -->\r\n  \t\t<p>Username:</p>\r\n      <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" placeholder=\"{{username}}\"><br><br>\r\n\r\n      <p>Birthdate:</p>\r\n      <input type=\"text\" [(ngModel)]=\"birthdate\" name=\"birthdate\" placeholder=\"{{birthdate}}\"><br><br>\r\n\r\n\t<p>Age:</p>\t\r\n       <input type=\"text\" [(ngModel)]=\"age\" name=\"age\" placeholder=\"{{age}}\"><br><br>\r\n       <p>Email:</p>\r\n      <input type=\"text\" [(ngModel)]=\"email\" name=\"email\" placeholder=\"{{email}}\"><br><br>\r\n\r\n\r\n  \r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n      <button (click) = \"change()\">Submit</button>\r\n\r\n      <button (click) = \"goToAccount()\">Go To Account</button>\r\n  \r\n\r\n  </form>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -85,7 +85,7 @@ module.exports = "<div class = \"profileForm\">\n  <form>\n  \t\t<!-- Place to e
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FjY291bnQvYWNjb3VudC5jb21wb25lbnQuY3NzIn0= */"
+module.exports = "\r\n#center\r\n{\r\n\twidth: 50%;\r\n\tmargin-left: auto;\r\n\tmargin-right: auto; \r\n\tz-index: -1;\r\n\tposition: absolute;\r\n\ttop: 1em;\r\n\tleft: 10em;\r\n\r\n\r\n}\r\n#userlist\r\n{\r\n\tposition: absolute;\r\n\ttop: 5em;\r\n\tright: 1em;\r\n\theight:500px;\r\n\twidth: 25%;\r\n\tborder:2px solid black;\r\n\tbox-shadow: 10px 10px 30px black;\r\n\toverflow-x: scroll;\r\n}\r\n#userlist h3\r\n{\r\n\ttext-align: center;\r\n}\r\n#userlist ul\r\n{\r\n\tlist-style: none;\r\n}\r\n#grouplist\r\n{\r\n\tposition: absolute;\r\n\twidth: 30%;\r\n\tbottom:2em;\r\n\theight: 300px;\r\n\tright: 1em;\r\n\tborder:2px solid black;\r\n\tbox-shadow: 10px 10px 30px black;\r\n\toverflow-x: scroll;\r\n\r\n}\r\n#grouplist ul\r\n{\r\n\tlist-style: none;\r\n}\r\n#grouplist ul li:hover\r\n{\r\n\tcursor: pointer;\r\n}\r\n#grouplist img\r\n{\r\n\theight: 40px;\r\n\twidth: 40px;\r\n}\r\n#grouplist h3\r\n{\r\n\ttext-align: center;\r\n}\r\n#groupdetails \r\n{\r\n\tposition: relative;\r\n\tborder:2px solid black;\r\n\tbox-shadow: 10px 10px 30px black;\r\n\toverflow-x: scroll;\r\n\twidth: 70%;\r\n\tpadding: 1em;\r\n\tmargin-bottom:  2em;\r\n}\r\n#close\r\n{\r\n\tposition: absolute;\r\n\ttop: 1em;\r\n\tright: 1em;\r\n\r\n}\r\n#close:hover\r\n{\r\n\tcursor: pointer;\r\n\r\n}\r\n#newuserform\r\n{\r\n\tbox-shadow: 10px 10px 50px grey;\r\n\toverflow-x: scroll;\r\n\twidth: 70%;\r\n\tpadding: 1em;\r\n\tmargin:2em 2em;\r\n\tborder-radius: 15px;\r\n}\r\n#newgroupform\r\n{\r\n\tbox-shadow: 10px 10px 50px grey;\r\n\toverflow-x: scroll;\r\n\twidth: 70%;\r\n\tpadding: 1em;\r\n\tmargin:2em 2em;\r\n\tborder-radius: 15px;\r\n}\r\n#logout\r\n{\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tright: 1em;\r\n}\r\n\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWNjb3VudC9hY2NvdW50LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUNBOztDQUVDLFVBQVU7Q0FDVixpQkFBaUI7Q0FDakIsa0JBQWtCO0NBQ2xCLFdBQVc7Q0FDWCxrQkFBa0I7Q0FDbEIsUUFBUTtDQUNSLFVBQVU7OztBQUdYO0FBQ0E7O0NBRUMsa0JBQWtCO0NBQ2xCLFFBQVE7Q0FDUixVQUFVO0NBQ1YsWUFBWTtDQUNaLFVBQVU7Q0FDVixzQkFBc0I7Q0FDdEIsZ0NBQWdDO0NBQ2hDLGtCQUFrQjtBQUNuQjtBQUVBOztDQUVDLGtCQUFrQjtBQUNuQjtBQUVBOztDQUVDLGdCQUFnQjtBQUNqQjtBQUdBOztDQUVDLGtCQUFrQjtDQUNsQixVQUFVO0NBQ1YsVUFBVTtDQUNWLGFBQWE7Q0FDYixVQUFVO0NBQ1Ysc0JBQXNCO0NBQ3RCLGdDQUFnQztDQUNoQyxrQkFBa0I7O0FBRW5CO0FBQ0E7O0NBRUMsZ0JBQWdCO0FBQ2pCO0FBRUE7O0NBRUMsZUFBZTtBQUNoQjtBQUVBOztDQUVDLFlBQVk7Q0FDWixXQUFXO0FBQ1o7QUFDQTs7Q0FFQyxrQkFBa0I7QUFDbkI7QUFHQTs7Q0FFQyxrQkFBa0I7Q0FDbEIsc0JBQXNCO0NBQ3RCLGdDQUFnQztDQUNoQyxrQkFBa0I7Q0FDbEIsVUFBVTtDQUNWLFlBQVk7Q0FDWixtQkFBbUI7QUFDcEI7QUFFQTs7Q0FFQyxrQkFBa0I7Q0FDbEIsUUFBUTtDQUNSLFVBQVU7O0FBRVg7QUFDQTs7Q0FFQyxlQUFlOztBQUVoQjtBQUVBOztDQUVDLCtCQUErQjtDQUMvQixrQkFBa0I7Q0FDbEIsVUFBVTtDQUNWLFlBQVk7Q0FDWixjQUFjO0NBQ2QsbUJBQW1CO0FBQ3BCO0FBRUE7O0NBRUMsK0JBQStCO0NBQy9CLGtCQUFrQjtDQUNsQixVQUFVO0NBQ1YsWUFBWTtDQUNaLGNBQWM7Q0FDZCxtQkFBbUI7QUFDcEI7QUFFQTs7Q0FFQyxrQkFBa0I7Q0FDbEIsTUFBTTtDQUNOLFVBQVU7QUFDWCIsImZpbGUiOiJzcmMvYXBwL2FjY291bnQvYWNjb3VudC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXHJcbiNjZW50ZXJcclxue1xyXG5cdHdpZHRoOiA1MCU7XHJcblx0bWFyZ2luLWxlZnQ6IGF1dG87XHJcblx0bWFyZ2luLXJpZ2h0OiBhdXRvOyBcclxuXHR6LWluZGV4OiAtMTtcclxuXHRwb3NpdGlvbjogYWJzb2x1dGU7XHJcblx0dG9wOiAxZW07XHJcblx0bGVmdDogMTBlbTtcclxuXHJcblxyXG59XHJcbiN1c2VybGlzdFxyXG57XHJcblx0cG9zaXRpb246IGFic29sdXRlO1xyXG5cdHRvcDogNWVtO1xyXG5cdHJpZ2h0OiAxZW07XHJcblx0aGVpZ2h0OjUwMHB4O1xyXG5cdHdpZHRoOiAyNSU7XHJcblx0Ym9yZGVyOjJweCBzb2xpZCBibGFjaztcclxuXHRib3gtc2hhZG93OiAxMHB4IDEwcHggMzBweCBibGFjaztcclxuXHRvdmVyZmxvdy14OiBzY3JvbGw7XHJcbn1cclxuXHJcbiN1c2VybGlzdCBoM1xyXG57XHJcblx0dGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4jdXNlcmxpc3QgdWxcclxue1xyXG5cdGxpc3Qtc3R5bGU6IG5vbmU7XHJcbn1cclxuXHJcblxyXG4jZ3JvdXBsaXN0XHJcbntcclxuXHRwb3NpdGlvbjogYWJzb2x1dGU7XHJcblx0d2lkdGg6IDMwJTtcclxuXHRib3R0b206MmVtO1xyXG5cdGhlaWdodDogMzAwcHg7XHJcblx0cmlnaHQ6IDFlbTtcclxuXHRib3JkZXI6MnB4IHNvbGlkIGJsYWNrO1xyXG5cdGJveC1zaGFkb3c6IDEwcHggMTBweCAzMHB4IGJsYWNrO1xyXG5cdG92ZXJmbG93LXg6IHNjcm9sbDtcclxuXHJcbn1cclxuI2dyb3VwbGlzdCB1bFxyXG57XHJcblx0bGlzdC1zdHlsZTogbm9uZTtcclxufVxyXG5cclxuI2dyb3VwbGlzdCB1bCBsaTpob3ZlclxyXG57XHJcblx0Y3Vyc29yOiBwb2ludGVyO1xyXG59XHJcblxyXG4jZ3JvdXBsaXN0IGltZ1xyXG57XHJcblx0aGVpZ2h0OiA0MHB4O1xyXG5cdHdpZHRoOiA0MHB4O1xyXG59XHJcbiNncm91cGxpc3QgaDNcclxue1xyXG5cdHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuXHJcbiNncm91cGRldGFpbHMgXHJcbntcclxuXHRwb3NpdGlvbjogcmVsYXRpdmU7XHJcblx0Ym9yZGVyOjJweCBzb2xpZCBibGFjaztcclxuXHRib3gtc2hhZG93OiAxMHB4IDEwcHggMzBweCBibGFjaztcclxuXHRvdmVyZmxvdy14OiBzY3JvbGw7XHJcblx0d2lkdGg6IDcwJTtcclxuXHRwYWRkaW5nOiAxZW07XHJcblx0bWFyZ2luLWJvdHRvbTogIDJlbTtcclxufVxyXG5cclxuI2Nsb3NlXHJcbntcclxuXHRwb3NpdGlvbjogYWJzb2x1dGU7XHJcblx0dG9wOiAxZW07XHJcblx0cmlnaHQ6IDFlbTtcclxuXHJcbn1cclxuI2Nsb3NlOmhvdmVyXHJcbntcclxuXHRjdXJzb3I6IHBvaW50ZXI7XHJcblxyXG59XHJcblxyXG4jbmV3dXNlcmZvcm1cclxue1xyXG5cdGJveC1zaGFkb3c6IDEwcHggMTBweCA1MHB4IGdyZXk7XHJcblx0b3ZlcmZsb3cteDogc2Nyb2xsO1xyXG5cdHdpZHRoOiA3MCU7XHJcblx0cGFkZGluZzogMWVtO1xyXG5cdG1hcmdpbjoyZW0gMmVtO1xyXG5cdGJvcmRlci1yYWRpdXM6IDE1cHg7XHJcbn1cclxuXHJcbiNuZXdncm91cGZvcm1cclxue1xyXG5cdGJveC1zaGFkb3c6IDEwcHggMTBweCA1MHB4IGdyZXk7XHJcblx0b3ZlcmZsb3cteDogc2Nyb2xsO1xyXG5cdHdpZHRoOiA3MCU7XHJcblx0cGFkZGluZzogMWVtO1xyXG5cdG1hcmdpbjoyZW0gMmVtO1xyXG5cdGJvcmRlci1yYWRpdXM6IDE1cHg7XHJcbn1cclxuXHJcbiNsb2dvdXRcclxue1xyXG5cdHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuXHR0b3A6IDA7XHJcblx0cmlnaHQ6IDFlbTtcclxufVxyXG5cclxuXHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -102,25 +102,66 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 
 
 
+
+;
+;
+;
 let AccountComponent = class AccountComponent {
-    constructor(router) {
+    constructor(router, httpClient) {
         this.router = router;
+        this.httpClient = httpClient;
+        this.createnewgroupuser = false;
+        this.addnewgroupuser = false;
         this.username = "";
         this.birthdate = "";
         this.age = "";
         this.email = "";
+        this.ofgroupadmin = false;
+        this.grouplist = [];
+        this.userlist = [];
+        this.nusername = "";
+        this.nbirthdate = "";
+        this.nage = "";
+        this.nemail = "";
+        this.npassword = "";
+        this.nofgroupadmin = "";
+        this.ngrouplist = [];
+        this.nvalid = true;
+        this.detailedgroup = {
+            groupname: "",
+            isofadmin: false,
+            isofasis: false,
+            membercount: 0,
+            channels: []
+        };
+        this.ngroupusername = "";
+        this.ngroupbirthdate = "";
+        this.ngroupage = "";
+        this.ngroupemail = "";
+        this.ngrouppassword = "";
+        this.nofgroupasis = "";
+        this.nmembergrouplist = [];
+        this.ngroupvalid = true;
+        this.groupusername = "";
+        this.ofgroupasis = "";
+        this.ngroupname = "";
     }
     ngOnInit() {
         if (typeof (Storage) !== "undefined") {
             try {
-                var userDetails = JSON.parse(sessionStorage.getItem("currentUser"));
-                this.username = userDetails.username;
-                this.birthdate = userDetails.birthdate;
-                this.age = userDetails.age;
-                this.email = userDetails.email;
+                var userdetails = JSON.parse(sessionStorage.getItem("currentUser"));
+                alert(JSON.stringify(userdetails));
+                this.userlist = userdetails.userlist;
+                this.username = userdetails.username;
+                this.birthdate = userdetails.birthdate;
+                this.ofgroupadmin = userdetails.ofgroupadmin;
+                this.age = userdetails.age;
+                this.email = userdetails.email;
+                this.grouplist = userdetails.grouplist;
             }
             catch (error) {
                 alert("Please Login First");
@@ -128,13 +169,228 @@ let AccountComponent = class AccountComponent {
             }
         }
     }
+    turn(num) {
+        if (num == 1) {
+            this.createnewgroupuser = true;
+            this.addnewgroupuser = false;
+        }
+        else {
+            this.addnewgroupuser = true;
+            this.createnewgroupuser = false;
+        }
+    }
     logout() {
         sessionStorage.clear();
         this.router.navigateByUrl('login');
     }
+    createNewUser() {
+        if (this.nofgroupadmin == "true") {
+            this.nofgroupadmin = true;
+        }
+        else {
+            this.nofgroupadmin = false;
+        }
+        var nuser = {
+            username: this.nusername,
+            birthdate: this.nbirthdate,
+            age: this.nage,
+            email: this.nemail,
+            ofgroupadmin: this.nofgroupadmin,
+            grouplist: [],
+            password: this.npassword,
+            valid: this.nvalid
+        };
+        this.httpClient.post("http://localhost:3000/createuser", nuser).subscribe(res => {
+            if (typeof (Storage) !== "undefined") {
+                var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+                temp.userlist = res.userlist;
+                alert(res.userlist);
+                sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                this.userlist = res.userlist;
+                alert((sessionStorage.getItem("currentUser")));
+            }
+            else {
+                alert('Cannot Create User');
+            }
+        });
+    }
+    createNewGroup() {
+        var ngroup = {
+            groupname: this.ngroupname,
+            creator: this.username,
+            admins: ['super', this.username],
+            asis: ['super', this.username],
+            channels: {},
+            members: ['super', this.username]
+        };
+        if (this.username == 'super') {
+            ngroup.admins.pop();
+            ngroup.members.pop();
+            ngroup.asis.pop();
+        }
+        this.httpClient.post("http://localhost:3000/creategroup", ngroup).subscribe(res => {
+            if (typeof (Storage) !== "undefined") {
+                var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+                temp.grouplist = res.grouplist;
+                alert(res.grouplist);
+                sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                this.grouplist = res.grouplist;
+                alert((sessionStorage.getItem("currentUser")));
+            }
+            else {
+                alert('Cannot Create Group');
+            }
+        });
+    }
+    deleteUser(user) {
+        var deluser = {
+            username: user
+        };
+        this.httpClient.post("http://localhost:3000/deleteuser", deluser).subscribe(res => {
+            if (typeof (Storage) !== "undefined") {
+                var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+                temp.userlist = res.userlist;
+                alert(res.userlist);
+                sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                this.userlist = res.userlist;
+                alert((sessionStorage.getItem("currentUser")));
+            }
+            else {
+                alert('Cannot Delete User');
+            }
+            if (this.detailedgroup.groupname) {
+                this.groupDetail(this.detailedgroup.groupname);
+            }
+        });
+    }
+    deleteGroup(group) {
+        if (group == this.detailedgroup.groupname) {
+            this.detailedgroup = {
+                groupname: "",
+                isofadmin: false,
+                isofasis: false,
+                membercount: 0,
+                channels: []
+            };
+        }
+        var delgroup = {
+            groupname: group
+        };
+        this.httpClient.post("http://localhost:3000/deletegroup", delgroup).subscribe(res => {
+            if (typeof (Storage) !== "undefined") {
+                var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+                temp.grouplist = res.grouplist;
+                alert(res.grouplist);
+                sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                this.grouplist = res.grouplist;
+                alert((sessionStorage.getItem("currentUser")));
+            }
+            else {
+                alert('Cannot Delete User');
+            }
+        });
+    }
+    removegroupdetails() {
+        this.detailedgroup = {
+            groupname: "",
+            isofadmin: false,
+            isofasis: false,
+            membercount: 0,
+            channels: []
+        };
+    }
+    groupDetail(group) {
+        var getgroup = {
+            requester: this.username,
+            groupname: group
+        };
+        this.httpClient.post("http://localhost:3000/getgroupdetail", getgroup).subscribe(res => {
+            if (typeof (Storage) !== "undefined") {
+                this.detailedgroup.groupname = res.groupname;
+                this.detailedgroup.isofadmin = res.isofadmin;
+                this.detailedgroup.isofasis = res.isofasis;
+                this.detailedgroup.isofadmin = res.isofadmin;
+                this.detailedgroup.membercount = res.membercount;
+                console.log(this.detailedgroup);
+            }
+            else {
+                alert('Cannot get Group Detail');
+            }
+        });
+    }
+    addNewUserToGroup() {
+        if (this.nofgroupasis == "true") {
+            this.nofgroupasis = true;
+        }
+        else {
+            this.nofgroupasis = false;
+        }
+        var newuserdetail = {
+            username: this.ngroupusername,
+            birthdate: this.ngroupbirthdate,
+            age: this.ngroupage,
+            email: this.ngroupemail,
+            ofgroupadmin: false,
+            ofgroupasis: this.nofgroupasis,
+            grouplist: [this.detailedgroup.groupname],
+            password: this.ngrouppassword,
+            valid: this.ngroupvalid,
+            groupname: this.detailedgroup.groupname,
+            creator: this.username
+        };
+        this.httpClient.post("http://localhost:3000/createnewgroupuser", newuserdetail).subscribe(res => {
+            if (typeof (Storage) !== "undefined") {
+                var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+                temp.userlist = res.userlist;
+                sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                this.detailedgroup.membercount = res.membercount;
+                this.userlist = res.userlist;
+            }
+            else {
+                alert('Cannot Create User');
+            }
+            this.createnewgroupuser = false;
+            this.addnewgroupuser = false;
+        });
+    }
+    addExistingUserToGroup() {
+        if (this.ofgroupasis == "true") {
+            this.ofgroupasis = true;
+        }
+        else {
+            this.ofgroupasis = false;
+        }
+        var newuserdetail = {
+            username: this.groupusername,
+            ofgroupasis: this.ofgroupasis,
+            groupname: this.detailedgroup.groupname,
+            creator: this.username
+        };
+        this.httpClient.post("http://localhost:3000/addusertogroup", newuserdetail).subscribe(res => {
+            if (typeof (Storage) !== "undefined") {
+                this.detailedgroup.membercount = res.membercount;
+                this.userlist = res.userlist;
+                alert(res.notice);
+            }
+            else {
+                alert('Cannot add User to group');
+            }
+            this.createnewgroupuser = false;
+            this.addnewgroupuser = false;
+        });
+    }
+    promoteToGroupAdmin(username) {
+        var promoteduser = {
+            username: username
+        };
+        this.httpClient.post("http://localhost:3000/promotetogroupadmin", promoteduser).subscribe(res => {
+            alert(res.notice);
+        });
+    }
 };
 AccountComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
 ];
 AccountComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -378,7 +634,7 @@ ChatComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".loginForm\n{\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n  align-content: center;\n  border-radius: 10px;\n  max-width: 400px;\n  background-color: rgba(246, 71, 71, 1);\n  box-shadow: 10px 10px 10px grey;\n}\n\n.loginForm *\n{\n  padding: 1em;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9naW4vbG9naW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7RUFFRSxvQkFBYTtFQUFiLGFBQWE7RUFDYix3QkFBdUI7VUFBdkIsdUJBQXVCO0VBQ3ZCLHFCQUFxQjtFQUNyQixtQkFBbUI7RUFDbkIsZ0JBQWdCO0VBQ2hCLHNDQUFzQztFQUN0QywrQkFBK0I7QUFDakM7O0FBRUE7O0VBRUUsWUFBWTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvbG9naW4vbG9naW4uY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5sb2dpbkZvcm1cbntcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcbiAgYm9yZGVyLXJhZGl1czogMTBweDtcbiAgbWF4LXdpZHRoOiA0MDBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgyNDYsIDcxLCA3MSwgMSk7XG4gIGJveC1zaGFkb3c6IDEwcHggMTBweCAxMHB4IGdyZXk7XG59XG5cbi5sb2dpbkZvcm0gKlxue1xuICBwYWRkaW5nOiAxZW07XG59Il19 */"
+module.exports = ".loginForm\r\n{\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n          justify-content: center;\r\n  align-content: center;\r\n  border-radius: 10px;\r\n  max-width: 400px;\r\n  background-color: rgba(246, 71, 71, 1);\r\n  box-shadow: 10px 10px 10px grey;\r\n}\r\n\r\n.loginForm *\r\n{\r\n  padding: 1em;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9naW4vbG9naW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7RUFFRSxvQkFBYTtFQUFiLGFBQWE7RUFDYix3QkFBdUI7VUFBdkIsdUJBQXVCO0VBQ3ZCLHFCQUFxQjtFQUNyQixtQkFBbUI7RUFDbkIsZ0JBQWdCO0VBQ2hCLHNDQUFzQztFQUN0QywrQkFBK0I7QUFDakM7O0FBRUE7O0VBRUUsWUFBWTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvbG9naW4vbG9naW4uY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5sb2dpbkZvcm1cclxue1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xyXG4gIGJvcmRlci1yYWRpdXM6IDEwcHg7XHJcbiAgbWF4LXdpZHRoOiA0MDBweDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI0NiwgNzEsIDcxLCAxKTtcclxuICBib3gtc2hhZG93OiAxMHB4IDEwcHggMTBweCBncmV5O1xyXG59XHJcblxyXG4ubG9naW5Gb3JtICpcclxue1xyXG4gIHBhZGRpbmc6IDFlbTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -405,15 +661,15 @@ let LoginComponent = class LoginComponent {
     constructor(router, httpClient) {
         this.router = router;
         this.httpClient = httpClient;
-        this.firstName = "";
+        this.username = "";
         this.password = "";
     }
     ngOnInit() {
     }
     nav() {
         var body = {
-            userName: this.firstName,
-            pass: this.password
+            username: this.username,
+            password: this.password
         };
         this.httpClient.post("http://localhost:3000/api/auth", body).subscribe(res => {
             alert(res.username);
@@ -552,12 +808,10 @@ __webpack_require__.r(__webpack_exports__);
 let SocketService = class SocketService {
     constructor() {
         this.url = 'http://localhost:3000';
+        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_3__(this.url);
         this.observable = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](observer => {
             this.socket.on('message', (data) => observer.next(data));
         });
-    }
-    initSocket() {
-        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_3__(this.url);
     }
     send(message) {
         this.socket.emit('message', message);
@@ -634,7 +888,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/sankitmanshrestha/Sankit/observables/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\softwareframeworks\angularchatsystem\src\main.ts */"./src/main.ts");
 
 
 /***/ }),
