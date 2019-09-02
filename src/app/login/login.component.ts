@@ -9,6 +9,7 @@ age:string;
 email:string;
 ofgroupadmin:boolean;
 grouplist:any;
+admingrouplist:any;
 password:string; 
 valid:boolean;
 userlist:any;

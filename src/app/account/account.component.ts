@@ -7,7 +7,8 @@ userlist:any
 };
 
 interface Groups {
-grouplist:any
+grouplist:any;
+admingrouplist:any;
 };
 
 interface Group {
@@ -42,7 +43,8 @@ export class AccountComponent implements OnInit {
 	birthdate = "";
 	age = "";
 	email = "";
-	ofgroupadmin = false;
+  ofgroupadmin = false;
+  admingrouplist = [];
 	grouplist=[];
 	userlist= [];
 
@@ -55,6 +57,7 @@ export class AccountComponent implements OnInit {
     npassword="";
     nofgroupadmin:any="";
     ngrouplist=[];
+    nadmingrouplist=[];
     nvalid=true;
 
 
@@ -104,7 +107,8 @@ export class AccountComponent implements OnInit {
 				                		this.userlist = userdetails.userlist;
 					                	this.username = userdetails.username;
 					                	this.birthdate = userdetails.birthdate;
-					                	this.ofgroupadmin = userdetails.ofgroupadmin;
+                            this.ofgroupadmin = userdetails.ofgroupadmin;
+                            this.admingrouplist = userdetails.admingrouplist;
 					                	this.age = userdetails.age;
 					                	this.email = userdetails.email;
 					                	this.grouplist = userdetails.grouplist;
@@ -160,6 +164,7 @@ export class AccountComponent implements OnInit {
                 age:this.nage,
                 email:this.nemail,
                 ofgroupadmin:this.nofgroupadmin,
+                admingrouplist:[],
                 grouplist:[],
                 password:this.npassword,
                 valid:this.nvalid
@@ -222,9 +227,11 @@ export class AccountComponent implements OnInit {
                 {
                   var temp = JSON.parse(sessionStorage.getItem("currentUser"));
                   temp.grouplist = res.grouplist;
+                  temp.admingrouplist = res.admingrouplist;
                   alert(res.grouplist);
                   sessionStorage.setItem("currentUser",JSON.stringify(temp));
                   this.grouplist = res.grouplist;
+                  this.admingrouplist = res.admingrouplist;
                   alert((sessionStorage.getItem("currentUser")));
                 }
                else
@@ -285,7 +292,8 @@ export class AccountComponent implements OnInit {
 				    };
   	}
   	var delgroup = {
-  	groupname:group
+    groupname:group,
+    deletor:this.username
   	}
   	this.httpClient.post<Groups>("http://localhost:3000/deletegroup",delgroup).subscribe(res => {  
                 
@@ -453,20 +461,25 @@ addExistingUserToGroup()
 
 promoteToGroupAdmin(username)
 {
-var promoteduser = {
-	username:username
-	
-}
-this.httpClient.post<any>("http://localhost:3000/promotetogroupadmin",promoteduser).subscribe(res => {  
-                
-          
-                
-                  alert(res.notice);
-                
+  if(!this.ofgroupadmin)
+  {
+    var promoteduser = {
+      username:username
+      
+    }
+    this.httpClient.post<any>("http://localhost:3000/promotetogroupadmin",promoteduser).subscribe(res => {  
+                    
               
-          });                  
+                    
+                      alert(res.notice);
+                    
+                  
+              });                  
+  }
+  else
+  {
+    alert("Already a group admin");
+  }
 
-	
 }
-
 }

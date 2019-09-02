@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"center\">\r\n<h1> Account Page </h1>\r\n\r\n<p><img src=\"https://img.icons8.com/bubbles/50/000000/user.png\">{{username}}</p>\r\n<p><img src=\"https://img.icons8.com/cute-clipart/64/000000/birthday-cake.png\">{{birthdate}}</p>\r\n<p>Age: {{age}}</p>\r\n<p>Email:{{email}}</p>\r\n</div>\r\n\r\n<div id=\"userlist\" *ngIf = \"userlist.length\">\r\n\t<h3><img src=\"https://img.icons8.com/bubbles/50/000000/user.png\"> Users List</h3>\r\n\t\r\n\t<ul>\r\n\t\t<li *ngFor = \"let user of userlist\">{{user}}<br><button (click) = \"deleteUser(user)\">Delete this user</button><button (click) = \"promoteToGroupAdmin(user)\">Promote to Group Admin</button></li>\r\n\r\n\t</ul>\r\n</div>\r\n\r\n<div id=\"grouplist\" *ngIf=\"grouplist.length\">\r\n\t<h3><img src=\"https://img.icons8.com/dusk/64/000000/groups.png\">Your Groups</h3>\r\n\t<ul>\r\n\t\t<li *ngFor = \"let group of grouplist\"><a  (click) = \"groupDetail(group)\">{{group}}</a><div *ngIf=\"ofgroupadmin\"><button (click) = \"deleteGroup(group)\">Delete Group</button></div></li>\r\n\t</ul>\r\n</div>\r\n\r\n\r\n<div id=\"groupdetails\" *ngIf=\"detailedgroup.groupname\">\r\n\t<h1>Group Details</h1>\r\n\t<h1>{{detailedgroup.groupname}}</h1>\r\n\t<h2><img src=\"https://img.icons8.com/dusk/64/000000/groups.png\">{{detailedgroup.membercount }} members </h2>\r\n\t<ul>\r\n\t\t<li *ngFor = \"let channel of detailedgroup.channels\"><a  (click) = \"channelDetail(channel)\">{{channel}}</a><!-- <button (click) = \"deleteChannel(group)\">Delete Group</button> --></li>\r\n\t</ul>\r\n\t<img id=\"close\" (click) = \"removegroupdetails()\" src=\"https://img.icons8.com/flat_round/64/000000/delete-sign.png\">\r\n\t<div *ngIf=\"detailedgroup.isofadmin\">\r\n\t\t<button (click) = \"turn(1)\">Create a new user and add to the group</button>\r\n\t\t<button (click) = \"turn(2)\">Add an existing user to the group</button>\r\n\t\t<div *ngIf =\"createnewgroupuser\">\r\n\t\t<input type=\"text\" [(ngModel)]=\"ngroupusername\" name=\"ngroupusername\" placeholder=\"username\"><br><br>\r\n       <input type=\"text\" [(ngModel)]=\"ngroupbirthdate\" name=\"ngroupbirthdate\" placeholder=\"birthdate\"><br><br>\r\n        <input type=\"text\" [(ngModel)]=\"ngroupage\" name=\"ngroupage\" placeholder=\"age\"><br><br>\r\n         <input type=\"text\" [(ngModel)]=\"ngroupemail\" name=\"ngroupemail\" placeholder=\"email\"><br><br>\r\n         <input type=\"text\" [(ngModel)]=\"nofgroupasis\" name=\"nofgroupasis\" placeholder=\"asis role?\"><br><br>\r\n     \t <input type=\"password\" [(ngModel)]=\"ngrouppassword\" name=\"ngrouppassword\" placeholder=\"password\"><br><br>\r\n\t\t<button (click) = \"addNewUserToGroup()\">Create a new user and add to the group</button></div>\r\n\r\n\t<div *ngIf = \"addnewgroupuser\">\r\n\t\t<input type=\"text\" [(ngModel)]=\"groupusername\" name=\"groupusername\" placeholder=\"username\"><br><br>\r\n       <input type=\"text\" [(ngModel)]=\"ofgroupasis\" name=\"ofgroupasis\" placeholder=\"group asis?\"><br><br>\r\n\t\t<button (click) = \"addExistingUserToGroup()\">Add a current user to the group</button></div>\r\n\r\n</div>\r\n\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n<div id=\"newuserform\" *ngIf=\"username == 'super'\">\r\n\t<h1> Create A New User Here<img src=\"https://img.icons8.com/bubbles/50/000000/user.png\"></h1>\r\n\t<form>\r\n  \r\n      <input type=\"text\" [(ngModel)]=\"nusername\" name=\"nusername\" placeholder=\"username\"><br><br>\r\n       <input type=\"text\" [(ngModel)]=\"nbirthdate\" name=\"nbirthdate\" placeholder=\"birthdate\"><br><br>\r\n        <input type=\"text\" [(ngModel)]=\"nage\" name=\"nage\" placeholder=\"age\"><br><br>\r\n         <input type=\"text\" [(ngModel)]=\"nemail\" name=\"nemail\" placeholder=\"email\"><br><br>\r\n            <input type=\"text\" [(ngModel)]=\"nofgroupadmin\" name=\"nofgroupadmin\" placeholder=\"admin role?\"><br><br>\r\n\r\n\r\n      <input type=\"password\" [(ngModel)]=\"npassword\" name=\"npassword\" placeholder=\"password\"><br><br>\r\n\r\n\r\n\r\n      <button (click) = \"createNewUser()\">Submit</button>\r\n  \r\n\r\n  </form>\r\n</div>\r\n\r\n  <div id=\"newgroupform\" *ngIf=\"ofgroupadmin\">\r\n  \t<h1> Create A New group Here<img src=\"https://img.icons8.com/dusk/64/000000/groups.png\"></h1>\r\n\t<form>\r\n  \r\n      <input type=\"text\" [(ngModel)]=\"ngroupname\" name=\"ngroupname\" placeholder=\"groupname\"><br><br>\r\n\r\n\r\n\r\n      <button (click) = \"createNewGroup()\">Submit</button>\r\n  \r\n\r\n  </form>\r\n\r\n\r\n\r\n\r\n</div>\r\n<div id=\"logout\">\r\n<img (click) = \"logout()\" src=\"https://img.icons8.com/bubbles/50/000000/exit.png\">\r\n<button (click) = \"logout()\">Log Out</button>\r\n</div>\r\n"
+module.exports = "<div id=\"center\">\r\n<h1> Account Page </h1>\r\n\r\n<p><img src=\"https://img.icons8.com/bubbles/50/000000/user.png\">{{username}}</p>\r\n<p><img src=\"https://img.icons8.com/cute-clipart/64/000000/birthday-cake.png\">{{birthdate}}</p>\r\n<p>Age: {{age}}</p>\r\n<p>Email:{{email}}</p>\r\n</div>\r\n\r\n<div id=\"userlist\" *ngIf = \"userlist.length\">\r\n\t<h3><img src=\"https://img.icons8.com/bubbles/50/000000/user.png\"> Users List</h3>\r\n\t\r\n\t<ul>\r\n\t\t<li *ngFor = \"let user of userlist\">{{user}}<br><button (click) = \"deleteUser(user)\">Delete this user</button><button (click) = \"promoteToGroupAdmin(user)\">Promote to Group Admin</button></li>\r\n\r\n\t</ul>\r\n</div>\r\n\r\n<div id=\"grouplist\" *ngIf=\"grouplist.length\">\r\n\t<h3><img src=\"https://img.icons8.com/dusk/64/000000/groups.png\">Your Groups</h3>\r\n\t<ul>\r\n\t\t<li *ngFor = \"let group of grouplist\"><a  (click) = \"groupDetail(group)\">{{group}}</a><div *ngIf=\"ofgroupadmin\"><button (click) = \"deleteGroup(group)\">Delete Group</button></div></li>\r\n\t</ul>\r\n</div>\r\n\r\n\r\n<div id=\"groupdetails\" *ngIf=\"detailedgroup.groupname\">\r\n\t<h1>Group Details</h1>\r\n\t<h1>{{detailedgroup.groupname}}</h1>\r\n\t<h2><img src=\"https://img.icons8.com/dusk/64/000000/groups.png\">{{detailedgroup.membercount }} members </h2>\r\n\t<ul>\r\n\t\t<li *ngFor = \"let channel of detailedgroup.channels\"><a  (click) = \"channelDetail(channel)\">{{channel}}</a><!-- <button (click) = \"deleteChannel(group)\">Delete Group</button> --></li>\r\n\t</ul>\r\n\t<img id=\"close\" (click) = \"removegroupdetails()\" src=\"https://img.icons8.com/flat_round/64/000000/delete-sign.png\">\r\n\t<div *ngIf=\"detailedgroup.isofadmin\">\r\n\t\t<button (click) = \"turn(1)\">Create a new user and add to the group</button>\r\n\t\t<button (click) = \"turn(2)\">Add an existing user to the group</button>\r\n\t\t<div *ngIf =\"createnewgroupuser\">\r\n\t\t<input type=\"text\" [(ngModel)]=\"ngroupusername\" name=\"ngroupusername\" placeholder=\"username\" ><br><br>\r\n       <input type=\"text\" [(ngModel)]=\"ngroupbirthdate\" name=\"ngroupbirthdate\" placeholder=\"birthdate\" required><br><br>\r\n        <input type=\"text\" [(ngModel)]=\"ngroupage\" name=\"ngroupage\" placeholder=\"age\" required><br><br>\r\n         <input type=\"text\" [(ngModel)]=\"ngroupemail\" name=\"ngroupemail\" placeholder=\"email\" required><br><br>\r\n         <input type=\"text\" [(ngModel)]=\"nofgroupasis\" name=\"nofgroupasis\" placeholder=\"asis role?\" required><br><br>\r\n     \t <input type=\"password\" [(ngModel)]=\"ngrouppassword\" name=\"ngrouppassword\" placeholder=\"password\" required><br><br>\r\n\t\t<button (click) = \"addNewUserToGroup()\">Create a new user and add to the group</button></div>\r\n\r\n\t<div *ngIf = \"addnewgroupuser\">\r\n\t\t<input type=\"text\" [(ngModel)]=\"groupusername\" name=\"groupusername\" placeholder=\"username\" required><br><br>\r\n       <input type=\"text\" [(ngModel)]=\"ofgroupasis\" name=\"ofgroupasis\" placeholder=\"group asis?\" required><br><br>\r\n\t\t<button (click) = \"addExistingUserToGroup()\">Add a current user to the group</button></div>\r\n\r\n</div>\r\n\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n<div id=\"newuserform\" *ngIf=\"username == 'super'\">\r\n\t<h1> Create A New User Here<img src=\"https://img.icons8.com/bubbles/50/000000/user.png\"></h1>\r\n\t<form>\r\n  \r\n      <input type=\"text\" [(ngModel)]=\"nusername\" name=\"nusername\" placeholder=\"username\" required><br><br>\r\n       <input type=\"text\" [(ngModel)]=\"nbirthdate\" name=\"nbirthdate\" placeholder=\"birthdate\" required><br><br>\r\n        <input type=\"text\" [(ngModel)]=\"nage\" name=\"nage\" placeholder=\"age\" required><br><br>\r\n         <input type=\"text\" [(ngModel)]=\"nemail\" name=\"nemail\" placeholder=\"email\" required><br><br>\r\n            <input type=\"text\" [(ngModel)]=\"nofgroupadmin\" name=\"nofgroupadmin\" placeholder=\"admin role?\" required><br><br>\r\n\r\n\r\n      <input type=\"password\" [(ngModel)]=\"npassword\" name=\"npassword\" placeholder=\"password\"><br><br>\r\n\r\n\r\n\r\n      <button (click) = \"createNewUser()\">Submit</button>\r\n  \r\n\r\n  </form>\r\n</div>\r\n\r\n  <div id=\"newgroupform\" *ngIf=\"ofgroupadmin\">\r\n  \t<h1> Create A New group Here<img src=\"https://img.icons8.com/dusk/64/000000/groups.png\"></h1>\r\n\t<form>\r\n  \r\n      <input type=\"text\" [(ngModel)]=\"ngroupname\" name=\"ngroupname\" placeholder=\"groupname\" ><br><br>\r\n\r\n\r\n\r\n      <button (click) = \"createNewGroup()\">Submit</button>\r\n  \r\n\r\n  </form>\r\n\r\n\r\n\r\n\r\n</div>\r\n<div id=\"logout\">\r\n<img (click) = \"logout()\" src=\"https://img.icons8.com/bubbles/50/000000/exit.png\">\r\n<button (click) = \"logout()\">Log Out</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -185,64 +185,74 @@ var AccountComponent = /** @class */ (function () {
     };
     AccountComponent.prototype.createNewUser = function () {
         var _this = this;
-        if (this.nofgroupadmin == "true") {
-            this.nofgroupadmin = true;
-        }
-        else {
-            this.nofgroupadmin = false;
-        }
-        var nuser = {
-            username: this.nusername,
-            birthdate: this.nbirthdate,
-            age: this.nage,
-            email: this.nemail,
-            ofgroupadmin: this.nofgroupadmin,
-            grouplist: [],
-            password: this.npassword,
-            valid: this.nvalid
-        };
-        this.httpClient.post("http://localhost:3000/createuser", nuser).subscribe(function (res) {
-            if (typeof (Storage) !== "undefined") {
-                var temp = JSON.parse(sessionStorage.getItem("currentUser"));
-                temp.userlist = res.userlist;
-                alert(res.userlist);
-                sessionStorage.setItem("currentUser", JSON.stringify(temp));
-                _this.userlist = res.userlist;
-                alert((sessionStorage.getItem("currentUser")));
+        if (this.nofgroupadmin != "" && this.nusername != "" && this.nage != "" && this.nbirthdate != "" && this.nemail != "" && this.npassword != "") {
+            if (this.nofgroupadmin == "true") {
+                this.nofgroupadmin = true;
             }
             else {
-                alert('Cannot Create User');
+                this.nofgroupadmin = false;
             }
-        });
+            var nuser = {
+                username: this.nusername,
+                birthdate: this.nbirthdate,
+                age: this.nage,
+                email: this.nemail,
+                ofgroupadmin: this.nofgroupadmin,
+                grouplist: [],
+                password: this.npassword,
+                valid: this.nvalid
+            };
+            this.httpClient.post("http://localhost:3000/createuser", nuser).subscribe(function (res) {
+                if (typeof (Storage) !== "undefined") {
+                    var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+                    temp.userlist = res.userlist;
+                    alert(res.userlist);
+                    sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                    _this.userlist = res.userlist;
+                    alert((sessionStorage.getItem("currentUser")));
+                }
+                else {
+                    alert('Cannot Create User');
+                }
+            });
+        }
+        else {
+            alert("Please fill out the form completely");
+        }
     };
     AccountComponent.prototype.createNewGroup = function () {
         var _this = this;
-        var ngroup = {
-            groupname: this.ngroupname,
-            creator: this.username,
-            admins: ['super', this.username],
-            asis: ['super', this.username],
-            channels: {},
-            members: ['super', this.username]
-        };
-        if (this.username == 'super') {
-            ngroup.admins.pop();
-            ngroup.members.pop();
-            ngroup.asis.pop();
+        if (this.ngroupname != "") {
+            var ngroup = {
+                groupname: this.ngroupname,
+                creator: this.username,
+                admins: ['super', this.username],
+                asis: ['super', this.username],
+                channels: {},
+                members: ['super', this.username]
+            };
+            if (this.username == 'super') {
+                ngroup.admins.pop();
+                ngroup.members.pop();
+                ngroup.asis.pop();
+            }
+            this.httpClient.post("http://localhost:3000/creategroup", ngroup).subscribe(function (res) {
+                if (typeof (Storage) !== "undefined") {
+                    var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+                    temp.grouplist = res.grouplist;
+                    alert(res.grouplist);
+                    sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                    _this.grouplist = res.grouplist;
+                    alert((sessionStorage.getItem("currentUser")));
+                }
+                else {
+                    alert('Cannot Create Group');
+                }
+            });
         }
-        this.httpClient.post("http://localhost:3000/creategroup", ngroup).subscribe(function (res) {
-            if (typeof (Storage) !== "undefined") {
-                var temp = JSON.parse(sessionStorage.getItem("currentUser"));
-                temp.grouplist = res.grouplist;
-                alert(res.grouplist);
-                sessionStorage.setItem("currentUser", JSON.stringify(temp));
-                _this.grouplist = res.grouplist;
-                alert((sessionStorage.getItem("currentUser")));
-            }
-            else {
-                alert('Cannot Create Group');
-            }
-        });
+        else {
+            alert("Please enter a group name");
+        }
     };
     AccountComponent.prototype.deleteUser = function (user) {
         var _this = this;
@@ -325,66 +335,76 @@ var AccountComponent = /** @class */ (function () {
     };
     AccountComponent.prototype.addNewUserToGroup = function () {
         var _this = this;
-        if (this.nofgroupasis == "true") {
-            this.nofgroupasis = true;
-        }
-        else {
-            this.nofgroupasis = false;
-        }
-        var newuserdetail = {
-            username: this.ngroupusername,
-            birthdate: this.ngroupbirthdate,
-            age: this.ngroupage,
-            email: this.ngroupemail,
-            ofgroupadmin: false,
-            ofgroupasis: this.nofgroupasis,
-            grouplist: [this.detailedgroup.groupname],
-            password: this.ngrouppassword,
-            valid: this.ngroupvalid,
-            groupname: this.detailedgroup.groupname,
-            creator: this.username
-        };
-        this.httpClient.post("http://localhost:3000/createnewgroupuser", newuserdetail).subscribe(function (res) {
-            if (typeof (Storage) !== "undefined") {
-                var temp = JSON.parse(sessionStorage.getItem("currentUser"));
-                temp.userlist = res.userlist;
-                sessionStorage.setItem("currentUser", JSON.stringify(temp));
-                _this.detailedgroup.membercount = res.membercount;
-                _this.userlist = res.userlist;
+        if (this.ngroupusername != "" && this.nofgroupasis != "" && this.ngroupage != "" && this.ngroupbirthdate != "" && this.ngroupemail != "" && this.ngrouppassword != "") {
+            if (this.nofgroupasis == "true") {
+                this.nofgroupasis = true;
             }
             else {
-                alert('Cannot Create User');
+                this.nofgroupasis = false;
             }
-            _this.createnewgroupuser = false;
-            _this.addnewgroupuser = false;
-        });
+            var newuserdetail = {
+                username: this.ngroupusername,
+                birthdate: this.ngroupbirthdate,
+                age: this.ngroupage,
+                email: this.ngroupemail,
+                ofgroupadmin: false,
+                ofgroupasis: this.nofgroupasis,
+                grouplist: [this.detailedgroup.groupname],
+                password: this.ngrouppassword,
+                valid: this.ngroupvalid,
+                groupname: this.detailedgroup.groupname,
+                creator: this.username
+            };
+            this.httpClient.post("http://localhost:3000/createnewgroupuser", newuserdetail).subscribe(function (res) {
+                if (typeof (Storage) !== "undefined") {
+                    var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+                    temp.userlist = res.userlist;
+                    sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                    _this.detailedgroup.membercount = res.membercount;
+                    _this.userlist = res.userlist;
+                }
+                else {
+                    alert('Cannot Create User');
+                }
+                _this.createnewgroupuser = false;
+                _this.addnewgroupuser = false;
+            });
+        }
+        else {
+            alert("Please fill out the form completely");
+        }
     };
     AccountComponent.prototype.addExistingUserToGroup = function () {
         var _this = this;
-        if (this.ofgroupasis == "true") {
-            this.ofgroupasis = true;
-        }
-        else {
-            this.ofgroupasis = false;
-        }
-        var newuserdetail = {
-            username: this.groupusername,
-            ofgroupasis: this.ofgroupasis,
-            groupname: this.detailedgroup.groupname,
-            creator: this.username
-        };
-        this.httpClient.post("http://localhost:3000/addusertogroup", newuserdetail).subscribe(function (res) {
-            if (typeof (Storage) !== "undefined") {
-                _this.detailedgroup.membercount = res.membercount;
-                _this.userlist = res.userlist;
-                alert(res.notice);
+        if (this.groupusername != "" && this.ofgroupasis != "") {
+            if (this.ofgroupasis == "true") {
+                this.ofgroupasis = true;
             }
             else {
-                alert('Cannot add User to group');
+                this.ofgroupasis = false;
             }
-            _this.createnewgroupuser = false;
-            _this.addnewgroupuser = false;
-        });
+            var newuserdetail = {
+                username: this.groupusername,
+                ofgroupasis: this.ofgroupasis,
+                groupname: this.detailedgroup.groupname,
+                creator: this.username
+            };
+            this.httpClient.post("http://localhost:3000/addusertogroup", newuserdetail).subscribe(function (res) {
+                if (typeof (Storage) !== "undefined") {
+                    _this.detailedgroup.membercount = res.membercount;
+                    _this.userlist = res.userlist;
+                    alert(res.notice);
+                }
+                else {
+                    alert('Cannot add User to group');
+                }
+                _this.createnewgroupuser = false;
+                _this.addnewgroupuser = false;
+            });
+        }
+        else {
+            alert("Please fill out the form properly");
+        }
     };
     AccountComponent.prototype.promoteToGroupAdmin = function (username) {
         var promoteduser = {
@@ -910,7 +930,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\softwareframeworks\angularchatsystem\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\sframe\angularchatsystem\src\main.ts */"./src/main.ts");
 
 
 /***/ }),

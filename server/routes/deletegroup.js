@@ -67,7 +67,11 @@ var fs = require('fs');
                                         };
                                         for (var group in groups)
                                         {
-                                            totalgrouplist.grouplist.push(group);
+                                            if(groups[group].members.includes(req.body.deletor))
+                                            {
+                                                totalgrouplist.grouplist.push(group);
+                                            }
+                                            
                                         }
                                         console.log(totalgrouplist.grouplist)
                                         res.send(totalgrouplist);

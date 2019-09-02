@@ -24,7 +24,11 @@ fs.readFile('./data/groups.js','utf8',function(err,data)
                    						if(!users[admin]["grouplist"].includes(req.body.groupname))
                    						{
                    							users[admin]["grouplist"].push(req.body.groupname);
-                   						}
+										}
+										if(!users[admin]["admingrouplist"].includes(req.body.groupname))
+                   						{
+                   							users[admin]["admingrouplist"].push(req.body.groupname);
+                   						}   
                    						
                    					});
                		 				
@@ -41,7 +45,8 @@ fs.readFile('./data/groups.js','utf8',function(err,data)
 										               		if(err) throw err;
 										               		var users = JSON.parse(data);
 										                    var totalgrouplist = {
-										                    	grouplist : users[req.body.creator].grouplist
+																grouplist : users[req.body.creator].grouplist,
+																admingrouplist : users[req.body.creator].admingrouplist
 										                    };
 										                    res.send(totalgrouplist);
 
@@ -73,6 +78,10 @@ fs.readFile('./data/groups.js','utf8',function(err,data)
                    						if(!users[admin]["grouplist"].includes(req.body.groupname))
                    						{
                    							users[admin]["grouplist"].push(req.body.groupname);
+										   }
+										   if(!users[admin]["admingrouplist"].includes(req.body.groupname))
+                   						{
+                   							users[admin]["admingrouplist"].push(req.body.groupname);
                    						}
                    					});
                		 				
@@ -89,7 +98,8 @@ fs.readFile('./data/groups.js','utf8',function(err,data)
 										               		if(err) throw err;
 										               		var users = JSON.parse(data);
 										                    var totalgrouplist = {
-										                    	grouplist : users[req.body.creator].grouplist
+																grouplist : users[req.body.creator].grouplist,
+																admingrouplist : users[req.body.creator].admingrouplist
 										                    };
 										                    res.send(totalgrouplist);
 

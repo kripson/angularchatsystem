@@ -23,6 +23,7 @@ var fs = require('fs');
                                           age:"999999",
                                           ofgroupadmin:true,
                                           grouplist:[],
+                                          admingrouplist:[],
                                           email:"super@gmail.com",
                                           password:"super",
                                           valid:true

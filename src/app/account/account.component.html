@@ -19,7 +19,7 @@
 <div id="grouplist" *ngIf="grouplist.length">
 	<h3><img src="https://img.icons8.com/dusk/64/000000/groups.png">Your Groups</h3>
 	<ul>
-		<li *ngFor = "let group of grouplist"><a  (click) = "groupDetail(group)">{{group}}</a><div *ngIf="ofgroupadmin"><button (click) = "deleteGroup(group)">Delete Group</button></div></li>
+		<li *ngFor = "let group of grouplist"><a  (click) = "groupDetail(group)">{{group}}</a><div *ngIf="admingrouplist.includes(group)"><button (click) = "deleteGroup(group)">Delete Group</button></div></li>
 	</ul>
 </div>
 
