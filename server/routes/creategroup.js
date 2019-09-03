@@ -1,15 +1,16 @@
  var fs = require('fs');
 
 
-module.exports = function(req,res){
+module.exports = function(req,res)
+{
 fs.readFile('./data/groups.js','utf8',function(err,data)
             {
+                //if groups file doesnot exists create a new file
                 if (err)
                 {
-                    console.log(err);
                     var groups = {};
-               		var newgroupname = req.body.groupname;
-               		groups[newgroupname] = req.body;
+               	  	var newgroupname = req.body.groupname;
+               		  groups[newgroupname] = req.body;
                    	fs.writeFile('./data/groups.js', JSON.stringify(groups), function (err) {
                                 if (err) throw err;
 
@@ -63,11 +64,11 @@ fs.readFile('./data/groups.js','utf8',function(err,data)
                	{
                		 var groups = JSON.parse(data);
                		 var newgroupname = req.body.groupname
-               		 groups[newgroupname] = req.body;
+                   if(!groups.hasOwnProperty(req.body.groupname))
+                   {
+               		      groups[newgroupname] = req.body;
                		    	fs.writeFile('./data/groups.js', JSON.stringify(groups), function (err) {
-                                if (err) throw err;
-
-                                  console.log('Replaced!');
+                          
                                 
                    				// Updating super and group creator as an admin of newly created group
                    				fs.readFile('./data/users.js','utf8',function(err,data)
@@ -78,17 +79,14 @@ fs.readFile('./data/groups.js','utf8',function(err,data)
                    						if(!users[admin]["grouplist"].includes(req.body.groupname))
                    						{
                    							users[admin]["grouplist"].push(req.body.groupname);
-										   }
-										   if(!users[admin]["admingrouplist"].includes(req.body.groupname))
+										          }
+										          if(!users[admin]["admingrouplist"].includes(req.body.groupname))
                    						{
                    							users[admin]["admingrouplist"].push(req.body.groupname);
                    						}
                    					});
-               		 				
+               		 				//Update users file
                		 				fs.writeFile('./data/users.js', JSON.stringify(users), function (err) {
-                                	if (err) throw err;
-
-                                  			console.log('Created!');
                                 
                    				
 
@@ -98,8 +96,9 @@ fs.readFile('./data/groups.js','utf8',function(err,data)
 										               		if(err) throw err;
 										               		var users = JSON.parse(data);
 										                    var totalgrouplist = {
-																grouplist : users[req.body.creator].grouplist,
-																admingrouplist : users[req.body.creator].admingrouplist
+            																grouplist : users[req.body.creator].grouplist,
+            																admingrouplist : users[req.body.creator].admingrouplist,
+                                            notice: "Done"
 										                    };
 										                    res.send(totalgrouplist);
 
@@ -108,7 +107,24 @@ fs.readFile('./data/groups.js','utf8',function(err,data)
                    					});
                    				});
                    			});
+                    }
+                    else
+                    {
+                      fs.readFile('./data/users.js','utf-8', function(err,data)
+                                    {
+                                      
+                                      var users = JSON.parse(data);
+                                        var totalgrouplist = {
+                                                grouplist : users[req.body.creator].grouplist,
+                                                admingrouplist : users[req.body.creator].admingrouplist,
+                                                notice: "Failed"
+
+                                        };
+                                        res.send(totalgrouplist);
+
+                                    })
                    
-               	}
+               	    }
+                  }
                });	
-              };
+};

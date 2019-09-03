@@ -4,12 +4,14 @@ import{HttpClient} from '@angular/common/http';
 import {SocketService} from '../socket.service';
 
 interface Users {
-userlist:any
+userlist:any;
+notice:string;
 };
 
 interface Groups {
 grouplist:any;
 admingrouplist:any;
+notice;
 };
 
 interface Group {
@@ -175,21 +177,53 @@ export class AccountComponent implements OnInit {
 
   		this.httpClient.post<Users>("http://localhost:3000/createuser",nuser).subscribe(res => {
                 
-          
+          if(res.notice == "user created")
+          {
+
                 if (typeof(Storage) !== "undefined")
                 {
+                  if(res.userlist.length != this.userlist.length +1)
+                        {
+                              alert("New users have been added by other admins");
+                            
+                        }
                   var temp = JSON.parse(sessionStorage.getItem("currentUser"));
                   temp.userlist = res.userlist;
-                  alert(res.userlist);
                   sessionStorage.setItem("currentUser",JSON.stringify(temp));
                   this.userlist = res.userlist;
-                  alert((sessionStorage.getItem("currentUser")));
-                }
-              
+
+                  this.ngroupusername = "";
+                  this.ngroupbirthdate="";
+                  this.ngroupage="";
+                  this.ngroupemail="";
+                  this.ngrouppassword="";
+                  this.nofgroupasis ="";
+                  this.nmembergrouplist=[];
+                  this.ngroupvalid=true;
+                              }
                else
               {
                 alert('Cannot Create User');
               }
+          }
+          else
+          {
+            alert("User already exists");
+            var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+            temp.userlist = res.userlist;
+            sessionStorage.setItem("currentUser",JSON.stringify(temp));
+            this.userlist = res.userlist;
+
+               this.ngroupusername = "";
+               this.ngroupbirthdate="";
+               this.ngroupage="";
+               this.ngroupemail="";
+               this.ngrouppassword="";
+               this.nofgroupasis ="";
+               this.nmembergrouplist=[];
+               this.ngroupvalid=true;
+
+          }
           });
         }
         else
@@ -204,9 +238,6 @@ export class AccountComponent implements OnInit {
 
     if(this.ngroupname != "")
     {
-
-    
-  		
   		var ngroup = {
   				groupname:this.ngroupname,
   				creator:this.username,
@@ -225,22 +256,27 @@ export class AccountComponent implements OnInit {
 
   		this.httpClient.post<Groups>("http://localhost:3000/creategroup",ngroup).subscribe(res => { 
                 
-          
-                if (typeof(Storage) !== "undefined")
+          if(res.notice == "Done")
+          {
+              if (typeof(Storage) !== "undefined")
                 {
                   var temp = JSON.parse(sessionStorage.getItem("currentUser"));
                   temp.grouplist = res.grouplist;
                   temp.admingrouplist = res.admingrouplist;
-                  alert(res.grouplist);
                   sessionStorage.setItem("currentUser",JSON.stringify(temp));
                   this.grouplist = res.grouplist;
                   this.admingrouplist = res.admingrouplist;
-                  alert((sessionStorage.getItem("currentUser")));
                 }
                else
               {
                 alert('Cannot Create Group');
               }
+          }
+          else
+          {
+            alert("Group Already exists");
+          }
+                
           });
       }
       else
@@ -260,10 +296,11 @@ export class AccountComponent implements OnInit {
           
                 if (typeof(Storage) !== "undefined")
                 {
-                if(res.userlist.length != this.userlist.length)
+                if(res.userlist.length != this.userlist.length -1)
                 {
-                    alert("New Users have been added");
+                  alert("New Users have been added by other admin");
                 }
+                
                   var temp = JSON.parse(sessionStorage.getItem("currentUser"));
                   temp.userlist = res.userlist;
                   alert(res.userlist);
@@ -276,6 +313,7 @@ export class AccountComponent implements OnInit {
               {
                 alert('Cannot Delete User');
               }
+
               if(this.detailedgroup.groupname)
               {
 
@@ -309,9 +347,11 @@ export class AccountComponent implements OnInit {
                 {
                   var temp = JSON.parse(sessionStorage.getItem("currentUser"));
                   temp.grouplist = res.grouplist;
+                  temp.admingrouplist = res.grouplist;
                   alert(res.grouplist);
                   sessionStorage.setItem("currentUser",JSON.stringify(temp));
                   this.grouplist = res.grouplist;
+                  this.admingrouplist = res.admingrouplist;
                   alert((sessionStorage.getItem("currentUser")));
                 }
               
@@ -377,7 +417,7 @@ export class AccountComponent implements OnInit {
 
 addNewUserToGroup()
 {
-  if(this.ngroupusername != "" && this.nofgroupasis != "" && this.ngroupage != "" && this.ngroupbirthdate != ""  && this.ngroupemail != "" && this.ngrouppassword != "")
+  if(this.ngroupusername != "" && this.nofgroupasis != "" && this.ngroupage != "" && this.ngroupbirthdate != ""  && this.ngroupemail != "" && this.ngrouppassword != "" && this.ngroupusername != "super")
   {
 
   

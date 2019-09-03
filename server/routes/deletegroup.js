@@ -74,11 +74,12 @@ var fs = require('fs');
                                             // Sending grouplist back to the deletor
                                           fs.readFile('./data/groups.js','utf-8', function(err,data)
                                                     {
-                                                        
+
                                                         if(err) throw err;
                                                         var groups = JSON.parse(data);
                                                         var totalgrouplist = {
-                                                            grouplist : []
+                                                            grouplist : [],
+                                                            admingrouplist:[]
                                                         };
                                                         for (var group in groups)
                                                         {

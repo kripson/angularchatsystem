@@ -10,7 +10,6 @@ var fs = require('fs');
                     if(users.hasOwnProperty(req.body.username))
                     {
                       users[req.body.username].ofgroupadmin = true;
-                      console.log("Yes done");
                       responsebody.notice = "Done";
                     }
                     else

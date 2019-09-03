@@ -5,7 +5,6 @@ var fs = require('fs');
                    
               fs.readFile('./data/users.js','utf8',function(err,data)
             {
-                if (err) throw err;
                     var users = JSON.parse(data);
                     var requestinfo = req.body;
                     var groupname = requestinfo.groupname;
@@ -82,13 +81,12 @@ var fs = require('fs');
 
 
                                     var groups = JSON.parse(data);
-                                    console.log(groups);
-                                    console.log(groupname);
+                
                                     
                                     responsebody.membercount =  groups[groupname].members.length;
 
                                     
-                                                        fs.readFile('./data/users.js','utf-8', function(err,data)
+                                                fs.readFile('./data/users.js','utf-8', function(err,data)
                                                 {
                                                     if(err) throw err;
                                                     var users = JSON.parse(data);

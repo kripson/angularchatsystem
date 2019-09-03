@@ -1,0 +1,1 @@
+{"ficstgroup":{"groupname":"ficstgroup","creator":"super","admins":["super"],"asis":["super"],"channels":{},"members":["super"]},"firctgroup":{"groupname":"firctgroup","creator":"super","admins":["super"],"asis":["super"],"channels":{},"members":["super"]}}
