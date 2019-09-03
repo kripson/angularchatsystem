@@ -33,6 +33,10 @@ app.post('/addusertogroup',require('./routes/addusertogroup.js'));
 app.post('/promotetogroupadmin',require('./routes/promotetogroupadmin.js'));
 
 
+app.post('/createchannel',require('./routes/createchannel.js'));
+app.post('/deletechannel',require('./routes/deletechannel.js'));
+
+
 
 io.on('connection',(socket)=> 
 {

@@ -1,1 +1,1 @@
-{"ficstgroup":{"groupname":"ficstgroup","creator":"super","admins":["super"],"asis":["super"],"channels":{},"members":["super"]},"firctgroup":{"groupname":"firctgroup","creator":"super","admins":["super"],"asis":["super"],"channels":{},"members":["super"]}}
+{"first group":{"groupname":"first group","creator":"super","admins":["super"],"asis":["super","sankit"],"channels":{"first channel":{"channelname":"first channel","members":["super"],"admins":["super"]}},"members":["super","sankit"]}}

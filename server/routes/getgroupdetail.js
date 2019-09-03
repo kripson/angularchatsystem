@@ -23,7 +23,7 @@ var fs = require('fs');
                         groupdetail.isofadmin = false;
                     }
                     // checking if the requester is an asis of the group
-                    if(groups[req.body.groupname].admins.includes(req.body.requester))
+                    if(groups[req.body.groupname].asis.includes(req.body.requester))
                     {
                         groupdetail.isofasis = true;
                     }
@@ -62,15 +62,14 @@ var fs = require('fs');
                     var requesterchannels = [];
                     for(var channel in groups[req.body.groupname].channels)
                     {
-                        if(channels[channel].members.includes(req.body.requester))
+                        if(groups[req.body.groupname].channels[channel].members.includes(req.body.requester))
                         {
                             requesterchannels.push(channel);
 
                         }
 
-
                     }
-
+                        groupdetail.channels = requesterchannels;
                     }
                     catch
                     {

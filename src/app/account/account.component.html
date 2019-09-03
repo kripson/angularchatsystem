@@ -19,7 +19,7 @@
 <div id="grouplist" *ngIf="grouplist.length">
 	<h3><img src="https://img.icons8.com/dusk/64/000000/groups.png">Your Groups</h3>
 	<ul>
-		<li *ngFor = "let group of grouplist"><a  (click) = "groupDetail(group)">{{group}}</a><div *ngIf="admingrouplist.includes(group)"><button (click) = "deleteGroup(group)">Delete Group</button></div></li>
+		<li *ngFor = "let group of grouplist"><a  (click) = "groupDetail(group)">{{group}}</a><div *ngIf="admingrouplist.length > 0 &&  admingrouplist.includes(group)"><button (click) = "deleteGroup(group)">Delete Group</button></div></li>
 	</ul>
 </div>
 
@@ -27,11 +27,20 @@
 <div id="groupdetails" *ngIf="detailedgroup.groupname">
 	<h1>Group Details</h1>
 	<h1>{{detailedgroup.groupname}}</h1>
-	<h2><img src="https://img.icons8.com/dusk/64/000000/groups.png">{{detailedgroup.membercount }} members </h2>
+	<h2><img src="https://img.icons8.com/dusk/64/000000/groups.png">{{detailedgroup.membercount }} member/s </h2>
 	<ul>
-		<li *ngFor = "let channel of detailedgroup.channels"><a  (click) = "channelDetail(channel)">{{channel}}</a><!-- <button (click) = "deleteChannel(group)">Delete Group</button> --></li>
+		<li *ngFor = "let channel of detailedgroup.channels"><a  (click) = "channelDetail(channel)">{{channel}}</a>
+			<button (click) = "deleteChannel(channel)" *ngIf="detailedgroup.isofadmin">Delete Group</button>
+		</li>
 	</ul>
 	<img id="close" (click) = "removegroupdetails()" src="https://img.icons8.com/flat_round/64/000000/delete-sign.png">
+
+
+	<!-- New channel form -->
+	<div id="channelcreation" *ngIf="detailedgroup.isofasis">
+		<input type="text" [(ngModel)]="nchannelname" name="nchannelname" placeholder="channel name"><br><br>
+		<button (click) = "createChannel()"> Create a channel</button>
+	</div>
 	<div *ngIf="detailedgroup.isofadmin">
 		<button (click) = "turn(1)">Create a new user and add to the group</button>
 		<button (click) = "turn(2)">Add an existing user to the group</button>
@@ -41,7 +50,8 @@
         <input type="text" [(ngModel)]="ngroupage" name="ngroupage" placeholder="age" required><br><br>
          <input type="text" [(ngModel)]="ngroupemail" name="ngroupemail" placeholder="email" required><br><br>
          <input type="text" [(ngModel)]="nofgroupasis" name="nofgroupasis" placeholder="asis role?" required><br><br>
-     	 <input type="password" [(ngModel)]="ngrouppassword" name="ngrouppassword" placeholder="password" required><br><br>
+     	 <input type="password" [(ngModel)]="ngrouppassword" name="ngrouppassword" placeholder="password" required>
+     	 <br><br>
 		<button (click) = "addNewUserToGroup()">Create a new user and add to the group</button></div>
 
 	<div *ngIf = "addnewgroupuser">

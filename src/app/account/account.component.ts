@@ -42,6 +42,7 @@ export class AccountComponent implements OnInit {
 	createnewgroupuser = false;
 	addnewgroupuser = false;
 
+
 	username = "";
 	birthdate = "";
 	age = "";
@@ -91,7 +92,7 @@ export class AccountComponent implements OnInit {
 
 
 
-
+    nchannelname = "";
 
     
 
@@ -192,14 +193,7 @@ export class AccountComponent implements OnInit {
                   sessionStorage.setItem("currentUser",JSON.stringify(temp));
                   this.userlist = res.userlist;
 
-                  this.ngroupusername = "";
-                  this.ngroupbirthdate="";
-                  this.ngroupage="";
-                  this.ngroupemail="";
-                  this.ngrouppassword="";
-                  this.nofgroupasis ="";
-                  this.nmembergrouplist=[];
-                  this.ngroupvalid=true;
+                  
                               }
                else
               {
@@ -214,14 +208,7 @@ export class AccountComponent implements OnInit {
             sessionStorage.setItem("currentUser",JSON.stringify(temp));
             this.userlist = res.userlist;
 
-               this.ngroupusername = "";
-               this.ngroupbirthdate="";
-               this.ngroupage="";
-               this.ngroupemail="";
-               this.ngrouppassword="";
-               this.nofgroupasis ="";
-               this.nmembergrouplist=[];
-               this.ngroupvalid=true;
+               
 
           }
           });
@@ -392,6 +379,7 @@ export class AccountComponent implements OnInit {
                   this.detailedgroup.isofasis = res.isofasis;
                   this.detailedgroup.isofadmin = res.isofadmin;
                   this.detailedgroup.membercount = res.membercount;
+                  this.detailedgroup.channels = res.channels;
                   console.log(this.detailedgroup);
                
                 }
@@ -438,6 +426,7 @@ addNewUserToGroup()
                 ofgroupadmin:false,
                 ofgroupasis:this.nofgroupasis,
                 grouplist: [this.detailedgroup.groupname],
+                admingrouplist:[],
                 password:this.ngrouppassword,
                 valid:this.ngroupvalid,
                 groupname:this.detailedgroup.groupname,
@@ -454,6 +443,7 @@ addNewUserToGroup()
                   sessionStorage.setItem("currentUser",JSON.stringify(temp));
                   this.detailedgroup.membercount = res.membercount;
                   this.userlist = res.userlist;
+                  alert(res.notice);
                 }
               
                else
@@ -545,6 +535,84 @@ promoteToGroupAdmin(username)
                     
                   
               });                  
+}
+
+//creating new channel
+createChannel()
+{
+
+
+      var newchannel = 
+      {
+          groupname : this.detailedgroup.groupname,
+          channelname: this.nchannelname,
+          members : ["super",this.username],
+          admins: ["super",this.username]
+      }
+
+      if (this.username == 'super')
+      {
+        newchannel.admins.pop();
+        newchannel.members.pop();
+      }
+
+      this.httpClient.post<any>("http://localhost:3000/createchannel",newchannel).subscribe(res => {  
+                    
+              if(res.notice == "Done")
+              {
+                  alert("Channel created");
+                  this.groupDetail(this.detailedgroup.groupname);
+                  console.log(this.detailedgroup.channels);
+              }
+              else
+              {
+                alert("Channel couldn't be created or may already exist");
+                this.groupDetail(this.detailedgroup.groupname);              
+              }
+                    
+                      
+                    
+                  
+              });         
+
+
+  
+}
+
+//Deleting a channel
+deleteChannel(channel)
+{
+
+
+      var deletechannel = 
+      {
+          groupname : this.detailedgroup.groupname,
+          channelname: channel,
+      }
+
+    
+
+      this.httpClient.post<any>("http://localhost:3000/deletechannel",deletechannel).subscribe(res => {  
+                    
+              if(res.notice == "Done")
+              {
+                  alert("Channel deleted");
+                  this.groupDetail(this.detailedgroup.groupname);
+                  console.log(this.detailedgroup.channels);
+              }
+              else
+              {
+                alert("Other admin has deleted the channel or the group");
+                this.groupDetail(this.detailedgroup.groupname);              
+              }
+                    
+                      
+                    
+                  
+              });         
+
+
+  
 }
 }
 

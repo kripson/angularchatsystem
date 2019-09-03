@@ -87,6 +87,10 @@ var fs = require('fs');
                                                             {
                                                                 totalgrouplist.grouplist.push(group);
                                                             }
+                                                            if(groups[group].admins.includes(req.body.deletor))
+                                                            {
+                                                                totalgrouplist.admingrouplist.push(group);
+                                                            }
                                                             
                                                         }
                                                      

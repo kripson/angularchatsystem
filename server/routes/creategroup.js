@@ -45,9 +45,11 @@ fs.readFile('./data/groups.js','utf8',function(err,data)
 										               	{
 										               		if(err) throw err;
 										               		var users = JSON.parse(data);
-										                    var totalgrouplist = {
-																grouplist : users[req.body.creator].grouplist,
-																admingrouplist : users[req.body.creator].admingrouplist
+										                    var totalgrouplist = 
+                                        {
+            																grouplist : users[req.body.creator].grouplist,
+            																admingrouplist : users[req.body.creator].admingrouplist,
+                                            notice: "Done"
 										                    };
 										                    res.send(totalgrouplist);
 

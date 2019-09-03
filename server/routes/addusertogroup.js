@@ -12,7 +12,7 @@ var fs = require('fs');
                     var creator = requestinfo.creator;
                     var responsebody = {};
 
-                    if(users.hasOwnProperty(req.body.username))
+                    if(users.hasOwnProperty(req.body.username) && users[req.body.username].grouplist.includes(groupname) == false)
                     {
                             users[req.body.username].grouplist.push(groupname);
                     fs.writeFile('./data/users.js', JSON.stringify(users), function (err)
@@ -99,7 +99,7 @@ var fs = require('fs');
                                                             }
                                                     }
                                                     responsebody.userlist = userlist;
-                                                    responsebody.notice = "User doesnot exist";
+                                                    responsebody.notice = "User doesnot exist or user is already a member of the group";
                                                     res.send(responsebody);
 
 
