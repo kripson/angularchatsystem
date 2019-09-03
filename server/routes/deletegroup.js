@@ -5,86 +5,103 @@ var fs = require('fs');
                    
               fs.readFile('./data/groups.js','utf8',function(err,data)
             {
-                if (err) throw err;
+
+                    // deleting group from group data file
                     var groups = JSON.parse(data);
                     delete groups[req.body.groupname];
+
+                    //updating group data file
                     fs.writeFile('./data/groups.js', JSON.stringify(groups), function (err)
                     {
-                        console.log("group deleted and groups file updated");
 
                                 // removing the group from user group list
+
                                 fs.readFile('./data/users.js','utf-8',function(err,data)
                                 {
                                     if(err) 
                                     {
                                         console.log(err);
-                                        fs.readFile('./data/groups.js','utf-8', function(err,data)
-                                    {
-                                        if(err) throw err;
-                                        var groups = JSON.parse(data);
-                                        var totalgrouplist = {
-                                            grouplist : []
-                                        };
-                                        for (var group in groups)
-                                        {
-                                            totalgrouplist.grouplist.push(group);
-                                        }
-                                        console.log(totalgrouplist.grouplist)
-                                        res.send(totalgrouplist);
+                                    //     fs.readFile('./data/groups.js','utf-8', function(err,data)
+                                    // {
+                                    //     if(err) throw err;
+                                    //     var groups = JSON.parse(data);
+                                    //     var totalgrouplist = {
+                                    //         grouplist : []
+                                    //     };
+                                    //     for (var group in groups)
+                                    //     {
+                                    //         totalgrouplist.grouplist.push(group);
+                                    //     }
+                                    //     console.log(totalgrouplist.grouplist)
+                                    //     res.send(totalgrouplist);
 
 
-                                            });
+                                    //         });
                                     }
                                     else
                                     {
 
 
                                     var users = JSON.parse(data);
-                                    for(var user in users)
-                                    {   
-                                        var count = 0;
-                                        for(x of users[user].grouplist)
-                                        {
-                                        
-                                            if(x == req.body.groupname)
-                                            {
-                                                users[user].grouplist.splice(count,1);
-                                            }
-                                            count = count + 1;
 
-                                        }
+
+                                    // removing group from user grouplist
+                                    for(var user in users)
+                                    {
+                                        users[user].grouplist = users[user].grouplist.filter(function(value){
+
+                                                        return value != req.body.groupname;
+
+                                                    }); 
+                                       
                                     }
 
+                                    // removing group from user adminlist
+                                    for(var user in users)
+                                    {
+                                        users[user].admingrouplist = users[user].admingrouplist.filter(function(value){
+
+                                                        return value != req.body.groupname;
+
+                                                    }); 
+                                       
+                                    }
+
+                                    //updating users data file
                                      fs.writeFile('./data/users.js', JSON.stringify(users), function (err)
                                         {
-                                            console.log("group deleted and users file updated");
+
+                                            // Sending grouplist back to the deletor
                                           fs.readFile('./data/groups.js','utf-8', function(err,data)
-                                    {
-                                        if(err) throw err;
-                                        var groups = JSON.parse(data);
-                                        var totalgrouplist = {
-                                            grouplist : []
-                                        };
-                                        for (var group in groups)
-                                        {
-                                            if(groups[group].members.includes(req.body.deletor))
-                                            {
-                                                totalgrouplist.grouplist.push(group);
-                                            }
-                                            
-                                        }
-                                        console.log(totalgrouplist.grouplist)
-                                        res.send(totalgrouplist);
+                                                    {
+                                                        
+                                                        if(err) throw err;
+                                                        var groups = JSON.parse(data);
+                                                        var totalgrouplist = {
+                                                            grouplist : []
+                                                        };
+                                                        for (var group in groups)
+                                                        {
+                                                            if(groups[group].members.includes(req.body.deletor))
+                                                            {
+                                                                totalgrouplist.grouplist.push(group);
+                                                            }
+                                                            
+                                                        }
+                                                     
+                                                        res.send(totalgrouplist);
 
 
-                                            });
-                                        });
-                                 }
+                                                            });
+                                                        });
+                                    }
+
+
                                 });
-                      });
+                    });
             });
 
                   
 
 
-            };
+};

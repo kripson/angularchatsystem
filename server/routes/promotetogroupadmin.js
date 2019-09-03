@@ -5,13 +5,21 @@ var fs = require('fs');
                    
               fs.readFile('./data/users.js','utf8',function(err,data)
             {
-                if (err) throw err;
                     var users = JSON.parse(data);
                     var responsebody = {};
-                    users[req.body.username].ofgroupadmin = true;
+                    if(users.hasOwnProperty(req.body.username))
+                    {
+                      users[req.body.username].ofgroupadmin = true;
+                      console.log("Yes done");
+                      responsebody.notice = "Done";
+                    }
+                    else
+                    {
+                        responsebody.notice = "Failed";
+                    }
+                    
                      fs.writeFile('./data/users.js', JSON.stringify(users), function (err)
                     {
-                        responsebody.notice = "User promoted to group admin";
                         res.send(responsebody);
 
                     });

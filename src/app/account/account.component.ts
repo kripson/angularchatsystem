@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import{HttpClient} from '@angular/common/http';
+import {SocketService} from '../socket.service';
 
 interface Users {
 userlist:any
@@ -93,9 +94,11 @@ export class AccountComponent implements OnInit {
     
 
 
-  constructor(private router: Router,private httpClient:HttpClient) { }
+  constructor(private router: Router,private httpClient:HttpClient,private socketService:SocketService) { }
 
   ngOnInit() {
+
+
   				if (typeof(Storage) !== "undefined")
   					{
 
@@ -146,7 +149,7 @@ export class AccountComponent implements OnInit {
 
   createNewUser()
   {
-    if(this.nofgroupadmin != "" && this.nusername != "" && this.nage != "" && this.nbirthdate != ""  && this.nemail != "" && this.npassword != "")
+    if(this.nofgroupadmin != "" && this.nusername != "" && this.nage != "" && this.nbirthdate != ""  && this.nemail != "" && this.npassword != "" && this.nusername != "super")
     {
 
   
@@ -191,7 +194,7 @@ export class AccountComponent implements OnInit {
         }
         else
         {
-          alert("Please fill out the form completely")
+          alert("Please fill out the form completely and username cant be super");
         }
 
   }
@@ -257,6 +260,10 @@ export class AccountComponent implements OnInit {
           
                 if (typeof(Storage) !== "undefined")
                 {
+                if(res.userlist.length != this.userlist.length)
+                {
+                    alert("New Users have been added");
+                }
                   var temp = JSON.parse(sessionStorage.getItem("currentUser"));
                   temp.userlist = res.userlist;
                   alert(res.userlist);
@@ -336,7 +343,9 @@ export class AccountComponent implements OnInit {
   	groupname: group
   	}
   	this.httpClient.post<Group>("http://localhost:3000/getgroupdetail",getgroup).subscribe(res => {  
-  	 if (typeof(Storage) !== "undefined")
+    if(res.membercount)
+    {
+    if (typeof(Storage) !== "undefined")
                 {
                   this.detailedgroup.groupname = res.groupname;
                   this.detailedgroup.isofadmin = res.isofadmin;
@@ -351,6 +360,16 @@ export class AccountComponent implements OnInit {
               {
                 alert('Cannot get Group Detail');
               }
+    }
+    else
+    {
+      alert("The group seems to be deleted");
+      this.grouplist = this.grouplist.filter(function(value){
+
+    return value != res.groupname;
+
+});
+    }
   });
 
 
@@ -461,25 +480,33 @@ addExistingUserToGroup()
 
 promoteToGroupAdmin(username)
 {
-  if(!this.ofgroupadmin)
-  {
+  
     var promoteduser = {
       username:username
       
     }
     this.httpClient.post<any>("http://localhost:3000/promotetogroupadmin",promoteduser).subscribe(res => {  
                     
-              
+              if(res.notice == "Done")
+              {
+                  alert("User promoted to group admin role");
+              }
+              else
+              {
+                alert("User does not seem to be part of the system");
+                this.userlist = this.userlist.filter(function(value){
+
+                  return value != username;
+
+              });
+              }
                     
-                      alert(res.notice);
+                      
                     
                   
               });                  
-  }
-  else
-  {
-    alert("Already a group admin");
-  }
+}
+}
 
-}
-}
+
+

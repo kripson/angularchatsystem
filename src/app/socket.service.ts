@@ -21,6 +21,20 @@ export class SocketService {
 		this.socket.emit('message',message);
 	}
 
+	connect(username)
+	{
+		this.socket.emit('connect',username);
+	}
+	getstatus(next)
+	{
+		this.socket.on('done',data=>next(data));
+	}
+	newuser(next)
+	{
+		this.socket.on('connected',data=>next(data));
+	}
+
+
 	}
 
 

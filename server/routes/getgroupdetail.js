@@ -10,6 +10,8 @@ var fs = require('fs');
                     var groupdetail = {};
 
                     groupdetail.groupname = req.body.groupname;
+                    try
+                    {
 
                     // checking if the requester is an admin of the group
                     if(groups[(req.body.groupname)].admins.includes(req.body.requester))
@@ -30,12 +32,33 @@ var fs = require('fs');
                         groupdetail.isofasis = false;
                     }
 
+
+                    }
+                    catch
+                    {
+                        groupdetail.isofadmin= false;
+                        groupdetail.isofasis = false;
+
+
+
+                    }
+                    
+
                     // counting the num ber of members in the group and adding to the response body
+                    try
+                    {
+                        groupdetail.membercount = groups[req.body.groupname].members.length;
+                    }
+                    catch
+                    {
+                        groupdetail.membercount = 0;
+                    }
+                    
 
-                    groupdetail.membercount = groups[req.body.groupname].members.length;
+                    try
+                    {
 
-
-                    // checking the channels the requester is part of and adding it to the repsonse
+                        // checking the channels the requester is part of and adding it to the repsonse
                     var requesterchannels = [];
                     for(var channel in groups[req.body.groupname].channels)
                     {
@@ -47,7 +70,13 @@ var fs = require('fs');
 
 
                     }
-                    groupdetail.channels = requesterchannels;
+
+                    }
+                    catch
+                    {
+                        groupdetail.channels = [];
+
+                    }
                     res.send(groupdetail);
             });
           }

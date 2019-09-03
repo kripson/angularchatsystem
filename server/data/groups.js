@@ -1,1 +1,0 @@
-{"firstgroup":{"groupname":"firstgroup","creator":"super","admins":["super"],"asis":["super"],"channels":{},"members":["super","chala"]}}

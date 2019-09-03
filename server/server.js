@@ -32,17 +32,25 @@ app.post('/createnewgroupuser',require('./routes/createnewgroupuser.js'));
 app.post('/addusertogroup',require('./routes/addusertogroup.js'));
 app.post('/promotetogroupadmin',require('./routes/promotetogroupadmin.js'));
 
+
+
 io.on('connection',(socket)=> 
 {
 
 
-
+	console.log("A socket has connected",socket.id);
+	io.emit('connect',"connection made");
 // When message comes, send it back to all sockets
 	socket.on('message',(message) =>
 	{
 		io.emit('message',message);
 	}
-	)
+	);
+	socket.on('connect',(username) =>
+	{
+		io.to(socket.id).emit('done',"Yes, you are connected!!!!");
+		io.emit('connected',username);
+	});
 }
 )
 
