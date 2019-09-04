@@ -43,11 +43,11 @@ interface Member {
 	styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-
+  //flags to show buttons
 	createnewgroupuser = false;
 	addnewgroupuser = false;
 
-
+//users login details
 	username = "";
 	birthdate = "";
 	age = "";
@@ -57,7 +57,7 @@ export class AccountComponent implements OnInit {
 	grouplist = [];
 	userlist = [];
 
-
+// variables for storing new user data 
 	nusername = "";
 	nbirthdate = "";
 	nage = "";
@@ -68,7 +68,7 @@ export class AccountComponent implements OnInit {
 	nadmingrouplist = [];
 	nvalid = true;
 
-
+// variables storing current veiwed group details
 	detailedgroup = {
 		groupname: "",
 		isofadmin: false,
@@ -77,7 +77,7 @@ export class AccountComponent implements OnInit {
 		channels: []
 	};
 
-
+//new group user derails
 	ngroupusername = "";
 	ngroupbirthdate = "";
 	ngroupage = "";
@@ -86,20 +86,20 @@ export class AccountComponent implements OnInit {
 	nofgroupasis: any = "";
 	nmembergrouplist = [];
 	ngroupvalid = true;
-
+// for adding existing user to group
 	groupusername = "";
 	ofgroupasis: any = "";
 
-
+// new group details
 	ngroupname = "";
 
-
+//new channel name
 	nchannelname = "";
 
-
+//removing user
 	rusername = "";
 
-
+//adding user to channel
 	cusername = "";
 	addtochannelname = "";
 
@@ -108,7 +108,7 @@ export class AccountComponent implements OnInit {
 
 	ngOnInit() {
 
-
+    //setting up page
 		if (typeof (Storage) !== "undefined") {
 
 
@@ -142,11 +142,14 @@ export class AccountComponent implements OnInit {
 		}
 	}
 
+  //User logs out and localstorage is cleared 
 	logout() {
 		localStorage.clear();
 		this.router.navigateByUrl('login');
 	}
 
+
+  // New user creation function
 	createNewUser() {
 		if (this.nofgroupadmin != "" && this.nusername != "" && this.nage != "" && this.nbirthdate != "" && this.nemail != "" && this.npassword != "" && this.nusername != "super") {
 
@@ -201,7 +204,7 @@ export class AccountComponent implements OnInit {
 		}
 
 	}
-
+  // New group creation function
 	createNewGroup() {
 
 		if (this.ngroupname != "") {
@@ -244,6 +247,7 @@ export class AccountComponent implements OnInit {
 
 	}
 
+  //deleting user function
 	deleteUser(user) {
 		var deluser = {
 			username: user
@@ -271,7 +275,9 @@ export class AccountComponent implements OnInit {
 			}
 		});
 
-	}
+  }
+  
+   //deleting group function
 	deleteGroup(group) {
 
 		if (group == this.detailedgroup.groupname) {
@@ -302,7 +308,9 @@ export class AccountComponent implements OnInit {
 			}
 		});
 
-	}
+  }
+  
+   //function for removing detailed group when the close button is pressed
 	removegroupdetails() {
 		this.detailedgroup = {
 			groupname: "",
@@ -313,6 +321,8 @@ export class AccountComponent implements OnInit {
 		};
 	}
 
+
+  //getting group details via http request when user clicks on a group to see its details
 	groupDetail(group) {
 
 
@@ -345,7 +355,7 @@ export class AccountComponent implements OnInit {
 
 
 	}
-
+  // New user creation function and adding user to the current viewing group
 	addNewUserToGroup() {
 		if (this.ngroupusername != "" && this.nofgroupasis != "" && this.ngroupage != "" && this.ngroupbirthdate != "" && this.ngroupemail != "" && this.ngrouppassword != "" && this.ngroupusername != "super") {
 
@@ -391,7 +401,7 @@ export class AccountComponent implements OnInit {
 
 
 	}
-
+  //Adding an existing user to the current viewed group
 	addExistingUserToGroup() {
 		if (this.groupusername != "" && this.ofgroupasis != "") {
 			if (this.ofgroupasis == "true") {
@@ -446,7 +456,7 @@ export class AccountComponent implements OnInit {
 
 	//
 
-
+  //function for promoting a user to group admin
 	promoteToGroupAdmin(username) {
 
 		var promoteduser = {
@@ -470,7 +480,7 @@ export class AccountComponent implements OnInit {
 		});
 	}
 
-	//creating new channel
+	// function  for creating new channel
 	createChannel() {
 
 		if (this.nchannelname) {
@@ -505,7 +515,7 @@ export class AccountComponent implements OnInit {
 
 	}
 
-	//Deleting a channel
+	//function for deleting a channel
 	deleteChannel(channel) {
 
 		var deletechannel = {

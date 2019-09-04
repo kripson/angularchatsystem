@@ -20,23 +20,7 @@ var fs = require('fs');
                                 {
                                     if(err) 
                                     {
-                                        console.log(err);
-                                    //     fs.readFile('./data/groups.js','utf-8', function(err,data)
-                                    // {
-                                    //     if(err) throw err;
-                                    //     var groups = JSON.parse(data);
-                                    //     var totalgrouplist = {
-                                    //         grouplist : []
-                                    //     };
-                                    //     for (var group in groups)
-                                    //     {
-                                    //         totalgrouplist.grouplist.push(group);
-                                    //     }
-                                    //     console.log(totalgrouplist.grouplist)
-                                    //     res.send(totalgrouplist);
-
-
-                                    //         });
+                                        
                                     }
                                     else
                                     {

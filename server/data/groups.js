@@ -1,1 +1,1 @@
-{"asdasdasdasd":{"groupname":"asdasdasdasd","creator":"super","admins":["super"],"asis":["super"],"channels":{},"members":["super"]}}
+{}
