@@ -1,127 +1,117 @@
 <div id="center">
-<h1> Account Page </h1>
+	<h1> Account Page </h1>
+	<p><img src="https://img.icons8.com/bubbles/50/000000/user.png">{{username}}</p>
+	<p><img src="https://img.icons8.com/cute-clipart/64/000000/birthday-cake.png">{{birthdate}}</p>
+	<p>Age: {{age}}</p>
+	<p>Email:{{email}}</p>
+ </div>
 
-<p><img src="https://img.icons8.com/bubbles/50/000000/user.png">{{username}}</p>
-<p><img src="https://img.icons8.com/cute-clipart/64/000000/birthday-cake.png">{{birthdate}}</p>
-<p>Age: {{age}}</p>
-<p>Email:{{email}}</p>
-</div>
 
-<div id="userlist" *ngIf = "userlist.length">
+
+ <div id="userlist" *ngIf = "userlist.length">
 	<h3><img src="https://img.icons8.com/bubbles/50/000000/user.png"> Users List</h3>
-	
 	<ul>
-		<li *ngFor = "let user of userlist">{{user}}<br><button (click) = "deleteUser(user)">Delete this user</button><button (click) = "promoteToGroupAdmin(user)">Promote to Group Admin</button></li>
-
+	   <li *ngFor = "let user of userlist">{{user}}<br><button (click) = "deleteUser(user)">Delete this user</button><button (click) = "promoteToGroupAdmin(user)">Promote to Group Admin</button></li>
 	</ul>
-</div>
+ </div>
 
-<div id="grouplist" *ngIf="grouplist.length">
+
+ <div id="grouplist" *ngIf="grouplist.length">
 	<h3><img src="https://img.icons8.com/dusk/64/000000/groups.png">Your Groups</h3>
 	<ul>
-		<li *ngFor = "let group of grouplist"><a  (click) = "groupDetail(group)">{{group}}</a><div *ngIf="admingrouplist.length > 0 &&  admingrouplist.includes(group)"><button (click) = "deleteGroup(group)">Delete Group</button></div></li>
+	   <li *ngFor = "let group of grouplist">
+		  <a  (click) = "groupDetail(group)">{{group}}</a>
+		  <div *ngIf="admingrouplist.length > 0 &&  admingrouplist.includes(group)"><button (click) = "deleteGroup(group)">Delete Group</button></div>
+	   </li>
 	</ul>
-</div>
+ </div>
 
 
-<div id="groupdetails" *ngIf="detailedgroup.groupname">
+
+ <div id="groupdetails" *ngIf="detailedgroup.groupname">
 	<h1>Group Details</h1>
 	<h1>{{detailedgroup.groupname}}</h1>
 	<h2><img src="https://img.icons8.com/dusk/64/000000/groups.png">{{detailedgroup.membercount }} member/s </h2>
 	<ul>
-		<li *ngFor = "let channel of detailedgroup.channels"><a  (click) = "channelDetail(channel)">{{channel}}</a>
-			<button (click) = "deleteChannel(channel)" *ngIf="detailedgroup.isofadmin">Delete Channel</button>
-		</li>
+	   <li *ngFor = "let channel of detailedgroup.channels"><a  (click) = "channelDetail(channel)">{{channel}}</a>
+		  <button (click) = "deleteChannel(channel)" *ngIf="detailedgroup.isofadmin">Delete Channel</button>
+	   </li>
 	</ul>
 	<img id="close" (click) = "removegroupdetails()" src="https://img.icons8.com/flat_round/64/000000/delete-sign.png">
 
-
+	<br><br>
 	<!-- New channel form -->
-	<div id="channelcreation" *ngIf="detailedgroup.isofasis">
-		<input type="text" [(ngModel)]="nchannelname" name="nchannelname" placeholder="channel name"><br><br>
-		<button (click) = "createChannel()"> Create a channel</button>
+	<div id="channelcreation" *ngIf="detailedgroup.isofasis" style="border:1px solid black;padding:1em;background-color: antiquewhite">
+	   <input type="text" [(ngModel)]="nchannelname" name="nchannelname" placeholder="channel name"><br><br>
+	   <button (click) = "createChannel()"> Create a channel</button>
+
 	</div>
+	<br><br>
 
-	<div *ngIf="detailedgroup.isofasis">
-		<input type="text" [(ngModel)]="cusername" name="cusername" placeholder="user name"><br><br>
-		<input type="text" [(ngModel)]="addtochannelname" name="addtochannelname" placeholder="channel name"><br><br>
-		<button (click) = "addUserToChannel()"> Add user to a channel</button>
+	<div *ngIf="detailedgroup.isofasis" style="border:1px solid black;padding:1em;background-color: antiquewhite">
+	   <input type="text" [(ngModel)]="cusername" name="cusername" placeholder="user name"><br><br>
+	   <input type="text" [(ngModel)]="addtochannelname" name="addtochannelname" placeholder="channel name"><br><br>
+	   <button (click) = "addUserToChannel()"> Add user to a channel</button>
 	</div>
-
-
+	<br><br>
 	<div *ngIf="detailedgroup.isofadmin">
-		<button (click) = "turn(1)">Create a new user and add to the group</button>
-		<button (click) = "turn(2)">Add an existing user to the group</button><br>
-		<div *ngIf ="createnewgroupuser">
-		<input type="text" [(ngModel)]="ngroupusername" name="ngroupusername" placeholder="username" ><br><br>
-       <input type="text" [(ngModel)]="ngroupbirthdate" name="ngroupbirthdate" placeholder="birthdate" required><br><br>
-        <input type="text" [(ngModel)]="ngroupage" name="ngroupage" placeholder="age" required><br><br>
-         <input type="text" [(ngModel)]="ngroupemail" name="ngroupemail" placeholder="email" required><br><br>
-         <input type="text" [(ngModel)]="nofgroupasis" name="nofgroupasis" placeholder="asis role?" required><br><br>
-     	 <input type="password" [(ngModel)]="ngrouppassword" name="ngrouppassword" placeholder="password" required>
-     	 <br><br>
-		<button (click) = "addNewUserToGroup()">Create a new user and add to the group</button></div>
-		<div *ngIf = "addnewgroupuser">
-		<input type="text" [(ngModel)]="groupusername" name="groupusername" placeholder="username" required><br><br>
-       <input type="text" [(ngModel)]="ofgroupasis" name="ofgroupasis" placeholder="group asis?" required><br><br>
-		<button (click) = "addExistingUserToGroup()">Add a current user to the group</button></div>
+	   <button (click) = "turn(1)">Create a new user and add to the group</button>
+	   <button (click) = "turn(2)">Add an existing user to the group</button><br>
+	   <br>
+	   <div *ngIf ="createnewgroupuser" style="border:1px solid black;padding:1em;background-color: antiquewhite">
+		  <input type="text" [(ngModel)]="ngroupusername" name="ngroupusername" placeholder="username" ><br><br>
+		  <input type="text" [(ngModel)]="ngroupbirthdate" name="ngroupbirthdate" placeholder="birthdate" required><br><br>
+		  <input type="text" [(ngModel)]="ngroupage" name="ngroupage" placeholder="age" required><br><br>
+		  <input type="text" [(ngModel)]="ngroupemail" name="ngroupemail" placeholder="email" required><br><br>
+		  <input type="text" [(ngModel)]="nofgroupasis" name="nofgroupasis" placeholder="asis role?" required><br><br>
+		  <input type="password" [(ngModel)]="ngrouppassword" name="ngrouppassword" placeholder="password" required>
+		  <br><br>
+		  <button (click) = "addNewUserToGroup()">Create a new user and add to the group</button>
+	   </div>
+	   <br><br>
+	   <div *ngIf = "addnewgroupuser" style="border:1px solid black;padding:1em;background-color: antiquewhite">
+		  <input type="text" [(ngModel)]="groupusername" name="groupusername" placeholder="username" required><br><br>
+		  <input type="text" [(ngModel)]="ofgroupasis" name="ofgroupasis" placeholder="group asis?" required><br><br>
+		  <button (click) = "addExistingUserToGroup()">Add a current user to the group</button>
+	   </div>
 
 
-
-		<input type="text" [(ngModel)]="rusername" name="rusername" placeholder="username" ><br><br>
-		<button (click) = "removeUserFromGroup()">Remove a user from the group</button>
-		
-
-	
-
-</div>
-
-</div>
+	   <br><br>
+	   <input type="text" [(ngModel)]="rusername" name="rusername" placeholder="username" ><br><br>
+	   <button (click) = "removeUserFromGroup()">Remove a user from the group</button>
+	</div>
+ </div>
 
 
+ <br><br>
 
-
-
-
-<div id="newuserform" *ngIf="username == 'super'">
+ <div id="newuserform" *ngIf="username == 'super'">
 	<h1> Create A New User Here<img src="https://img.icons8.com/bubbles/50/000000/user.png"></h1>
 	<form>
-  
-      <input type="text" [(ngModel)]="nusername" name="nusername" placeholder="username" required><br><br>
-       <input type="text" [(ngModel)]="nbirthdate" name="nbirthdate" placeholder="birthdate" required><br><br>
-        <input type="text" [(ngModel)]="nage" name="nage" placeholder="age" required><br><br>
-         <input type="text" [(ngModel)]="nemail" name="nemail" placeholder="email" required><br><br>
-            <input type="text" [(ngModel)]="nofgroupadmin" name="nofgroupadmin" placeholder="admin role?" required><br><br>
+	   <input type="text" [(ngModel)]="nusername" name="nusername" placeholder="username" required><br><br>
+	   <input type="text" [(ngModel)]="nbirthdate" name="nbirthdate" placeholder="birthdate" required><br><br>
+	   <input type="text" [(ngModel)]="nage" name="nage" placeholder="age" required><br><br>
+	   <input type="text" [(ngModel)]="nemail" name="nemail" placeholder="email" required><br><br>
+	   <input type="text" [(ngModel)]="nofgroupadmin" name="nofgroupadmin" placeholder="admin role?" required><br><br>
+	   <input type="password" [(ngModel)]="npassword" name="npassword" placeholder="password"><br><br>
+	   <button (click) = "createNewUser()">Submit</button>
+	</form>
+ </div>
 
+ <br><br>
 
-      <input type="password" [(ngModel)]="npassword" name="npassword" placeholder="password"><br><br>
-
-
-
-      <button (click) = "createNewUser()">Submit</button>
-  
-
-  </form>
-</div>
-
-  <div id="newgroupform" *ngIf="ofgroupadmin">
-  	<h1> Create A New group Here<img src="https://img.icons8.com/dusk/64/000000/groups.png"></h1>
+ <div id="newgroupform" *ngIf="ofgroupadmin">
+	<h1> Create A New group Here<img src="https://img.icons8.com/dusk/64/000000/groups.png"></h1>
 	<form>
-  
-      <input type="text" [(ngModel)]="ngroupname" name="ngroupname" placeholder="groupname" ><br><br>
-
-
-
-      <button (click) = "createNewGroup()">Submit</button>
-  
-
-  </form>
+	   <input type="text" [(ngModel)]="ngroupname" name="ngroupname" placeholder="groupname" ><br><br>
+	   <button (click) = "createNewGroup()">Submit</button>
+	</form>
+ </div>
 
 
 
 
-</div>
-<div id="logout">
-<img (click) = "logout()" src="https://img.icons8.com/bubbles/50/000000/exit.png">
-<button (click) = "logout()">Log Out</button>
-</div>
+ <div id="logout" >
+	<img (click) = "logout()" src="https://img.icons8.com/bubbles/50/000000/exit.png">
+	<button (click) = "logout()">Log Out</button>
+ </div>

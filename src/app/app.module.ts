@@ -6,18 +6,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AccountComponent } from './account/account.component';
 import {HttpClientModule} from '@angular/common/http';
-import { ProfileComponent } from './profile/profile.component';
-import { ChatComponent } from './chat/chat.component';
-import {SocketService} from './socket.service';
+
 import {CommonModule} from '@angular/common';
 @NgModule({
   declarations: [
 
     AppComponent,
     LoginComponent,
-    AccountComponent,
-    ProfileComponent,
-    ChatComponent
+    AccountComponent
   ],
   imports: [
     HttpClientModule,
@@ -25,7 +21,7 @@ import {CommonModule} from '@angular/common';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [SocketService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

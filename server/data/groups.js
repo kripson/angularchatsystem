@@ -1,1 +1,1 @@
-{"first group":{"groupname":"first group","creator":"super","admins":["super"],"asis":["super","sankit"],"channels":{"channel 1":{"channelname":"channel 1","members":["super","sankit"],"admins":["super"]}},"members":["super","sankit"]}}
+{"asdasdasdasd":{"groupname":"asdasdasdasd","creator":"super","admins":["super"],"asis":["super"],"channels":{},"members":["super"]}}

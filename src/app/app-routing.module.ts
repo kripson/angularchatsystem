@@ -2,22 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AccountComponent} from './account/account.component';
 import {LoginComponent} from './login/login.component';
-import {ProfileComponent} from './profile/profile.component';
-import {ChatComponent} from './chat/chat.component';
 
 const routes: Routes = [
-{
-	path:"chat",
-	component:ChatComponent
-
-},
-{
-	path:"profile",
-	component:ProfileComponent
-
-},
-
-
+	{
+		path:"",
+		component:LoginComponent
+	
+	},
 {
 
 path:"login",

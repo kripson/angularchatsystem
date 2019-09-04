@@ -14,7 +14,6 @@ fs.readFile('./data/groups.js','utf8',function(err,data)
                    	fs.writeFile('./data/groups.js', JSON.stringify(groups), function (err) {
                                 if (err) throw err;
 
-                                  console.log('Created!');
                                 
                    				// Updating super and group creator as an admin of newly created group
                    				fs.readFile('./data/users.js','utf8',function(err,data)
@@ -36,7 +35,6 @@ fs.readFile('./data/groups.js','utf8',function(err,data)
                		 				fs.writeFile('./data/users.js', JSON.stringify(users), function (err) {
                                 	if (err) throw err;
 
-                                  			console.log('Created!');
                                 
                    				
 

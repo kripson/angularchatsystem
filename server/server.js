@@ -7,10 +7,7 @@ var path = require('path');
 var cors = require('cors'); //import the cors package. 
 
 var fs = require('fs');
-// Sockets import
 
-const io = require('socket.io')(http);
-const PORT = 3000;
 
 
 
@@ -42,25 +39,7 @@ app.post('/addusertochannel',require('./routes/addusertochannel.js'));
 
 
 
-io.on('connection',(socket)=> 
-{
 
 
-	console.log("A socket has connected",socket.id);
-	io.emit('connect',"connection made");
-// When message comes, send it back to all sockets
-	socket.on('message',(message) =>
-	{
-		io.emit('message',message);
-	}
-	);
-	socket.on('connect',(username) =>
-	{
-		io.to(socket.id).emit('done',"Yes, you are connected!!!!");
-		io.emit('connected',username);
-	});
-}
-)
 
-
-http.listen(PORT);
+http.listen(3000);

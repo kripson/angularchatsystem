@@ -3,12 +3,16 @@ var fs = require('fs');
   module.exports = function(req,res){
             var falseObj = 
             {
-                username:"",
-                birthdate:"",
+                username:"" ,
+                birthdate:"" ,
                 age:"",
                 email:"",
-                password:"",
-                valid:false 
+                ofgroupadmin:false,
+                grouplist:[],
+                admingrouplist:[],
+                password:"", 
+                valid:false,
+                userlist:[] 
             };
                     // Reading User data file and User authentication
               fs.readFile('./data/users.js','utf8',function(err,data)
@@ -32,12 +36,12 @@ var fs = require('fs');
                     fs.writeFile('./data/users.js', JSON.stringify(users), function (err) {
                                 if (err) throw err;
 
-                                  console.log('Updated!');
                             
                                 fs.readFile('./data/users.js','utf8',function(err,data)
                                 {
                                     var users = JSON.parse(data);
-                                console.log(users);
+                                
+                                var responsebody ={};
                                 var totaluserlist = [];             
                                 for (var user in users)
                                 {
@@ -48,7 +52,6 @@ var fs = require('fs');
                                 }
                                 for (var user in users)
                                 {
-                                        console.log(user);
                                             if (req.body.username == users[user].username && req.body.password == users[user].password) 
                                         {
                                             if(req.body.username == "super")
@@ -58,13 +61,18 @@ var fs = require('fs');
                                             else
                                             {
                                                 users[user].userlist = [];
+                                                
                                             }
-                                                res.send(users[user]);
+                                            responsebody = users[user];
                                             
                                             
                                         }
-                                        
                                 }
+                                        if (responsebody == {})
+                                        {
+                                            responsebody = falseObj;
+                                        }
+                                res.send(responsebody);
 
                     });
                             });
@@ -75,8 +83,9 @@ var fs = require('fs');
                 {
 
                     var users = JSON.parse(data);
-                    console.log(users);
                     var totaluserlist = [];
+
+                    var responsebody = {};
                     for (var user in users)
                     {
                         if(user != "super")
@@ -86,25 +95,29 @@ var fs = require('fs');
                         
                     }
                     for (var user in users)
-                    {
-                            console.log(user);
-                                if (req.body.username == users[user].username && req.body.password == users[user].password) 
-                            {
-                                if(req.body.username == "super")
-                                {
-                                    users[user].userlist = totaluserlist;
+                        {
+                                            if (req.body.username == users[user].username && req.body.password == users[user].password) 
+                                        {
+                                            if(req.body.username == "super")
+                                            {
+                                                users[user].userlist = totaluserlist;
+                                            }
+                                            else
+                                            {
+                                                users[user].userlist = [];
+                                                
+                                            }
+                                            responsebody = users[user];
+                                            
+                                            
+                                        }
+                                        
                                 }
-                                else
+                                if (responsebody == {})
                                 {
-                                    users[user].userlist = [];
+                                    responsebody = falseObj;
                                 }
-                                    res.send(users[user]);
-                                
-                                
-                            }
-                            
-                    }
-                    // res.send(falseObj);
+                        res.send(responsebody);
                 }
             });
 };

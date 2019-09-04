@@ -40,22 +40,20 @@ export class LoginComponent implements OnInit {
 
     };
     
-    this.httpClient.post<Post>("http://localhost:3000/api/auth",body).subscribe(res => {  
-                alert(res.username);
+    this.httpClient.post<Post>("http://localhost:3000/api/auth",body).subscribe(res => {
                if(res.valid)
               {
                 if (typeof(Storage) !== "undefined")
                 {
                   var temp = res;
                   delete temp.password;
-                  console.log(temp.valid);
-                  sessionStorage.setItem("currentUser",JSON.stringify(temp));
+                  localStorage.setItem("currentUser",JSON.stringify(temp));
                 }
                 this.router.navigateByUrl("account");
               }
                else
               {
-                alert('Failed');
+                alert('Please enter valid login details');
               }
           });
 
