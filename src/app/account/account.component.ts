@@ -25,7 +25,6 @@ channels:any;
 
 interface Member
 {
-	membercount:number;
 	userlist:any;
 	notice:string;
 }
@@ -93,6 +92,14 @@ export class AccountComponent implements OnInit {
 
 
     nchannelname = "";
+
+
+    rusername = "";
+
+
+    cusername = "";
+    addtochannelname = "";
+
 
     
 
@@ -441,9 +448,8 @@ addNewUserToGroup()
                   var temp = JSON.parse(sessionStorage.getItem("currentUser"));
                   temp.userlist = res.userlist;
                   sessionStorage.setItem("currentUser",JSON.stringify(temp));
-                  this.detailedgroup.membercount = res.membercount;
                   this.userlist = res.userlist;
-                  alert(res.notice);
+                  this.groupDetail(this.detailedgroup.groupname);
                 }
               
                else
@@ -487,9 +493,9 @@ addExistingUserToGroup()
           
                 if (typeof(Storage) !== "undefined")
                 {
-                  this.detailedgroup.membercount = res.membercount;
                   this.userlist = res.userlist;
                   alert(res.notice);
+                  this.groupDetail(this.detailedgroup.groupname);
                 }
               
                else
@@ -507,6 +513,29 @@ addExistingUserToGroup()
 
 
 }
+
+
+
+//Remove the user from group
+removeUserFromGroup()
+{
+
+    var removeuser = {
+        groupname: this.detailedgroup.groupname,
+        username: this.rusername
+    };
+    this.httpClient.post<any>("http://localhost:3000/removeuserfromgroup",removeuser).subscribe(res => {  
+                    
+             
+                 alert(res.notice);
+                 this.groupDetail(this.detailedgroup.groupname);
+                
+              });
+}
+
+
+//
+
 
 promoteToGroupAdmin(username)
 {
@@ -540,8 +569,9 @@ promoteToGroupAdmin(username)
 //creating new channel
 createChannel()
 {
-
-
+    
+    if(this.nchannelname)
+  {
       var newchannel = 
       {
           groupname : this.detailedgroup.groupname,
@@ -573,7 +603,12 @@ createChannel()
                       
                     
                   
-              });         
+              });     
+    }
+  else
+  {
+    alert("Please insert a channel name");
+  }    
 
 
   
@@ -582,9 +617,8 @@ createChannel()
 //Deleting a channel
 deleteChannel(channel)
 {
-
-
-      var deletechannel = 
+  
+     var deletechannel = 
       {
           groupname : this.detailedgroup.groupname,
           channelname: channel,
@@ -609,7 +643,43 @@ deleteChannel(channel)
                       
                     
                   
-              });         
+              });   
+
+
+          
+
+
+  
+}
+
+
+//Add a group member to a channel
+addUserToChannel()
+{
+  if(this.cusername != "" && this.addtochannelname != "")
+  {
+     var adduser = 
+      {
+          username: this.cusername,
+          groupname : this.detailedgroup.groupname,
+          channelname: this.addtochannelname,
+      }
+
+    
+
+      this.httpClient.post<any>("http://localhost:3000/addusertochannel",adduser).subscribe(res => {  
+                    
+                 alert(res.notice);
+                 this.groupDetail(this.detailedgroup.groupname);
+                    
+                      
+                    
+                  
+              }); 
+    }  
+
+
+          
 
 
   

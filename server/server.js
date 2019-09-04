@@ -36,6 +36,10 @@ app.post('/promotetogroupadmin',require('./routes/promotetogroupadmin.js'));
 app.post('/createchannel',require('./routes/createchannel.js'));
 app.post('/deletechannel',require('./routes/deletechannel.js'));
 
+app.post('/removeuserfromgroup',require('./routes/removeuserfromgroup.js'));
+
+app.post('/addusertochannel',require('./routes/addusertochannel.js'));
+
 
 
 io.on('connection',(socket)=> 

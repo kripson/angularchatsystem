@@ -1,117 +1,58 @@
 var fs = require('fs');
 
   module.exports = function(req,res){
-         
-                   
-              fs.readFile('./data/users.js','utf8',function(err,data)
-            {
-                    var users = JSON.parse(data);
-                    var requestinfo = req.body;
-                    var groupname = requestinfo.groupname;
-                    var isofasis = requestinfo.ofgroupasis;
-                    var creator = requestinfo.creator;
-                    var responsebody = {};
-
-                    if(users.hasOwnProperty(req.body.username) && users[req.body.username].grouplist.includes(groupname) == false)
-                    {
-                            users[req.body.username].grouplist.push(groupname);
-                    fs.writeFile('./data/users.js', JSON.stringify(users), function (err)
-                    {
-                        console.log("group added to the user's Group List");
-
-                                // adding the user to desired group
-                                fs.readFile('./data/groups.js','utf-8',function(err,data)
-                                {
-                                    if(err) 
-                                    {
-                                        console.log(err);
-                                    }
-                                    else
-                                    {
 
 
-                                    var groups = JSON.parse(data);
-                                    console.log(groups);
-                                    console.log(groupname);
-                                    groups[groupname].members.push(req.body.username);
-                                    if(isofasis)
-                                    {
-                                        groups[groupname].asis.push(req.body.username);
-                                    }
-                                    responsebody.membercount =  groups[groupname].members.length;
+    var users =    JSON.parse(fs.readFileSync('./data/users.js','utf-8'));
+    var groups =   JSON.parse(fs.readFileSync('./data/groups.js','utf-8'));
 
-                                     fs.writeFile('./data/groups.js', JSON.stringify(groups), function (err)
-                                        {
-                                            console.log("user added to the group");
-                                                        fs.readFile('./data/users.js','utf-8', function(err,data)
-                                                {
-                                                    if(err) throw err;
-                                                    var users = JSON.parse(data);
-                                                    var userlist = [];
-                                                    for (var user in users)
-                                                    {
-                                                       if(user!="super" && creator == "super")
-                                                            {
-                                                                    userlist.push(user);
-                                                            }
-                                                    }
-                                                    responsebody.userlist = userlist;
-                                                    responsebody.notice = "User Added to the group";
-                                                    res.send(responsebody);
+    var requestinfo = req.body;
+    var groupname = requestinfo.groupname;
+    var isofasis = requestinfo.ofgroupasis;
+    var creator = requestinfo.creator;
+    var responsebody = {};
+    if(users.hasOwnProperty(req.body.username) && users[req.body.username].grouplist.includes(groupname) == false && groups.hasOwnProperty(groupname))
+    {
+         users[req.body.username].grouplist.push(groupname);
+        fs.writeFileSync('./data/users.js', JSON.stringify(users));
 
-
-                                                        });
-                                                    });
-                                             }
-                                            });
-                                  });
-                    
-                    }
-                    else
-                    {
-
-                                fs.readFile('./data/groups.js','utf-8',function(err,data)
-                                {
-                                    if(err) 
-                                    {
-                                        console.log(err);
-                                    }
-                                    else
-                                    {
-
-
-                                    var groups = JSON.parse(data);
-                
-                                    
-                                    responsebody.membercount =  groups[groupname].members.length;
-
-                                    
-                                                fs.readFile('./data/users.js','utf-8', function(err,data)
-                                                {
-                                                    if(err) throw err;
-                                                    var users = JSON.parse(data);
-                                                    var userlist = [];
-                                                    for (var user in users)
-                                                    {
-                                                       if(user!="super" && creator == "super")
-                                                            {
-                                                                    userlist.push(user);
-                                                            }
-                                                    }
-                                                    responsebody.userlist = userlist;
-                                                    responsebody.notice = "User doesnot exist or user is already a member of the group";
-                                                    res.send(responsebody);
-
-
-                                                        });
-                                                    
-                                            }
-                                            });
-                                  }
-
-                    });
-                    
-                    
-
-                
+         // adding the user to desired group
+         groups = JSON.parse(fs.readFileSync('./data/groups.js','utf-8'));
+                        
+          groups[groupname].members.push(req.body.username);
+          if(isofasis)
+          {
+          groups[groupname].asis.push(req.body.username);
           }
+          fs.writeFileSync('./data/groups.js', JSON.stringify(groups));
+
+        users = JSON.parse(fs.readFileSync('./data/users.js','utf-8'));
+        var userlist = [];
+        for (var user in users)
+        {
+            if(user!="super" && creator == "super")
+                   {
+                           userlist.push(user);
+                   }
+        }
+         responsebody.userlist = userlist;
+         responsebody.notice = "User added to the group";
+         res.send(responsebody);
+    }
+    else
+    {
+        var userlist = [];
+        for (var user in users)
+        {
+            if(user!="super" && creator == "super")
+                   {
+                           userlist.push(user);
+                   }
+        }
+         responsebody.userlist = userlist;
+         responsebody.notice = "User cannot be added. Either user does not exist or is already a member of the group";
+         res.send(responsebody);
+    }
+}
+
+  
