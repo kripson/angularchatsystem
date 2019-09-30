@@ -97,10 +97,10 @@ module.exports = function(dbo,app)
                 }
 
               });
-
+              console.log(channels);
               for(var channel in channels)
               {
-                    channel.members.forEach((member,index)=>
+                    channels[channel].members.forEach((member,index)=>
                   {
                     if(member === requestbody.username)
                     {
@@ -108,7 +108,7 @@ module.exports = function(dbo,app)
                     }
 
                   });
-                     channel.admins.forEach((admin,index)=>
+                     channels[channel].admins.forEach((admin,index)=>
                   {
                     if(admin === requestbody.username)
                     {

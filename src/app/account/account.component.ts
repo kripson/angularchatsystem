@@ -8,7 +8,8 @@ import {
 import {
 	HttpClient
 } from '@angular/common/http';
-
+import {FormsModule} from '@angular/forms';
+import {SocketService} from '../socket.service';
 
 // Interfaces for reply from server after a http request
 interface Users {
@@ -108,9 +109,29 @@ export class AccountComponent implements OnInit {
 	removefromchannelname = "";
 
 
-	constructor(private router: Router, private httpClient: HttpClient) {}
+//for chat system
+	
+	currentchannel = "";
+	isinroom = false;
+	messages = [];
+	message = "";
+	channelnotice = "";
+
+
+	constructor(private router: Router, private httpClient: HttpClient,private socketService:SocketService) {}
 
 	ngOnInit() {
+
+				this.socketService.getmessage((message)=>
+			  {
+			  	alert(message);
+			  		this.messages = JSON.parse(message);
+			  });
+
+			  this.socketService.getchannelnotice((notice)=>
+			  {
+			  		this.channelnotice = notice;
+			  });
 
     //setting up page
 		if (typeof (Storage) !== "undefined") {
@@ -133,6 +154,20 @@ export class AccountComponent implements OnInit {
 				this.router.navigateByUrl('login');
 			}
 		}
+	}
+
+	sendmessage()
+	{
+		var sendbody = {
+
+			message:this.message,
+			groupname:this.detailedgroup.groupname,
+			channelname: this.currentchannel
+		}
+
+			this.socketService.sendmessage(sendbody);
+					 
+
 	}
 
 	//function to update the userlist
@@ -602,7 +637,8 @@ export class AccountComponent implements OnInit {
 				groupname: this.detailedgroup.groupname,
 				channelname: this.nchannelname,
 				members: ["super", this.username],
-				admins: ["super", this.username]
+				admins: ["super", this.username],
+				history:[]
 			}
 
 			if (this.username == 'super') {
@@ -722,4 +758,49 @@ export class AccountComponent implements OnInit {
 
 
 	}
+
+
+	//join channel
+
+	channelDetails(channelname)
+	{
+
+		if(!this.isinroom)
+		{
+			this.currentchannel = channelname;
+
+		var joinrequest = 
+		{
+
+			channelname:channelname,
+			groupname:this.detailedgroup.groupname,
+
+		}
+		this.socketService.joinchannel(joinrequest);
+		}
+		else
+		{
+			alert("Please leave the current channel first");
+		}
+		this.isinroom = true;
+
+		
+
+	}
+
+	//join channel
+
+	leaveChannel()
+	{
+		this.isinroom = false;
+		var leaverequest = 
+		{
+
+			channelname:this.currentchannel,
+
+		}
+		this.socketService.leavechannel(leaverequest);
+	}
+		
+		
 }

@@ -33,7 +33,7 @@
 	<h1>{{detailedgroup.groupname}}</h1>
 	<h2><img src="https://img.icons8.com/dusk/64/000000/groups.png">{{detailedgroup.membercount }} member/s </h2>
 	<ul>
-	   <li *ngFor = "let channel of detailedgroup.channels"><a  (click) = "channelDetail(channel)">{{channel}}</a>
+	   <li *ngFor = "let channel of detailedgroup.channels"><a  (click) = "channelDetails(channel)">{{channel}}</a>
 		  <button (click) = "deleteChannel(channel)" *ngIf="detailedgroup.isofadmin">Delete Channel</button>
 	   </li>
 	</ul>
@@ -51,7 +51,7 @@
 	<div *ngIf="detailedgroup.isofasis" style="border:1px solid black;padding:1em;background-color: antiquewhite">
 	   <input type="text" [(ngModel)]="cusername" name="cusername" placeholder="user name"><br><br>
 	   <select  [(ngModel)]="addtochannelname" name="addtochannelname">
-	   	<option *ngFor = "let channel of detailedgroup.channels" value = channel>{{channel}}
+	   	<option *ngFor = "let channel of detailedgroup.channels" value = {{channel}}>{{channel}}
 	   	</option>
 	   </select>
 	   <br><br>
@@ -59,8 +59,8 @@
 	</div>
 	<div *ngIf="detailedgroup.isofasis" style="border:1px solid black;padding:1em;background-color: antiquewhite">
 	   <input type="text" [(ngModel)]="rcusername" name="rcusername" placeholder="user name"><br><br>
-	   <select  [(ngModel)]="addtochannelname" name="addtochannelname">
-	   	<option *ngFor = "let channel of detailedgroup.channels" value = channel>{{channel}}
+	   <select  [(ngModel)]="removefromchannelname" name="removefromchannelname">
+	   	<option *ngFor = "let channel of detailedgroup.channels" value = {{channel}}>{{channel}}
 	   	</option>
 	   </select>
 	   <br><br>
@@ -121,6 +121,17 @@
 	</form>
  </div>
 
+
+
+<div id="chatbox" *ngIf="isinroom">
+
+	<p *ngFor = "let message of messages" >{{message}}
+	   	</p>
+	<input type="text" [(ngModel)]="message" name="message">
+	<h1>{{channelnotice}}</h1>
+	<button (click) = "sendmessage()">Send message</button>
+	<button (click) = "leaveChannel()">Leave this channel</button>
+</div>
 
 
 

@@ -43,9 +43,10 @@ module.exports = function(dbo,app)
         var channelcreate = await new Promise((resolve,reject)=>
       {
         var new_channel =  {
-                              channelname:req.body.channelname,
-                              members : req.body.members,
-                              admins : req.body.admins
+                              channelname:requestbody.channelname,
+                              members : requestbody.members,
+                              admins : requestbody.admins,
+                              history: requestbody.history
 
                           };
 

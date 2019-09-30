@@ -79,19 +79,19 @@ module.exports = function(dbo,app)
 
               for(var channel in channels)
               {
-                    channel.members.forEach((member,index)=>
+                    channels[channel].members.forEach((member,index)=>
                   {
                     if(member === requestbody.username)
                     {
-                      channel.members.splice(index,1);
+                      channels[channel].members.splice(index,1);
                     }
 
                   });
-                     channel.admins.forEach((admin,index)=>
+                     channels[channel].admins.forEach((admin,index)=>
                   {
                     if(admin === requestbody.username)
                     {
-                      channel.admins.splice(index,1);
+                      channels[channel].admins.splice(index,1);
                     }
 
                   });
