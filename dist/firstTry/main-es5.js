@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"center\">\r\n<h1> Account Page </h1>\r\n\r\n<p><img src=\"https://img.icons8.com/bubbles/50/000000/user.png\">{{username}}</p>\r\n<p><img src=\"https://img.icons8.com/cute-clipart/64/000000/birthday-cake.png\">{{birthdate}}</p>\r\n<p>Age: {{age}}</p>\r\n<p>Email:{{email}}</p>\r\n</div>\r\n\r\n<div id=\"userlist\" *ngIf = \"userlist.length\">\r\n\t<h3><img src=\"https://img.icons8.com/bubbles/50/000000/user.png\"> Users List</h3>\r\n\t\r\n\t<ul>\r\n\t\t<li *ngFor = \"let user of userlist\">{{user}}<br><button (click) = \"deleteUser(user)\">Delete this user</button><button (click) = \"promoteToGroupAdmin(user)\">Promote to Group Admin</button></li>\r\n\r\n\t</ul>\r\n</div>\r\n\r\n<div id=\"grouplist\" *ngIf=\"grouplist.length\">\r\n\t<h3><img src=\"https://img.icons8.com/dusk/64/000000/groups.png\">Your Groups</h3>\r\n\t<ul>\r\n\t\t<li *ngFor = \"let group of grouplist\"><a  (click) = \"groupDetail(group)\">{{group}}</a><div *ngIf=\"admingrouplist.length > 0 &&  admingrouplist.includes(group)\"><button (click) = \"deleteGroup(group)\">Delete Group</button></div></li>\r\n\t</ul>\r\n</div>\r\n\r\n\r\n<div id=\"groupdetails\" *ngIf=\"detailedgroup.groupname\">\r\n\t<h1>Group Details</h1>\r\n\t<h1>{{detailedgroup.groupname}}</h1>\r\n\t<h2><img src=\"https://img.icons8.com/dusk/64/000000/groups.png\">{{detailedgroup.membercount }} member/s </h2>\r\n\t<ul>\r\n\t\t<li *ngFor = \"let channel of detailedgroup.channels\"><a  (click) = \"channelDetail(channel)\">{{channel}}</a>\r\n\t\t\t<button (click) = \"deleteChannel(channel)\" *ngIf=\"detailedgroup.isofadmin\">Delete Channel</button>\r\n\t\t</li>\r\n\t</ul>\r\n\t<img id=\"close\" (click) = \"removegroupdetails()\" src=\"https://img.icons8.com/flat_round/64/000000/delete-sign.png\">\r\n\r\n\r\n\t<!-- New channel form -->\r\n\t<div id=\"channelcreation\" *ngIf=\"detailedgroup.isofasis\">\r\n\t\t<input type=\"text\" [(ngModel)]=\"nchannelname\" name=\"nchannelname\" placeholder=\"channel name\"><br><br>\r\n\t\t<button (click) = \"createChannel()\"> Create a channel</button>\r\n\t</div>\r\n\r\n\t<div *ngIf=\"detailedgroup.isofasis\">\r\n\t\t<input type=\"text\" [(ngModel)]=\"cusername\" name=\"cusername\" placeholder=\"user name\"><br><br>\r\n\t\t<input type=\"text\" [(ngModel)]=\"addtochannelname\" name=\"addtochannelname\" placeholder=\"channel name\"><br><br>\r\n\t\t<button (click) = \"addUserToChannel()\"> Add user to a channel</button>\r\n\t</div>\r\n\r\n\r\n\t<div *ngIf=\"detailedgroup.isofadmin\">\r\n\t\t<button (click) = \"turn(1)\">Create a new user and add to the group</button>\r\n\t\t<button (click) = \"turn(2)\">Add an existing user to the group</button><br>\r\n\t\t<div *ngIf =\"createnewgroupuser\">\r\n\t\t<input type=\"text\" [(ngModel)]=\"ngroupusername\" name=\"ngroupusername\" placeholder=\"username\" ><br><br>\r\n       <input type=\"text\" [(ngModel)]=\"ngroupbirthdate\" name=\"ngroupbirthdate\" placeholder=\"birthdate\" required><br><br>\r\n        <input type=\"text\" [(ngModel)]=\"ngroupage\" name=\"ngroupage\" placeholder=\"age\" required><br><br>\r\n         <input type=\"text\" [(ngModel)]=\"ngroupemail\" name=\"ngroupemail\" placeholder=\"email\" required><br><br>\r\n         <input type=\"text\" [(ngModel)]=\"nofgroupasis\" name=\"nofgroupasis\" placeholder=\"asis role?\" required><br><br>\r\n     \t <input type=\"password\" [(ngModel)]=\"ngrouppassword\" name=\"ngrouppassword\" placeholder=\"password\" required>\r\n     \t <br><br>\r\n\t\t<button (click) = \"addNewUserToGroup()\">Create a new user and add to the group</button></div>\r\n\t\t<div *ngIf = \"addnewgroupuser\">\r\n\t\t<input type=\"text\" [(ngModel)]=\"groupusername\" name=\"groupusername\" placeholder=\"username\" required><br><br>\r\n       <input type=\"text\" [(ngModel)]=\"ofgroupasis\" name=\"ofgroupasis\" placeholder=\"group asis?\" required><br><br>\r\n\t\t<button (click) = \"addExistingUserToGroup()\">Add a current user to the group</button></div>\r\n\r\n\r\n\r\n\t\t<input type=\"text\" [(ngModel)]=\"rusername\" name=\"rusername\" placeholder=\"username\" ><br><br>\r\n\t\t<button (click) = \"removeUserFromGroup()\">Remove a user from the group</button>\r\n\t\t\r\n\r\n\t\r\n\r\n</div>\r\n\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n<div id=\"newuserform\" *ngIf=\"username == 'super'\">\r\n\t<h1> Create A New User Here<img src=\"https://img.icons8.com/bubbles/50/000000/user.png\"></h1>\r\n\t<form>\r\n  \r\n      <input type=\"text\" [(ngModel)]=\"nusername\" name=\"nusername\" placeholder=\"username\" required><br><br>\r\n       <input type=\"text\" [(ngModel)]=\"nbirthdate\" name=\"nbirthdate\" placeholder=\"birthdate\" required><br><br>\r\n        <input type=\"text\" [(ngModel)]=\"nage\" name=\"nage\" placeholder=\"age\" required><br><br>\r\n         <input type=\"text\" [(ngModel)]=\"nemail\" name=\"nemail\" placeholder=\"email\" required><br><br>\r\n            <input type=\"text\" [(ngModel)]=\"nofgroupadmin\" name=\"nofgroupadmin\" placeholder=\"admin role?\" required><br><br>\r\n\r\n\r\n      <input type=\"password\" [(ngModel)]=\"npassword\" name=\"npassword\" placeholder=\"password\"><br><br>\r\n\r\n\r\n\r\n      <button (click) = \"createNewUser()\">Submit</button>\r\n  \r\n\r\n  </form>\r\n</div>\r\n\r\n  <div id=\"newgroupform\" *ngIf=\"ofgroupadmin\">\r\n  \t<h1> Create A New group Here<img src=\"https://img.icons8.com/dusk/64/000000/groups.png\"></h1>\r\n\t<form>\r\n  \r\n      <input type=\"text\" [(ngModel)]=\"ngroupname\" name=\"ngroupname\" placeholder=\"groupname\" ><br><br>\r\n\r\n\r\n\r\n      <button (click) = \"createNewGroup()\">Submit</button>\r\n  \r\n\r\n  </form>\r\n\r\n\r\n\r\n\r\n</div>\r\n<div id=\"logout\">\r\n<img (click) = \"logout()\" src=\"https://img.icons8.com/bubbles/50/000000/exit.png\">\r\n<button (click) = \"logout()\">Log Out</button>\r\n</div>\r\n"
+module.exports = "<div id=\"center\">\n\t<h1> Account Page </h1>\n\t<p><img src=\"https://img.icons8.com/bubbles/50/000000/user.png\">{{username}}</p>\n\t<p><img src=\"https://img.icons8.com/cute-clipart/64/000000/birthday-cake.png\">{{birthdate}}</p>\n\t<p>Age: {{age}}</p>\n\t<p>Email:{{email}}</p>\n </div>\n\n\n\n <div id=\"userlist\" *ngIf = \"userlist.length\">\n\t<h3><img src=\"https://img.icons8.com/bubbles/50/000000/user.png\"> Users List</h3>\n\t<ul>\n\t   <li *ngFor = \"let user of userlist\">{{user}}<br><button (click) = \"deleteUser(user)\">Delete this user</button><button (click) = \"promoteToGroupAdmin(user)\">Promote to Group Admin</button></li>\n\t</ul>\n </div>\n\n\n <div id=\"grouplist\" *ngIf=\"grouplist.length\">\n\t<h3><img src=\"https://img.icons8.com/dusk/64/000000/groups.png\">Your Groups</h3>\n\t<ul>\n\t   <li *ngFor = \"let group of grouplist\">\n\t\t  <a  (click) = \"groupDetail(group)\">{{group}}</a>\n\t\t  <div *ngIf=\"admingrouplist.length > 0 &&  admingrouplist.includes(group)\"><button (click) = \"deleteGroup(group)\">Delete Group</button></div>\n\t   </li>\n\t</ul>\n </div>\n\n\n\n <div id=\"groupdetails\" *ngIf=\"detailedgroup.groupname\">\n\t<h1>Group Details</h1>\n\t<h1>{{detailedgroup.groupname}}</h1>\n\t<h2><img src=\"https://img.icons8.com/dusk/64/000000/groups.png\">{{detailedgroup.membercount }} member/s </h2>\n\t<ul>\n\t   <li *ngFor = \"let channel of detailedgroup.channels\"><a  (click) = \"channelDetail(channel)\">{{channel}}</a>\n\t\t  <button (click) = \"deleteChannel(channel)\" *ngIf=\"detailedgroup.isofadmin\">Delete Channel</button>\n\t   </li>\n\t</ul>\n\t<img id=\"close\" (click) = \"removegroupdetails()\" src=\"https://img.icons8.com/flat_round/64/000000/delete-sign.png\">\n\n\t<br><br>\n\t<!-- New channel form -->\n\t<div id=\"channelcreation\" *ngIf=\"detailedgroup.isofasis\" style=\"border:1px solid black;padding:1em;background-color: antiquewhite\">\n\t   <input type=\"text\" [(ngModel)]=\"nchannelname\" name=\"nchannelname\" placeholder=\"channel name\"><br><br>\n\t   <button (click) = \"createChannel()\"> Create a channel</button>\n\n\t</div>\n\t<br><br>\n\n\t<div *ngIf=\"detailedgroup.isofasis\" style=\"border:1px solid black;padding:1em;background-color: antiquewhite\">\n\t   <input type=\"text\" [(ngModel)]=\"cusername\" name=\"cusername\" placeholder=\"user name\"><br><br>\n\t   <input type=\"text\" [(ngModel)]=\"addtochannelname\" name=\"addtochannelname\" placeholder=\"channel name\"><br><br>\n\t   <button (click) = \"addUserToChannel()\"> Add user to a channel</button>\n\t</div>\n\t<br><br>\n\t<div *ngIf=\"detailedgroup.isofadmin\">\n\t   <button (click) = \"turn(1)\">Create a new user and add to the group</button>\n\t   <button (click) = \"turn(2)\">Add an existing user to the group</button><br>\n\t   <br>\n\t   <div *ngIf =\"createnewgroupuser\" style=\"border:1px solid black;padding:1em;background-color: antiquewhite\">\n\t\t  <input type=\"text\" [(ngModel)]=\"ngroupusername\" name=\"ngroupusername\" placeholder=\"username\" ><br><br>\n\t\t  <input type=\"text\" [(ngModel)]=\"ngroupbirthdate\" name=\"ngroupbirthdate\" placeholder=\"birthdate\" required><br><br>\n\t\t  <input type=\"text\" [(ngModel)]=\"ngroupage\" name=\"ngroupage\" placeholder=\"age\" required><br><br>\n\t\t  <input type=\"text\" [(ngModel)]=\"ngroupemail\" name=\"ngroupemail\" placeholder=\"email\" required><br><br>\n\t\t  <input type=\"text\" [(ngModel)]=\"nofgroupasis\" name=\"nofgroupasis\" placeholder=\"asis role?\" required><br><br>\n\t\t  <input type=\"password\" [(ngModel)]=\"ngrouppassword\" name=\"ngrouppassword\" placeholder=\"password\" required>\n\t\t  <br><br>\n\t\t  <button (click) = \"addNewUserToGroup()\">Create a new user and add to the group</button>\n\t   </div>\n\t   <br><br>\n\t   <div *ngIf = \"addnewgroupuser\" style=\"border:1px solid black;padding:1em;background-color: antiquewhite\">\n\t\t  <input type=\"text\" [(ngModel)]=\"groupusername\" name=\"groupusername\" placeholder=\"username\" required><br><br>\n\t\t  <input type=\"text\" [(ngModel)]=\"ofgroupasis\" name=\"ofgroupasis\" placeholder=\"group asis?\" required><br><br>\n\t\t  <button (click) = \"addExistingUserToGroup()\">Add a current user to the group</button>\n\t   </div>\n\n\n\t   <br><br>\n\t   <input type=\"text\" [(ngModel)]=\"rusername\" name=\"rusername\" placeholder=\"username\" ><br><br>\n\t   <button (click) = \"removeUserFromGroup()\">Remove a user from the group</button>\n\t</div>\n </div>\n\n\n <br><br>\n\n <div id=\"newuserform\" *ngIf=\"username == 'super'\">\n\t<h1> Create A New User Here<img src=\"https://img.icons8.com/bubbles/50/000000/user.png\"></h1>\n\t<form>\n\t   <input type=\"text\" [(ngModel)]=\"nusername\" name=\"nusername\" placeholder=\"username\" required><br><br>\n\t   <input type=\"text\" [(ngModel)]=\"nbirthdate\" name=\"nbirthdate\" placeholder=\"birthdate\" required><br><br>\n\t   <input type=\"text\" [(ngModel)]=\"nage\" name=\"nage\" placeholder=\"age\" required><br><br>\n\t   <input type=\"text\" [(ngModel)]=\"nemail\" name=\"nemail\" placeholder=\"email\" required><br><br>\n\t   <input type=\"text\" [(ngModel)]=\"nofgroupadmin\" name=\"nofgroupadmin\" placeholder=\"admin role?\" required><br><br>\n\t   <input type=\"password\" [(ngModel)]=\"npassword\" name=\"npassword\" placeholder=\"password\"><br><br>\n\t   <button (click) = \"createNewUser()\">Submit</button>\n\t</form>\n </div>\n\n <br><br>\n\n <div id=\"newgroupform\" *ngIf=\"ofgroupadmin\">\n\t<h1> Create A New group Here<img src=\"https://img.icons8.com/dusk/64/000000/groups.png\"></h1>\n\t<form>\n\t   <input type=\"text\" [(ngModel)]=\"ngroupname\" name=\"ngroupname\" placeholder=\"groupname\" ><br><br>\n\t   <button (click) = \"createNewGroup()\">Submit</button>\n\t</form>\n </div>\n\n\n\n\n <div id=\"logout\" >\n\t<img (click) = \"logout()\" src=\"https://img.icons8.com/bubbles/50/000000/exit.png\">\n\t<button (click) = \"logout()\">Log Out</button>\n </div>"
 
 /***/ }),
 
@@ -41,18 +41,7 @@ module.exports = "<div id=\"center\">\r\n<h1> Account Page </h1>\r\n\r\n<p><img 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<nav class=\"navbar navbar-default\">\r\n  <div class=\"container-fluid\">\r\n    <ul class=\"nav navbar-nav\">\r\n\r\n\r\n\t\t<li class=\"active\"><a class=\"nav-link\" routerLink=\"/\">Home</a></li> \r\n\t\t<li> <a class=\"nav-link\" routerLink=\"/login\">login</a></li>\r\n\t\t<li><a class=\"nav-link\" routerLink=\"/account\">Account</a></li>\r\n\t\t<li><a class=\"nav-link\" routerLink=\"/profile\">Profile</a></li>\r\n\t\t<li><a class=\"nav-link\" routerLink=\"/chat\">Chat</a></li>\r\n\t</ul> \r\n\r\n  </div>\r\n</nav>\r\n\r\n\r\n\r\n<div class=\"container\">\r\n<router-outlet></router-outlet>\r\n</div>\r\n\r\n"
-
-/***/ }),
-
-/***/ "./node_modules/raw-loader/index.js!./src/app/chat/chat.component.html":
-/*!********************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/chat/chat.component.html ***!
-  \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<form>\r\n\t\r\n\t<label for=\"messagecontent\">Your Message</label>\r\n\t<input type=\"text\" [(ngModel)]=\"messagecontent\" name=\"messagecontent\" id=\"messagecontent\" >\r\n\r\n\t<button (click)=\"chat(messagecontent)\">Chat</button>\r\n</form>\r\n\r\n\r\n\r\n\r\n<h1> Chat Messages</h1>\r\n<div>\r\n\t\r\n\t<ul>\r\n\t\t<li *ngFor = \"let message of messages\">{{message}}</li>\r\n\t</ul>\r\n</div>\r\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<nav class=\"navbar navbar-default\">\n\n  <div class=\"container-fluid\">\n    <ul class=\"nav navbar-nav\">\n\n\n\t\t<li class=\"active\"><a class=\"nav-link\" routerLink=\"/\">Home</a></li> \n\t\t<li> <a class=\"nav-link\" routerLink=\"/login\">login</a></li>\n\t\t<li><a class=\"nav-link\" routerLink=\"/account\">Dashboard</a></li>\n\t</ul> \n\n  </div>\n</nav>\n\n\n\n<div class=\"container\">\n<router-outlet></router-outlet>\n</div>\n\n"
 
 /***/ }),
 
@@ -63,18 +52,7 @@ module.exports = "<form>\r\n\t\r\n\t<label for=\"messagecontent\">Your Message</
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class = \"loginForm\">\r\n  <form>\r\n  \r\n      <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" placeholder=\"username\"><br><br>\r\n\r\n      <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" placeholder=\"password\"><br><br>\r\n      <button (click) = \"nav()\">Submit</button>\r\n  \r\n\r\n  </form>\r\n</div>\r\n  "
-
-/***/ }),
-
-/***/ "./node_modules/raw-loader/index.js!./src/app/profile/profile.component.html":
-/*!**************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/profile/profile.component.html ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class = \"profileForm\">\r\n  <form>\r\n  \t\t<!-- Place to edit the details for a user -->\r\n  \t\t<p>Username:</p>\r\n      <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" placeholder=\"{{username}}\"><br><br>\r\n\r\n      <p>Birthdate:</p>\r\n      <input type=\"text\" [(ngModel)]=\"birthdate\" name=\"birthdate\" placeholder=\"{{birthdate}}\"><br><br>\r\n\r\n\t<p>Age:</p>\t\r\n       <input type=\"text\" [(ngModel)]=\"age\" name=\"age\" placeholder=\"{{age}}\"><br><br>\r\n       <p>Email:</p>\r\n      <input type=\"text\" [(ngModel)]=\"email\" name=\"email\" placeholder=\"{{email}}\"><br><br>\r\n\r\n\r\n  \r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n      <button (click) = \"change()\">Submit</button>\r\n\r\n      <button (click) = \"goToAccount()\">Go To Account</button>\r\n  \r\n\r\n  </form>\r\n</div>\r\n"
+module.exports = "<h1>Initial login- Use \"super\" as both username and password</h1>\n<div class = \"loginForm\">\n  <form>\n  \n      <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" placeholder=\"username\"><br><br>\n\n      <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" placeholder=\"password\"><br><br>\n      <button (click) = \"nav()\">Submit</button>\n  \n\n  </form>\n</div>\n  "
 
 /***/ }),
 
@@ -85,7 +63,7 @@ module.exports = "<div class = \"profileForm\">\r\n  <form>\r\n  \t\t<!-- Place 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n#center\r\n{\r\n\twidth: 50%;\r\n\tmargin-left: auto;\r\n\tmargin-right: auto; \r\n\tz-index: -1;\r\n\tposition: absolute;\r\n\ttop: 1em;\r\n\tleft: 10em;\r\n\r\n\r\n}\r\n#userlist\r\n{\r\n\tposition: absolute;\r\n\ttop: 5em;\r\n\tright: 1em;\r\n\theight:500px;\r\n\twidth: 25%;\r\n\tborder:2px solid black;\r\n\tbox-shadow: 10px 10px 30px black;\r\n\toverflow-x: scroll;\r\n}\r\n#userlist h3\r\n{\r\n\ttext-align: center;\r\n}\r\n#userlist ul\r\n{\r\n\tlist-style: none;\r\n}\r\n#grouplist\r\n{\r\n\tposition: absolute;\r\n\twidth: 30%;\r\n\tbottom:2em;\r\n\theight: 300px;\r\n\tright: 1em;\r\n\tborder:2px solid black;\r\n\tbox-shadow: 10px 10px 30px black;\r\n\toverflow-x: scroll;\r\n\r\n}\r\n#grouplist ul\r\n{\r\n\tlist-style: none;\r\n}\r\n#grouplist ul li:hover\r\n{\r\n\tcursor: pointer;\r\n}\r\n#grouplist img\r\n{\r\n\theight: 40px;\r\n\twidth: 40px;\r\n}\r\n#grouplist h3\r\n{\r\n\ttext-align: center;\r\n}\r\n#groupdetails \r\n{\r\n\tposition: relative;\r\n\tborder:2px solid black;\r\n\tbox-shadow: 10px 10px 30px black;\r\n\toverflow-x: scroll;\r\n\twidth: 70%;\r\n\tpadding: 1em;\r\n\tmargin-bottom:  2em;\r\n}\r\n#close\r\n{\r\n\tposition: absolute;\r\n\ttop: 1em;\r\n\tright: 1em;\r\n\r\n}\r\n#close:hover\r\n{\r\n\tcursor: pointer;\r\n\r\n}\r\n#newuserform\r\n{\r\n\tbox-shadow: 10px 10px 50px grey;\r\n\toverflow-x: scroll;\r\n\twidth: 70%;\r\n\tpadding: 1em;\r\n\tmargin:2em 2em;\r\n\tborder-radius: 15px;\r\n}\r\n#newgroupform\r\n{\r\n\tbox-shadow: 10px 10px 50px grey;\r\n\toverflow-x: scroll;\r\n\twidth: 70%;\r\n\tpadding: 1em;\r\n\tmargin:2em 2em;\r\n\tborder-radius: 15px;\r\n}\r\n#logout\r\n{\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tright: 1em;\r\n}\r\n\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWNjb3VudC9hY2NvdW50LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUNBOztDQUVDLFVBQVU7Q0FDVixpQkFBaUI7Q0FDakIsa0JBQWtCO0NBQ2xCLFdBQVc7Q0FDWCxrQkFBa0I7Q0FDbEIsUUFBUTtDQUNSLFVBQVU7OztBQUdYO0FBQ0E7O0NBRUMsa0JBQWtCO0NBQ2xCLFFBQVE7Q0FDUixVQUFVO0NBQ1YsWUFBWTtDQUNaLFVBQVU7Q0FDVixzQkFBc0I7Q0FDdEIsZ0NBQWdDO0NBQ2hDLGtCQUFrQjtBQUNuQjtBQUVBOztDQUVDLGtCQUFrQjtBQUNuQjtBQUVBOztDQUVDLGdCQUFnQjtBQUNqQjtBQUdBOztDQUVDLGtCQUFrQjtDQUNsQixVQUFVO0NBQ1YsVUFBVTtDQUNWLGFBQWE7Q0FDYixVQUFVO0NBQ1Ysc0JBQXNCO0NBQ3RCLGdDQUFnQztDQUNoQyxrQkFBa0I7O0FBRW5CO0FBQ0E7O0NBRUMsZ0JBQWdCO0FBQ2pCO0FBRUE7O0NBRUMsZUFBZTtBQUNoQjtBQUVBOztDQUVDLFlBQVk7Q0FDWixXQUFXO0FBQ1o7QUFDQTs7Q0FFQyxrQkFBa0I7QUFDbkI7QUFHQTs7Q0FFQyxrQkFBa0I7Q0FDbEIsc0JBQXNCO0NBQ3RCLGdDQUFnQztDQUNoQyxrQkFBa0I7Q0FDbEIsVUFBVTtDQUNWLFlBQVk7Q0FDWixtQkFBbUI7QUFDcEI7QUFFQTs7Q0FFQyxrQkFBa0I7Q0FDbEIsUUFBUTtDQUNSLFVBQVU7O0FBRVg7QUFDQTs7Q0FFQyxlQUFlOztBQUVoQjtBQUVBOztDQUVDLCtCQUErQjtDQUMvQixrQkFBa0I7Q0FDbEIsVUFBVTtDQUNWLFlBQVk7Q0FDWixjQUFjO0NBQ2QsbUJBQW1CO0FBQ3BCO0FBRUE7O0NBRUMsK0JBQStCO0NBQy9CLGtCQUFrQjtDQUNsQixVQUFVO0NBQ1YsWUFBWTtDQUNaLGNBQWM7Q0FDZCxtQkFBbUI7QUFDcEI7QUFFQTs7Q0FFQyxrQkFBa0I7Q0FDbEIsTUFBTTtDQUNOLFVBQVU7QUFDWCIsImZpbGUiOiJzcmMvYXBwL2FjY291bnQvYWNjb3VudC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXHJcbiNjZW50ZXJcclxue1xyXG5cdHdpZHRoOiA1MCU7XHJcblx0bWFyZ2luLWxlZnQ6IGF1dG87XHJcblx0bWFyZ2luLXJpZ2h0OiBhdXRvOyBcclxuXHR6LWluZGV4OiAtMTtcclxuXHRwb3NpdGlvbjogYWJzb2x1dGU7XHJcblx0dG9wOiAxZW07XHJcblx0bGVmdDogMTBlbTtcclxuXHJcblxyXG59XHJcbiN1c2VybGlzdFxyXG57XHJcblx0cG9zaXRpb246IGFic29sdXRlO1xyXG5cdHRvcDogNWVtO1xyXG5cdHJpZ2h0OiAxZW07XHJcblx0aGVpZ2h0OjUwMHB4O1xyXG5cdHdpZHRoOiAyNSU7XHJcblx0Ym9yZGVyOjJweCBzb2xpZCBibGFjaztcclxuXHRib3gtc2hhZG93OiAxMHB4IDEwcHggMzBweCBibGFjaztcclxuXHRvdmVyZmxvdy14OiBzY3JvbGw7XHJcbn1cclxuXHJcbiN1c2VybGlzdCBoM1xyXG57XHJcblx0dGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4jdXNlcmxpc3QgdWxcclxue1xyXG5cdGxpc3Qtc3R5bGU6IG5vbmU7XHJcbn1cclxuXHJcblxyXG4jZ3JvdXBsaXN0XHJcbntcclxuXHRwb3NpdGlvbjogYWJzb2x1dGU7XHJcblx0d2lkdGg6IDMwJTtcclxuXHRib3R0b206MmVtO1xyXG5cdGhlaWdodDogMzAwcHg7XHJcblx0cmlnaHQ6IDFlbTtcclxuXHRib3JkZXI6MnB4IHNvbGlkIGJsYWNrO1xyXG5cdGJveC1zaGFkb3c6IDEwcHggMTBweCAzMHB4IGJsYWNrO1xyXG5cdG92ZXJmbG93LXg6IHNjcm9sbDtcclxuXHJcbn1cclxuI2dyb3VwbGlzdCB1bFxyXG57XHJcblx0bGlzdC1zdHlsZTogbm9uZTtcclxufVxyXG5cclxuI2dyb3VwbGlzdCB1bCBsaTpob3ZlclxyXG57XHJcblx0Y3Vyc29yOiBwb2ludGVyO1xyXG59XHJcblxyXG4jZ3JvdXBsaXN0IGltZ1xyXG57XHJcblx0aGVpZ2h0OiA0MHB4O1xyXG5cdHdpZHRoOiA0MHB4O1xyXG59XHJcbiNncm91cGxpc3QgaDNcclxue1xyXG5cdHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuXHJcbiNncm91cGRldGFpbHMgXHJcbntcclxuXHRwb3NpdGlvbjogcmVsYXRpdmU7XHJcblx0Ym9yZGVyOjJweCBzb2xpZCBibGFjaztcclxuXHRib3gtc2hhZG93OiAxMHB4IDEwcHggMzBweCBibGFjaztcclxuXHRvdmVyZmxvdy14OiBzY3JvbGw7XHJcblx0d2lkdGg6IDcwJTtcclxuXHRwYWRkaW5nOiAxZW07XHJcblx0bWFyZ2luLWJvdHRvbTogIDJlbTtcclxufVxyXG5cclxuI2Nsb3NlXHJcbntcclxuXHRwb3NpdGlvbjogYWJzb2x1dGU7XHJcblx0dG9wOiAxZW07XHJcblx0cmlnaHQ6IDFlbTtcclxuXHJcbn1cclxuI2Nsb3NlOmhvdmVyXHJcbntcclxuXHRjdXJzb3I6IHBvaW50ZXI7XHJcblxyXG59XHJcblxyXG4jbmV3dXNlcmZvcm1cclxue1xyXG5cdGJveC1zaGFkb3c6IDEwcHggMTBweCA1MHB4IGdyZXk7XHJcblx0b3ZlcmZsb3cteDogc2Nyb2xsO1xyXG5cdHdpZHRoOiA3MCU7XHJcblx0cGFkZGluZzogMWVtO1xyXG5cdG1hcmdpbjoyZW0gMmVtO1xyXG5cdGJvcmRlci1yYWRpdXM6IDE1cHg7XHJcbn1cclxuXHJcbiNuZXdncm91cGZvcm1cclxue1xyXG5cdGJveC1zaGFkb3c6IDEwcHggMTBweCA1MHB4IGdyZXk7XHJcblx0b3ZlcmZsb3cteDogc2Nyb2xsO1xyXG5cdHdpZHRoOiA3MCU7XHJcblx0cGFkZGluZzogMWVtO1xyXG5cdG1hcmdpbjoyZW0gMmVtO1xyXG5cdGJvcmRlci1yYWRpdXM6IDE1cHg7XHJcbn1cclxuXHJcbiNsb2dvdXRcclxue1xyXG5cdHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuXHR0b3A6IDA7XHJcblx0cmlnaHQ6IDFlbTtcclxufVxyXG5cclxuXHJcbiJdfQ== */"
+module.exports = "\n\n\n\n#center\n{\n\twidth: 50%;\n\tmargin-left: auto;\n\tmargin-right: auto; \n\tz-index: -1;\n\tposition: absolute;\n\ttop: 1em;\n\tleft: 10em;\n\n\n}\n#userlist\n{\n\tposition: absolute;\n\ttop: 5em;\n\tright: 1em;\n\theight:500px;\n\twidth: 25%;\n\tborder:2px solid black;\n\tbox-shadow: 10px 10px 30px black;\n\toverflow-x: scroll;\n}\n#userlist h3\n{\n\ttext-align: center;\n}\n#userlist ul\n{\n\tlist-style: none;\n}\n#grouplist\n{\n\tposition: absolute;\n\twidth: 30%;\n\tbottom:2em;\n\theight: 300px;\n\tright: 1em;\n\tborder:2px solid black;\n\tbox-shadow: 10px 10px 30px black;\n\toverflow-x: scroll;\n\n}\n#grouplist ul\n{\n\tlist-style: none;\n}\n#grouplist ul li:hover\n{\n\tcursor: pointer;\n}\n#grouplist img\n{\n\theight: 40px;\n\twidth: 40px;\n}\n#grouplist h3\n{\n\ttext-align: center;\n}\n#groupdetails \n{\n\tposition: relative;\n\tborder:2px solid black;\n\tbox-shadow: 10px 10px 30px black;\n\toverflow-x: scroll;\n\twidth: 70%;\n\tpadding: 1em;\n\tmargin-bottom:  2em;\n}\n#close\n{\n\tposition: absolute;\n\ttop: 1em;\n\tright: 1em;\n\n}\n#close:hover\n{\n\tcursor: pointer;\n\n}\n#newuserform\n{\n\tbox-shadow: 10px 10px 50px grey;\n\toverflow-x: scroll;\n\twidth: 70%;\n\tpadding: 1em;\n\tmargin:2em 2em;\n\tborder-radius: 15px;\n}\n#newgroupform\n{\n\tbox-shadow: 10px 10px 50px grey;\n\toverflow-x: scroll;\n\twidth: 70%;\n\tpadding: 1em;\n\tmargin:2em 2em;\n\tborder-radius: 15px;\n}\n#logout\n{\n\tposition: absolute;\n\ttop: 0;\n\tright: 1em;\n}\nbutton {\n\tbox-shadow:inset 0px 1px 3px 0px #91b8b3;\n\tbackground:-webkit-gradient(linear, left top, left bottom, color-stop(5%, #768d87), to(#6c7c7c));\n\tbackground:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);\n\tfilter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);\n\tbackground-color:#768d87;\n\tborder-radius:5px;\n\tborder:1px solid #566963;\n\tdisplay:inline-block;\n\tcursor:pointer;\n\tcolor:#ffffff;\n\tfont-family:Arial;\n\tfont-size:15px;\n\tfont-weight:bold;\n\tpadding:11px 23px;\n\ttext-decoration:none;\n\ttext-shadow:0px -1px 0px #2b665e;\n}\nbutton:hover {\n\tbackground:-webkit-gradient(linear, left top, left bottom, color-stop(5%, #6c7c7c), to(#768d87));\n\tbackground:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);\n\tfilter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);\n\tbackground-color:#6c7c7c;\n}\nbutton:active {\n\tposition:relative;\n\ttop:1px;\n}\n\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWNjb3VudC9hY2NvdW50LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUlBOztDQUVDLFVBQVU7Q0FDVixpQkFBaUI7Q0FDakIsa0JBQWtCO0NBQ2xCLFdBQVc7Q0FDWCxrQkFBa0I7Q0FDbEIsUUFBUTtDQUNSLFVBQVU7OztBQUdYO0FBQ0E7O0NBRUMsa0JBQWtCO0NBQ2xCLFFBQVE7Q0FDUixVQUFVO0NBQ1YsWUFBWTtDQUNaLFVBQVU7Q0FDVixzQkFBc0I7Q0FDdEIsZ0NBQWdDO0NBQ2hDLGtCQUFrQjtBQUNuQjtBQUVBOztDQUVDLGtCQUFrQjtBQUNuQjtBQUVBOztDQUVDLGdCQUFnQjtBQUNqQjtBQUdBOztDQUVDLGtCQUFrQjtDQUNsQixVQUFVO0NBQ1YsVUFBVTtDQUNWLGFBQWE7Q0FDYixVQUFVO0NBQ1Ysc0JBQXNCO0NBQ3RCLGdDQUFnQztDQUNoQyxrQkFBa0I7O0FBRW5CO0FBQ0E7O0NBRUMsZ0JBQWdCO0FBQ2pCO0FBRUE7O0NBRUMsZUFBZTtBQUNoQjtBQUVBOztDQUVDLFlBQVk7Q0FDWixXQUFXO0FBQ1o7QUFDQTs7Q0FFQyxrQkFBa0I7QUFDbkI7QUFHQTs7Q0FFQyxrQkFBa0I7Q0FDbEIsc0JBQXNCO0NBQ3RCLGdDQUFnQztDQUNoQyxrQkFBa0I7Q0FDbEIsVUFBVTtDQUNWLFlBQVk7Q0FDWixtQkFBbUI7QUFDcEI7QUFFQTs7Q0FFQyxrQkFBa0I7Q0FDbEIsUUFBUTtDQUNSLFVBQVU7O0FBRVg7QUFDQTs7Q0FFQyxlQUFlOztBQUVoQjtBQUVBOztDQUVDLCtCQUErQjtDQUMvQixrQkFBa0I7Q0FDbEIsVUFBVTtDQUNWLFlBQVk7Q0FDWixjQUFjO0NBQ2QsbUJBQW1CO0FBQ3BCO0FBRUE7O0NBRUMsK0JBQStCO0NBQy9CLGtCQUFrQjtDQUNsQixVQUFVO0NBQ1YsWUFBWTtDQUNaLGNBQWM7Q0FDZCxtQkFBbUI7QUFDcEI7QUFFQTs7Q0FFQyxrQkFBa0I7Q0FDbEIsTUFBTTtDQUNOLFVBQVU7QUFDWDtBQUlBO0NBR0Msd0NBQXdDO0NBTXhDLGdHQUErRDtDQUEvRCwrREFBK0Q7Q0FDL0QsZ0hBQWdIO0NBQ2hILHdCQUF3QjtDQUd4QixpQkFBaUI7Q0FDakIsd0JBQXdCO0NBQ3hCLG9CQUFvQjtDQUNwQixjQUFjO0NBQ2QsYUFBYTtDQUNiLGlCQUFpQjtDQUNqQixjQUFjO0NBQ2QsZ0JBQWdCO0NBQ2hCLGlCQUFpQjtDQUNqQixvQkFBb0I7Q0FDcEIsZ0NBQWdDO0FBQ2pDO0FBQ0E7Q0FNQyxnR0FBK0Q7Q0FBL0QsK0RBQStEO0NBQy9ELGdIQUFnSDtDQUNoSCx3QkFBd0I7QUFDekI7QUFDQTtDQUNDLGlCQUFpQjtDQUNqQixPQUFPO0FBQ1IiLCJmaWxlIjoic3JjL2FwcC9hY2NvdW50L2FjY291bnQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIlxuXG5cblxuI2NlbnRlclxue1xuXHR3aWR0aDogNTAlO1xuXHRtYXJnaW4tbGVmdDogYXV0bztcblx0bWFyZ2luLXJpZ2h0OiBhdXRvOyBcblx0ei1pbmRleDogLTE7XG5cdHBvc2l0aW9uOiBhYnNvbHV0ZTtcblx0dG9wOiAxZW07XG5cdGxlZnQ6IDEwZW07XG5cblxufVxuI3VzZXJsaXN0XG57XG5cdHBvc2l0aW9uOiBhYnNvbHV0ZTtcblx0dG9wOiA1ZW07XG5cdHJpZ2h0OiAxZW07XG5cdGhlaWdodDo1MDBweDtcblx0d2lkdGg6IDI1JTtcblx0Ym9yZGVyOjJweCBzb2xpZCBibGFjaztcblx0Ym94LXNoYWRvdzogMTBweCAxMHB4IDMwcHggYmxhY2s7XG5cdG92ZXJmbG93LXg6IHNjcm9sbDtcbn1cblxuI3VzZXJsaXN0IGgzXG57XG5cdHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuI3VzZXJsaXN0IHVsXG57XG5cdGxpc3Qtc3R5bGU6IG5vbmU7XG59XG5cblxuI2dyb3VwbGlzdFxue1xuXHRwb3NpdGlvbjogYWJzb2x1dGU7XG5cdHdpZHRoOiAzMCU7XG5cdGJvdHRvbToyZW07XG5cdGhlaWdodDogMzAwcHg7XG5cdHJpZ2h0OiAxZW07XG5cdGJvcmRlcjoycHggc29saWQgYmxhY2s7XG5cdGJveC1zaGFkb3c6IDEwcHggMTBweCAzMHB4IGJsYWNrO1xuXHRvdmVyZmxvdy14OiBzY3JvbGw7XG5cbn1cbiNncm91cGxpc3QgdWxcbntcblx0bGlzdC1zdHlsZTogbm9uZTtcbn1cblxuI2dyb3VwbGlzdCB1bCBsaTpob3Zlclxue1xuXHRjdXJzb3I6IHBvaW50ZXI7XG59XG5cbiNncm91cGxpc3QgaW1nXG57XG5cdGhlaWdodDogNDBweDtcblx0d2lkdGg6IDQwcHg7XG59XG4jZ3JvdXBsaXN0IGgzXG57XG5cdHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuXG4jZ3JvdXBkZXRhaWxzIFxue1xuXHRwb3NpdGlvbjogcmVsYXRpdmU7XG5cdGJvcmRlcjoycHggc29saWQgYmxhY2s7XG5cdGJveC1zaGFkb3c6IDEwcHggMTBweCAzMHB4IGJsYWNrO1xuXHRvdmVyZmxvdy14OiBzY3JvbGw7XG5cdHdpZHRoOiA3MCU7XG5cdHBhZGRpbmc6IDFlbTtcblx0bWFyZ2luLWJvdHRvbTogIDJlbTtcbn1cblxuI2Nsb3NlXG57XG5cdHBvc2l0aW9uOiBhYnNvbHV0ZTtcblx0dG9wOiAxZW07XG5cdHJpZ2h0OiAxZW07XG5cbn1cbiNjbG9zZTpob3Zlclxue1xuXHRjdXJzb3I6IHBvaW50ZXI7XG5cbn1cblxuI25ld3VzZXJmb3JtXG57XG5cdGJveC1zaGFkb3c6IDEwcHggMTBweCA1MHB4IGdyZXk7XG5cdG92ZXJmbG93LXg6IHNjcm9sbDtcblx0d2lkdGg6IDcwJTtcblx0cGFkZGluZzogMWVtO1xuXHRtYXJnaW46MmVtIDJlbTtcblx0Ym9yZGVyLXJhZGl1czogMTVweDtcbn1cblxuI25ld2dyb3VwZm9ybVxue1xuXHRib3gtc2hhZG93OiAxMHB4IDEwcHggNTBweCBncmV5O1xuXHRvdmVyZmxvdy14OiBzY3JvbGw7XG5cdHdpZHRoOiA3MCU7XG5cdHBhZGRpbmc6IDFlbTtcblx0bWFyZ2luOjJlbSAyZW07XG5cdGJvcmRlci1yYWRpdXM6IDE1cHg7XG59XG5cbiNsb2dvdXRcbntcblx0cG9zaXRpb246IGFic29sdXRlO1xuXHR0b3A6IDA7XG5cdHJpZ2h0OiAxZW07XG59XG5cblxuXG5idXR0b24ge1xuXHQtbW96LWJveC1zaGFkb3c6aW5zZXQgMHB4IDFweCAzcHggMHB4ICM5MWI4YjM7XG5cdC13ZWJraXQtYm94LXNoYWRvdzppbnNldCAwcHggMXB4IDNweCAwcHggIzkxYjhiMztcblx0Ym94LXNoYWRvdzppbnNldCAwcHggMXB4IDNweCAwcHggIzkxYjhiMztcblx0YmFja2dyb3VuZDotd2Via2l0LWdyYWRpZW50KGxpbmVhciwgbGVmdCB0b3AsIGxlZnQgYm90dG9tLCBjb2xvci1zdG9wKDAuMDUsICM3NjhkODcpLCBjb2xvci1zdG9wKDEsICM2YzdjN2MpKTtcblx0YmFja2dyb3VuZDotbW96LWxpbmVhci1ncmFkaWVudCh0b3AsICM3NjhkODcgNSUsICM2YzdjN2MgMTAwJSk7XG5cdGJhY2tncm91bmQ6LXdlYmtpdC1saW5lYXItZ3JhZGllbnQodG9wLCAjNzY4ZDg3IDUlLCAjNmM3YzdjIDEwMCUpO1xuXHRiYWNrZ3JvdW5kOi1vLWxpbmVhci1ncmFkaWVudCh0b3AsICM3NjhkODcgNSUsICM2YzdjN2MgMTAwJSk7XG5cdGJhY2tncm91bmQ6LW1zLWxpbmVhci1ncmFkaWVudCh0b3AsICM3NjhkODcgNSUsICM2YzdjN2MgMTAwJSk7XG5cdGJhY2tncm91bmQ6bGluZWFyLWdyYWRpZW50KHRvIGJvdHRvbSwgIzc2OGQ4NyA1JSwgIzZjN2M3YyAxMDAlKTtcblx0ZmlsdGVyOnByb2dpZDpEWEltYWdlVHJhbnNmb3JtLk1pY3Jvc29mdC5ncmFkaWVudChzdGFydENvbG9yc3RyPScjNzY4ZDg3JywgZW5kQ29sb3JzdHI9JyM2YzdjN2MnLEdyYWRpZW50VHlwZT0wKTtcblx0YmFja2dyb3VuZC1jb2xvcjojNzY4ZDg3O1xuXHQtbW96LWJvcmRlci1yYWRpdXM6NXB4O1xuXHQtd2Via2l0LWJvcmRlci1yYWRpdXM6NXB4O1xuXHRib3JkZXItcmFkaXVzOjVweDtcblx0Ym9yZGVyOjFweCBzb2xpZCAjNTY2OTYzO1xuXHRkaXNwbGF5OmlubGluZS1ibG9jaztcblx0Y3Vyc29yOnBvaW50ZXI7XG5cdGNvbG9yOiNmZmZmZmY7XG5cdGZvbnQtZmFtaWx5OkFyaWFsO1xuXHRmb250LXNpemU6MTVweDtcblx0Zm9udC13ZWlnaHQ6Ym9sZDtcblx0cGFkZGluZzoxMXB4IDIzcHg7XG5cdHRleHQtZGVjb3JhdGlvbjpub25lO1xuXHR0ZXh0LXNoYWRvdzowcHggLTFweCAwcHggIzJiNjY1ZTtcbn1cbmJ1dHRvbjpob3ZlciB7XG5cdGJhY2tncm91bmQ6LXdlYmtpdC1ncmFkaWVudChsaW5lYXIsIGxlZnQgdG9wLCBsZWZ0IGJvdHRvbSwgY29sb3Itc3RvcCgwLjA1LCAjNmM3YzdjKSwgY29sb3Itc3RvcCgxLCAjNzY4ZDg3KSk7XG5cdGJhY2tncm91bmQ6LW1vei1saW5lYXItZ3JhZGllbnQodG9wLCAjNmM3YzdjIDUlLCAjNzY4ZDg3IDEwMCUpO1xuXHRiYWNrZ3JvdW5kOi13ZWJraXQtbGluZWFyLWdyYWRpZW50KHRvcCwgIzZjN2M3YyA1JSwgIzc2OGQ4NyAxMDAlKTtcblx0YmFja2dyb3VuZDotby1saW5lYXItZ3JhZGllbnQodG9wLCAjNmM3YzdjIDUlLCAjNzY4ZDg3IDEwMCUpO1xuXHRiYWNrZ3JvdW5kOi1tcy1saW5lYXItZ3JhZGllbnQodG9wLCAjNmM3YzdjIDUlLCAjNzY4ZDg3IDEwMCUpO1xuXHRiYWNrZ3JvdW5kOmxpbmVhci1ncmFkaWVudCh0byBib3R0b20sICM2YzdjN2MgNSUsICM3NjhkODcgMTAwJSk7XG5cdGZpbHRlcjpwcm9naWQ6RFhJbWFnZVRyYW5zZm9ybS5NaWNyb3NvZnQuZ3JhZGllbnQoc3RhcnRDb2xvcnN0cj0nIzZjN2M3YycsIGVuZENvbG9yc3RyPScjNzY4ZDg3JyxHcmFkaWVudFR5cGU9MCk7XG5cdGJhY2tncm91bmQtY29sb3I6IzZjN2M3Yztcbn1cbmJ1dHRvbjphY3RpdmUge1xuXHRwb3NpdGlvbjpyZWxhdGl2ZTtcblx0dG9wOjFweDtcbn1cblxuIl19 */"
 
 /***/ }),
 
@@ -103,8 +81,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _socket_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../socket.service */ "./src/app/socket.service.ts");
-
 
 
 
@@ -113,12 +89,13 @@ __webpack_require__.r(__webpack_exports__);
 ;
 ;
 var AccountComponent = /** @class */ (function () {
-    function AccountComponent(router, httpClient, socketService) {
+    function AccountComponent(router, httpClient) {
         this.router = router;
         this.httpClient = httpClient;
-        this.socketService = socketService;
+        //flags to show buttons
         this.createnewgroupuser = false;
         this.addnewgroupuser = false;
+        //users login details
         this.username = "";
         this.birthdate = "";
         this.age = "";
@@ -127,6 +104,7 @@ var AccountComponent = /** @class */ (function () {
         this.admingrouplist = [];
         this.grouplist = [];
         this.userlist = [];
+        // variables for storing new user data 
         this.nusername = "";
         this.nbirthdate = "";
         this.nage = "";
@@ -136,6 +114,7 @@ var AccountComponent = /** @class */ (function () {
         this.ngrouplist = [];
         this.nadmingrouplist = [];
         this.nvalid = true;
+        // variables storing current veiwed group details
         this.detailedgroup = {
             groupname: "",
             isofadmin: false,
@@ -143,6 +122,7 @@ var AccountComponent = /** @class */ (function () {
             membercount: 0,
             channels: []
         };
+        //new group user details
         this.ngroupusername = "";
         this.ngroupbirthdate = "";
         this.ngroupage = "";
@@ -151,20 +131,24 @@ var AccountComponent = /** @class */ (function () {
         this.nofgroupasis = "";
         this.nmembergrouplist = [];
         this.ngroupvalid = true;
+        // for adding existing user to group
         this.groupusername = "";
         this.ofgroupasis = "";
+        // new group details
         this.ngroupname = "";
+        //new channel name
         this.nchannelname = "";
+        //removing user
         this.rusername = "";
+        //adding user to channel
         this.cusername = "";
         this.addtochannelname = "";
     }
     AccountComponent.prototype.ngOnInit = function () {
+        //setting up page
         if (typeof (Storage) !== "undefined") {
             try {
-                var userdetails = JSON.parse(sessionStorage.getItem("currentUser"));
-                alert(JSON.stringify(userdetails));
-                this.userlist = userdetails.userlist;
+                var userdetails = JSON.parse(localStorage.getItem("currentUser"));
                 this.username = userdetails.username;
                 this.birthdate = userdetails.birthdate;
                 this.ofgroupadmin = userdetails.ofgroupadmin;
@@ -172,12 +156,23 @@ var AccountComponent = /** @class */ (function () {
                 this.age = userdetails.age;
                 this.email = userdetails.email;
                 this.grouplist = userdetails.grouplist;
+                this.getuserlist(this.username);
             }
             catch (error) {
                 alert("Please Login First");
                 this.router.navigateByUrl('login');
             }
         }
+    };
+    //function to update the userlist
+    AccountComponent.prototype.getuserlist = function (username) {
+        var _this = this;
+        this.httpClient.post("http://localhost:3000/getuserlist", username).subscribe(function (res) {
+            var userdetails = JSON.parse(localStorage.getItem("currentUser"));
+            userdetails.userlist = res;
+            _this.userlist = res;
+            localStorage.setItem("currentUser", JSON.stringify(userdetails));
+        });
     };
     AccountComponent.prototype.turn = function (num) {
         if (num == 1) {
@@ -189,10 +184,12 @@ var AccountComponent = /** @class */ (function () {
             this.createnewgroupuser = false;
         }
     };
+    //User logs out and localstorage is cleared 
     AccountComponent.prototype.logout = function () {
-        sessionStorage.clear();
+        localStorage.clear();
         this.router.navigateByUrl('login');
     };
+    // New user creation function
     AccountComponent.prototype.createNewUser = function () {
         var _this = this;
         if (this.nofgroupadmin != "" && this.nusername != "" && this.nage != "" && this.nbirthdate != "" && this.nemail != "" && this.npassword != "" && this.nusername != "super") {
@@ -202,7 +199,7 @@ var AccountComponent = /** @class */ (function () {
             else {
                 this.nofgroupadmin = false;
             }
-            var nuser = {
+            var body = {
                 username: this.nusername,
                 birthdate: this.nbirthdate,
                 age: this.nage,
@@ -213,34 +210,21 @@ var AccountComponent = /** @class */ (function () {
                 password: this.npassword,
                 valid: this.nvalid
             };
-            this.httpClient.post("http://localhost:3000/createuser", nuser).subscribe(function (res) {
-                if (res.notice == "user created") {
-                    if (typeof (Storage) !== "undefined") {
-                        if (res.userlist.length != _this.userlist.length + 1) {
-                            alert("New users have been added by other admins");
-                        }
-                        var temp = JSON.parse(sessionStorage.getItem("currentUser"));
-                        temp.userlist = res.userlist;
-                        sessionStorage.setItem("currentUser", JSON.stringify(temp));
-                        _this.userlist = res.userlist;
-                    }
-                    else {
-                        alert('Cannot Create User');
-                    }
+            this.httpClient.post("http://localhost:3000/createuser", body).subscribe(function (res) {
+                if (res.err) {
+                    alert(res.err);
                 }
                 else {
-                    alert("User already exists");
-                    var temp = JSON.parse(sessionStorage.getItem("currentUser"));
-                    temp.userlist = res.userlist;
-                    sessionStorage.setItem("currentUser", JSON.stringify(temp));
-                    _this.userlist = res.userlist;
+                    alert(res.message);
                 }
+                _this.getuserlist(_this.username);
             });
         }
         else {
             alert("Please fill out the form completely and username cant be super");
         }
     };
+    // New group creation function
     AccountComponent.prototype.createNewGroup = function () {
         var _this = this;
         if (this.ngroupname != "") {
@@ -260,10 +244,10 @@ var AccountComponent = /** @class */ (function () {
             this.httpClient.post("http://localhost:3000/creategroup", ngroup).subscribe(function (res) {
                 if (res.notice == "Done") {
                     if (typeof (Storage) !== "undefined") {
-                        var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+                        var temp = JSON.parse(localStorage.getItem("currentUser"));
                         temp.grouplist = res.grouplist;
                         temp.admingrouplist = res.admingrouplist;
-                        sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                        localStorage.setItem("currentUser", JSON.stringify(temp));
                         _this.grouplist = res.grouplist;
                         _this.admingrouplist = res.admingrouplist;
                     }
@@ -280,6 +264,7 @@ var AccountComponent = /** @class */ (function () {
             alert("Please enter a group name");
         }
     };
+    //deleting user function
     AccountComponent.prototype.deleteUser = function (user) {
         var _this = this;
         var deluser = {
@@ -290,12 +275,10 @@ var AccountComponent = /** @class */ (function () {
                 if (res.userlist.length != _this.userlist.length - 1) {
                     alert("New Users have been added by other admin");
                 }
-                var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+                var temp = JSON.parse(localStorage.getItem("currentUser"));
                 temp.userlist = res.userlist;
-                alert(res.userlist);
-                sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                localStorage.setItem("currentUser", JSON.stringify(temp));
                 _this.userlist = res.userlist;
-                alert((sessionStorage.getItem("currentUser")));
             }
             else {
                 alert('Cannot Delete User');
@@ -305,6 +288,7 @@ var AccountComponent = /** @class */ (function () {
             }
         });
     };
+    //deleting group function
     AccountComponent.prototype.deleteGroup = function (group) {
         var _this = this;
         if (group == this.detailedgroup.groupname) {
@@ -322,20 +306,19 @@ var AccountComponent = /** @class */ (function () {
         };
         this.httpClient.post("http://localhost:3000/deletegroup", delgroup).subscribe(function (res) {
             if (typeof (Storage) !== "undefined") {
-                var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+                var temp = JSON.parse(localStorage.getItem("currentUser"));
                 temp.grouplist = res.grouplist;
                 temp.admingrouplist = res.grouplist;
-                alert(res.grouplist);
-                sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                localStorage.setItem("currentUser", JSON.stringify(temp));
                 _this.grouplist = res.grouplist;
                 _this.admingrouplist = res.admingrouplist;
-                alert((sessionStorage.getItem("currentUser")));
             }
             else {
                 alert('Cannot Delete User');
             }
         });
     };
+    //function for removing detailed group when the close button is pressed
     AccountComponent.prototype.removegroupdetails = function () {
         this.detailedgroup = {
             groupname: "",
@@ -345,6 +328,7 @@ var AccountComponent = /** @class */ (function () {
             channels: []
         };
     };
+    //getting group details via http request when user clicks on a group to see its details
     AccountComponent.prototype.groupDetail = function (group) {
         var _this = this;
         var getgroup = {
@@ -360,7 +344,6 @@ var AccountComponent = /** @class */ (function () {
                     _this.detailedgroup.isofadmin = res.isofadmin;
                     _this.detailedgroup.membercount = res.membercount;
                     _this.detailedgroup.channels = res.channels;
-                    console.log(_this.detailedgroup);
                 }
                 else {
                     alert('Cannot get Group Detail');
@@ -374,6 +357,7 @@ var AccountComponent = /** @class */ (function () {
             }
         });
     };
+    // New user creation function and adding user to the current viewing group
     AccountComponent.prototype.addNewUserToGroup = function () {
         var _this = this;
         if (this.ngroupusername != "" && this.nofgroupasis != "" && this.ngroupage != "" && this.ngroupbirthdate != "" && this.ngroupemail != "" && this.ngrouppassword != "" && this.ngroupusername != "super") {
@@ -399,9 +383,9 @@ var AccountComponent = /** @class */ (function () {
             };
             this.httpClient.post("http://localhost:3000/createnewgroupuser", newuserdetail).subscribe(function (res) {
                 if (typeof (Storage) !== "undefined") {
-                    var temp = JSON.parse(sessionStorage.getItem("currentUser"));
+                    var temp = JSON.parse(localStorage.getItem("currentUser"));
                     temp.userlist = res.userlist;
-                    sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                    localStorage.setItem("currentUser", JSON.stringify(temp));
                     _this.userlist = res.userlist;
                     _this.groupDetail(_this.detailedgroup.groupname);
                 }
@@ -416,6 +400,7 @@ var AccountComponent = /** @class */ (function () {
             alert("Please fill out the form completely");
         }
     };
+    //Adding an existing user to the current viewed group
     AccountComponent.prototype.addExistingUserToGroup = function () {
         var _this = this;
         if (this.groupusername != "" && this.ofgroupasis != "") {
@@ -461,6 +446,7 @@ var AccountComponent = /** @class */ (function () {
         });
     };
     //
+    //function for promoting a user to group admin
     AccountComponent.prototype.promoteToGroupAdmin = function (username) {
         var _this = this;
         var promoteduser = {
@@ -478,7 +464,7 @@ var AccountComponent = /** @class */ (function () {
             }
         });
     };
-    //creating new channel
+    // function  for creating new channel
     AccountComponent.prototype.createChannel = function () {
         var _this = this;
         if (this.nchannelname) {
@@ -496,7 +482,6 @@ var AccountComponent = /** @class */ (function () {
                 if (res.notice == "Done") {
                     alert("Channel created");
                     _this.groupDetail(_this.detailedgroup.groupname);
-                    console.log(_this.detailedgroup.channels);
                 }
                 else {
                     alert("Channel couldn't be created or may already exist");
@@ -508,7 +493,7 @@ var AccountComponent = /** @class */ (function () {
             alert("Please insert a channel name");
         }
     };
-    //Deleting a channel
+    //function for deleting a channel
     AccountComponent.prototype.deleteChannel = function (channel) {
         var _this = this;
         var deletechannel = {
@@ -544,8 +529,7 @@ var AccountComponent = /** @class */ (function () {
     };
     AccountComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-        { type: _socket_service__WEBPACK_IMPORTED_MODULE_4__["SocketService"] }
+        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
     ]; };
     AccountComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -576,10 +560,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _account_account_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./account/account.component */ "./src/app/account/account.component.ts");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
-/* harmony import */ var _chat_chat_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./chat/chat.component */ "./src/app/chat/chat.component.ts");
-
-
 
 
 
@@ -587,12 +567,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var routes = [
     {
-        path: "chat",
-        component: _chat_chat_component__WEBPACK_IMPORTED_MODULE_6__["ChatComponent"]
-    },
-    {
-        path: "profile",
-        component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_5__["ProfileComponent"]
+        path: "",
+        component: _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"]
     },
     {
         path: "login",
@@ -626,7 +602,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */"
+module.exports = "body,html\n{\n   background: #ad5389;  /* fallback for old browsers */  /* Chrome 10-25, Safari 5.1-6 */\n    background: -webkit-gradient(linear, left top, right top, from(#3c1053), to(#ad5389));\n    background: linear-gradient(to right, #3c1053, #ad5389); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */\n\n\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0dBRUcsbUJBQW1CLEdBQUcsOEJBQThCLEdBQ2UsK0JBQStCO0lBQ2pHLHFGQUF1RDtJQUF2RCx1REFBdUQsRUFBRSxxRUFBcUU7OztBQUdsSSIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSxodG1sXG57XG4gICBiYWNrZ3JvdW5kOiAjYWQ1Mzg5OyAgLyogZmFsbGJhY2sgZm9yIG9sZCBicm93c2VycyAqL1xuICAgIGJhY2tncm91bmQ6IC13ZWJraXQtbGluZWFyLWdyYWRpZW50KHRvIHJpZ2h0LCAjM2MxMDUzLCAjYWQ1Mzg5KTsgIC8qIENocm9tZSAxMC0yNSwgU2FmYXJpIDUuMS02ICovXG4gICAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KHRvIHJpZ2h0LCAjM2MxMDUzLCAjYWQ1Mzg5KTsgLyogVzNDLCBJRSAxMCsvIEVkZ2UsIEZpcmVmb3ggMTYrLCBDaHJvbWUgMjYrLCBPcGVyYSAxMissIFNhZmFyaSA3KyAqL1xuXG5cbn0iXX0= */"
 
 /***/ }),
 
@@ -681,12 +657,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _account_account_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./account/account.component */ "./src/app/account/account.component.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
-/* harmony import */ var _chat_chat_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./chat/chat.component */ "./src/app/chat/chat.component.ts");
-/* harmony import */ var _socket_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./socket.service */ "./src/app/socket.service.ts");
-
-
-
 
 
 
@@ -704,9 +674,7 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
                 _login_login_component__WEBPACK_IMPORTED_MODULE_6__["LoginComponent"],
-                _account_account_component__WEBPACK_IMPORTED_MODULE_7__["AccountComponent"],
-                _profile_profile_component__WEBPACK_IMPORTED_MODULE_9__["ProfileComponent"],
-                _chat_chat_component__WEBPACK_IMPORTED_MODULE_10__["ChatComponent"]
+                _account_account_component__WEBPACK_IMPORTED_MODULE_7__["AccountComponent"]
             ],
             imports: [
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClientModule"],
@@ -714,79 +682,11 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"]
             ],
-            providers: [_socket_service__WEBPACK_IMPORTED_MODULE_11__["SocketService"]],
+            providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/chat/chat.component.css":
-/*!*****************************************!*\
-  !*** ./src/app/chat/chat.component.css ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NoYXQvY2hhdC5jb21wb25lbnQuY3NzIn0= */"
-
-/***/ }),
-
-/***/ "./src/app/chat/chat.component.ts":
-/*!****************************************!*\
-  !*** ./src/app/chat/chat.component.ts ***!
-  \****************************************/
-/*! exports provided: ChatComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChatComponent", function() { return ChatComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _socket_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../socket.service */ "./src/app/socket.service.ts");
-
-
-
-var ChatComponent = /** @class */ (function () {
-    function ChatComponent(socketService) {
-        this.socketService = socketService;
-        this.messagecontent = "";
-        this.messages = [];
-    }
-    ChatComponent.prototype.ngOnInit = function () {
-        this.initialSetup();
-    };
-    ChatComponent.prototype.initialSetup = function () {
-        var _this = this;
-        this.socketService.observable.subscribe(function (message) {
-            _this.messages.push(message);
-        });
-    };
-    ChatComponent.prototype.chat = function () {
-        if (this.messagecontent) {
-            this.socketService.send(this.messagecontent);
-            this.messagecontent = null;
-        }
-        else {
-            alert("Please insert a message");
-        }
-    };
-    ChatComponent.ctorParameters = function () { return [
-        { type: _socket_service__WEBPACK_IMPORTED_MODULE_2__["SocketService"] }
-    ]; };
-    ChatComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-chat',
-            template: __webpack_require__(/*! raw-loader!./chat.component.html */ "./node_modules/raw-loader/index.js!./src/app/chat/chat.component.html"),
-            styles: [__webpack_require__(/*! ./chat.component.css */ "./src/app/chat/chat.component.css")]
-        })
-    ], ChatComponent);
-    return ChatComponent;
 }());
 
 
@@ -800,7 +700,7 @@ var ChatComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".loginForm\r\n{\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n          justify-content: center;\r\n  align-content: center;\r\n  border-radius: 10px;\r\n  max-width: 400px;\r\n  background-color: rgba(246, 71, 71, 1);\r\n  box-shadow: 10px 10px 10px grey;\r\n}\r\n\r\n.loginForm *\r\n{\r\n  padding: 1em;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9naW4vbG9naW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7RUFFRSxvQkFBYTtFQUFiLGFBQWE7RUFDYix3QkFBdUI7VUFBdkIsdUJBQXVCO0VBQ3ZCLHFCQUFxQjtFQUNyQixtQkFBbUI7RUFDbkIsZ0JBQWdCO0VBQ2hCLHNDQUFzQztFQUN0QywrQkFBK0I7QUFDakM7O0FBRUE7O0VBRUUsWUFBWTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvbG9naW4vbG9naW4uY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5sb2dpbkZvcm1cclxue1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xyXG4gIGJvcmRlci1yYWRpdXM6IDEwcHg7XHJcbiAgbWF4LXdpZHRoOiA0MDBweDtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDI0NiwgNzEsIDcxLCAxKTtcclxuICBib3gtc2hhZG93OiAxMHB4IDEwcHggMTBweCBncmV5O1xyXG59XHJcblxyXG4ubG9naW5Gb3JtICpcclxue1xyXG4gIHBhZGRpbmc6IDFlbTtcclxufSJdfQ== */"
+module.exports = ".loginForm\n{\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: center;\n          justify-content: center;\n  align-content: center;\n  border-radius: 10px;\n  max-width: 400px;\n  background-color: rgba(246, 71, 71, 1);\n  box-shadow: 10px 10px 10px grey;\n}\n\n.loginForm *\n{\n  padding: 1em;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9naW4vbG9naW4uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7RUFFRSxvQkFBYTtFQUFiLGFBQWE7RUFDYix3QkFBdUI7VUFBdkIsdUJBQXVCO0VBQ3ZCLHFCQUFxQjtFQUNyQixtQkFBbUI7RUFDbkIsZ0JBQWdCO0VBQ2hCLHNDQUFzQztFQUN0QywrQkFBK0I7QUFDakM7O0FBRUE7O0VBRUUsWUFBWTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvbG9naW4vbG9naW4uY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5sb2dpbkZvcm1cbntcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcbiAgYm9yZGVyLXJhZGl1czogMTBweDtcbiAgbWF4LXdpZHRoOiA0MDBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgyNDYsIDcxLCA3MSwgMSk7XG4gIGJveC1zaGFkb3c6IDEwcHggMTBweCAxMHB4IGdyZXk7XG59XG5cbi5sb2dpbkZvcm0gKlxue1xuICBwYWRkaW5nOiAxZW07XG59Il19 */"
 
 /***/ }),
 
@@ -839,18 +739,16 @@ var LoginComponent = /** @class */ (function () {
             password: this.password
         };
         this.httpClient.post("http://localhost:3000/api/auth", body).subscribe(function (res) {
-            alert(res.username);
             if (res.valid) {
                 if (typeof (Storage) !== "undefined") {
                     var temp = res;
                     delete temp.password;
-                    console.log(temp.valid);
-                    sessionStorage.setItem("currentUser", JSON.stringify(temp));
+                    localStorage.setItem("currentUser", JSON.stringify(temp));
                 }
                 _this.router.navigateByUrl("account");
             }
             else {
-                alert('Failed');
+                alert('Please enter valid login details');
             }
         });
     };
@@ -869,140 +767,6 @@ var LoginComponent = /** @class */ (function () {
 }());
 
 ;
-
-
-/***/ }),
-
-/***/ "./src/app/profile/profile.component.css":
-/*!***********************************************!*\
-  !*** ./src/app/profile/profile.component.css ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3Byb2ZpbGUvcHJvZmlsZS5jb21wb25lbnQuY3NzIn0= */"
-
-/***/ }),
-
-/***/ "./src/app/profile/profile.component.ts":
-/*!**********************************************!*\
-  !*** ./src/app/profile/profile.component.ts ***!
-  \**********************************************/
-/*! exports provided: ProfileComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileComponent", function() { return ProfileComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-
-
-
-var ProfileComponent = /** @class */ (function () {
-    function ProfileComponent(router) {
-        this.router = router;
-        this.username = "";
-        this.birthdate = "";
-        this.age = "";
-        this.email = "";
-    }
-    ProfileComponent.prototype.ngOnInit = function () {
-        if (typeof (Storage) !== "undefined") {
-            try {
-                var userDetails = JSON.parse(sessionStorage.getItem("currentUser"));
-                this.username = userDetails.username;
-                this.birthdate = userDetails.birthdate;
-                this.age = userDetails.age;
-                this.email = userDetails.email;
-            }
-            catch (error) {
-                alert("Please Login First");
-                this.router.navigateByUrl('login');
-            }
-        }
-    };
-    ProfileComponent.prototype.change = function () {
-        if (typeof (Storage) !== "undefined") {
-            var details = {
-                username: this.username,
-                birthdate: this.birthdate,
-                age: this.age,
-                email: this.email
-            };
-            sessionStorage.setItem("currentUser", JSON.stringify(details));
-        }
-        console.log(JSON.parse(sessionStorage.getItem("currentUser")));
-    };
-    ProfileComponent.prototype.goToAccount = function () {
-        this.router.navigateByUrl('account');
-    };
-    ProfileComponent.ctorParameters = function () { return [
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
-    ]; };
-    ProfileComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-profile',
-            template: __webpack_require__(/*! raw-loader!./profile.component.html */ "./node_modules/raw-loader/index.js!./src/app/profile/profile.component.html"),
-            styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/profile/profile.component.css")]
-        })
-    ], ProfileComponent);
-    return ProfileComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/socket.service.ts":
-/*!***********************************!*\
-  !*** ./src/app/socket.service.ts ***!
-  \***********************************/
-/*! exports provided: SocketService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SocketService", function() { return SocketService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/lib/index.js");
-/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(socket_io_client__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-var SocketService = /** @class */ (function () {
-    function SocketService() {
-        var _this = this;
-        this.url = 'http://localhost:3000';
-        this.socket = socket_io_client__WEBPACK_IMPORTED_MODULE_3__(this.url);
-        this.observable = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-            _this.socket.on('message', function (data) { return observer.next(data); });
-        });
-    }
-    SocketService.prototype.send = function (message) {
-        this.socket.emit('message', message);
-    };
-    SocketService.prototype.connect = function (username) {
-        this.socket.emit('connect', username);
-    };
-    SocketService.prototype.getstatus = function (next) {
-        this.socket.on('done', function (data) { return next(data); });
-    };
-    SocketService.prototype.newuser = function (next) {
-        this.socket.on('connected', function (data) { return next(data); });
-    };
-    SocketService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        })
-    ], SocketService);
-    return SocketService;
-}());
-
 
 
 /***/ }),
@@ -1068,19 +832,8 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\s5085319\angularchatsystem\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/sankitmanshrestha/Sankit/angularchatsystem/src/main.ts */"./src/main.ts");
 
-
-/***/ }),
-
-/***/ 1:
-/*!********************!*\
-  !*** ws (ignored) ***!
-  \********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/* (ignored) */
 
 /***/ })
 

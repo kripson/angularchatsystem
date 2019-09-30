@@ -20,7 +20,7 @@
 	<h3><img src="https://img.icons8.com/dusk/64/000000/groups.png">Your Groups</h3>
 	<ul>
 	   <li *ngFor = "let group of grouplist">
-		  <a  (click) = "groupDetail(group)">{{group}}</a>
+		  <a  (click) = "getgroupdetails(group)">{{group}}</a>
 		  <div *ngIf="admingrouplist.length > 0 &&  admingrouplist.includes(group)"><button (click) = "deleteGroup(group)">Delete Group</button></div>
 	   </li>
 	</ul>
@@ -50,8 +50,21 @@
 
 	<div *ngIf="detailedgroup.isofasis" style="border:1px solid black;padding:1em;background-color: antiquewhite">
 	   <input type="text" [(ngModel)]="cusername" name="cusername" placeholder="user name"><br><br>
-	   <input type="text" [(ngModel)]="addtochannelname" name="addtochannelname" placeholder="channel name"><br><br>
+	   <select  [(ngModel)]="addtochannelname" name="addtochannelname">
+	   	<option *ngFor = "let channel of detailedgroup.channels" value = channel>{{channel}}
+	   	</option>
+	   </select>
+	   <br><br>
 	   <button (click) = "addUserToChannel()"> Add user to a channel</button>
+	</div>
+	<div *ngIf="detailedgroup.isofasis" style="border:1px solid black;padding:1em;background-color: antiquewhite">
+	   <input type="text" [(ngModel)]="rcusername" name="rcusername" placeholder="user name"><br><br>
+	   <select  [(ngModel)]="addtochannelname" name="addtochannelname">
+	   	<option *ngFor = "let channel of detailedgroup.channels" value = channel>{{channel}}
+	   	</option>
+	   </select>
+	   <br><br>
+	   <button (click) = "removeUserFromChannel()"> Remove user from a channel</button>
 	</div>
 	<br><br>
 	<div *ngIf="detailedgroup.isofadmin">

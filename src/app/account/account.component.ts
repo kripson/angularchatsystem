@@ -77,7 +77,7 @@ export class AccountComponent implements OnInit {
 		channels: []
 	};
 
-//new group user derails
+//new group user details
 	ngroupusername = "";
 	ngroupbirthdate = "";
 	ngroupage = "";
@@ -103,6 +103,10 @@ export class AccountComponent implements OnInit {
 	cusername = "";
 	addtochannelname = "";
 
+//removing user from channel
+	rcusername = "";
+	removefromchannelname = "";
+
 
 	constructor(private router: Router, private httpClient: HttpClient) {}
 
@@ -114,7 +118,6 @@ export class AccountComponent implements OnInit {
 
 			try {
 				var userdetails = JSON.parse(localStorage.getItem("currentUser"));
-				this.userlist = userdetails.userlist;
 				this.username = userdetails.username;
 				this.birthdate = userdetails.birthdate;
 				this.ofgroupadmin = userdetails.ofgroupadmin;
@@ -122,6 +125,7 @@ export class AccountComponent implements OnInit {
 				this.age = userdetails.age;
 				this.email = userdetails.email;
 				this.grouplist = userdetails.grouplist;
+				this.getuserlist(this.username);
 
 
 			} catch (error) {
@@ -131,7 +135,111 @@ export class AccountComponent implements OnInit {
 		}
 	}
 
+	//function to update the userlist
+	getuserlist(username)
+	{
+		var requestbody = {
+		username:username
+		}
+		this.httpClient.post <any> ("http://localhost:3000/getuserlist",requestbody).subscribe(res => {
 
+
+		var userdetails = JSON.parse(localStorage.getItem("currentUser"));
+		userdetails.userlist = res;
+		this.userlist = res;
+		localStorage.setItem("currentUser",JSON.stringify(userdetails));
+
+		});
+
+
+	}
+
+	//function to update the userdetails
+	getuserdetails(username)
+	{
+		var requestbody = {
+		username:username
+		}
+		this.httpClient.post <any> ("http://localhost:3000/getuserdetails",requestbody).subscribe(res => {
+
+		
+
+		//updating the user details
+		this.username = res.username;
+		this.birthdate = res.birthdate;
+		this.ofgroupadmin = res.ofgroupadmin;
+		this.admingrouplist = res.admingrouplist;
+		this.age = res.age;
+		this.email = res.email;
+		this.grouplist = res.grouplist;
+
+		//updating the localstorage
+
+		var userdetails = JSON.parse(localStorage.getItem("currentUser"));
+		userdetails.username = res.username;
+		userdetails.birthdate = res.birthdate;
+		userdetails.ofgroupadmin = res.ofgroupadmin;
+		userdetails.admingrouplist = res.admingrouplist;
+		userdetails.age = res.age;
+		userdetails.email = res.email;
+		userdetails.grouplist = res.grouplist;
+		localStorage.setItem("currentUser",JSON.stringify(userdetails));
+
+		});
+
+
+	}
+
+	//function to update the groupdetails
+	getgroupdetails(groupname)
+	{
+		var requestbody = {
+		groupname:groupname
+		}
+		this.httpClient.post <any> ("http://localhost:3000/getgroupdetails",requestbody).subscribe(res => {
+
+		if (res.err) 
+				{
+					alert(res.err);
+					this.getuserdetails(this.username);
+					this.getuserlist(this.username);
+
+				}
+		else
+		{
+					//updating the current selected group details
+
+				this.detailedgroup.groupname = res.groupname;
+				this.detailedgroup.isofadmin = res.admins.includes(this.username);
+				this.detailedgroup.isofasis = res.asis.includes(this.username);
+				this.detailedgroup.membercount = res.members.length;
+				this.getuserdetails(this.username);
+				this.getuserlist(this.username);
+
+				var requesterchannels = [];
+
+
+				for(var channel in res.channels)
+                    {
+                        if(res.channels[channel].members.includes(this.username))
+                        {
+                            requesterchannels.push(channel);
+
+                        }
+
+                    }
+                this.detailedgroup.channels = requesterchannels;
+		}
+					
+
+		
+
+		
+
+		});
+
+
+	}
 	turn(num) {
 		if (num == 1) {
 			this.createnewgroupuser = true;
@@ -159,7 +267,7 @@ export class AccountComponent implements OnInit {
 			} else {
 				this.nofgroupadmin = false;
 			}
-			var nuser = {
+			var body = {
 				username: this.nusername,
 				birthdate: this.nbirthdate,
 				age: this.nage,
@@ -169,36 +277,22 @@ export class AccountComponent implements OnInit {
 				grouplist: [],
 				password: this.npassword,
 				valid: this.nvalid
-			}
+			};
 
-			this.httpClient.post < Users > ("http://localhost:3000/createuser", nuser).subscribe(res => {
+			this.httpClient.post<any>("http://localhost:3000/createuser", body).subscribe(res => {
 
-				if (res.notice == "user created") {
-
-					if (typeof (Storage) !== "undefined") {
-						if (res.userlist.length != this.userlist.length + 1) {
-							alert("New users have been added by other admins");
-
-						}
-						var temp = JSON.parse(localStorage.getItem("currentUser"));
-						temp.userlist = res.userlist;
-						localStorage.setItem("currentUser", JSON.stringify(temp));
-						this.userlist = res.userlist;
-
-
-					} else {
-						alert('Cannot Create User');
-					}
-				} else {
-					alert("User already exists");
-					var temp = JSON.parse(localStorage.getItem("currentUser"));
-					temp.userlist = res.userlist;
-					localStorage.setItem("currentUser", JSON.stringify(temp));
-					this.userlist = res.userlist;
-
+				if (res.err) 
+				{
+					alert(res.err);
 
 				}
-			});
+				else
+				{
+					alert(res.message);
+				}
+					this.getuserlist(this.username);
+
+				});
 		} else {
 			alert("Please fill out the form completely and username cant be super");
 		}
@@ -223,27 +317,25 @@ export class AccountComponent implements OnInit {
 				ngroup.asis.pop();
 			}
 
-			this.httpClient.post < Groups > ("http://localhost:3000/creategroup", ngroup).subscribe(res => { 
+			this.httpClient.post <any> ("http://localhost:3000/creategroup", ngroup).subscribe(res => { 
+				if (res.err) 
+				{
+					alert(res.err);
 
-				if (res.notice == "Done") {
-					if (typeof (Storage) !== "undefined") {
-						var temp = JSON.parse(localStorage.getItem("currentUser"));
-						temp.grouplist = res.grouplist;
-						temp.admingrouplist = res.admingrouplist;
-						localStorage.setItem("currentUser", JSON.stringify(temp));
-						this.grouplist = res.grouplist;
-						this.admingrouplist = res.admingrouplist;
-					} else {
-						alert('Cannot Create Group');
-					}
-				} else {
-					alert("Group Already exists");
 				}
+				else
+				{
+					alert(res.message);
+				}
+					this.getuserdetails(this.username);
 
-			});
-		} else {
+				});
+
+			}
+			else 
+			{
 			alert("Please enter a group name");
-		}
+			}
 
 	}
 
@@ -251,27 +343,26 @@ export class AccountComponent implements OnInit {
 	deleteUser(user) {
 		var deluser = {
 			username: user
-		}
-		this.httpClient.post < Users > ("http://localhost:3000/deleteuser", deluser).subscribe(res => {  
+		};
+		this.httpClient.post<any>("http://localhost:3000/deleteuser", deluser).subscribe(res => {  
 
+			if(res.err) 
+			{
+				alert(res.err);
 
-			if (typeof (Storage) !== "undefined") {
-				if (res.userlist.length != this.userlist.length - 1) {
-					alert("New Users have been added by other admin");
-				}
-
-				var temp = JSON.parse(localStorage.getItem("currentUser"));
-				temp.userlist = res.userlist;
-				localStorage.setItem("currentUser", JSON.stringify(temp));
-				this.userlist = res.userlist;
-			} else {
-				alert('Cannot Delete User');
 			}
+			else
+			{
+				alert("User deleted");
+			}
+			this.getuserlist(this.username);
+
+				
 
 			if (this.detailedgroup.groupname) {
 
 
-				this.groupDetail(this.detailedgroup.groupname);
+				this.getgroupdetails(this.detailedgroup.groupname);
 			}
 		});
 
@@ -293,20 +384,28 @@ export class AccountComponent implements OnInit {
 			groupname: group,
 			deletor: this.username
 		}
-		this.httpClient.post < Groups > ("http://localhost:3000/deletegroup", delgroup).subscribe(res => {  
+		this.httpClient.post <any> ("http://localhost:3000/deletegroup", delgroup).subscribe(res => {  
 
 
-			if (typeof (Storage) !== "undefined") {
-				var temp = JSON.parse(localStorage.getItem("currentUser"));
-				temp.grouplist = res.grouplist;
-				temp.admingrouplist = res.grouplist;
-				localStorage.setItem("currentUser", JSON.stringify(temp));
-				this.grouplist = res.grouplist;
-				this.admingrouplist = res.admingrouplist;
-			} else {
-				alert('Cannot Delete User');
-			}
-		});
+			if (res.err) 
+				{
+					alert(res.err);
+
+				}
+				else
+				{
+					alert(res.message);
+				}
+
+					if (this.detailedgroup.groupname) {
+
+
+							this.getgroupdetails(this.detailedgroup.groupname);
+					}
+					this.getuserdetails(this.username);
+					this.getuserlist(this.username);
+
+			});
 
   }
   
@@ -376,21 +475,22 @@ export class AccountComponent implements OnInit {
 				admingrouplist: [],
 				password: this.ngrouppassword,
 				valid: this.ngroupvalid,
-				groupname: this.detailedgroup.groupname,
-				creator: this.username
+				groupname: this.detailedgroup.groupname
 			}
 
-			this.httpClient.post < Member > ("http://localhost:3000/createnewgroupuser", newuserdetail).subscribe(res => {  
+			this.httpClient.post <any> ("http://localhost:3000/createnewgroupuser", newuserdetail).subscribe(res => {  
 
 
-				if (typeof (Storage) !== "undefined") {
-					var temp = JSON.parse(localStorage.getItem("currentUser"));
-					temp.userlist = res.userlist;
-					localStorage.setItem("currentUser", JSON.stringify(temp));
-					this.userlist = res.userlist;
-					this.groupDetail(this.detailedgroup.groupname);
-				} else {
-					alert('Cannot Create User');
+				if (res.err) 
+				{
+					alert(res.err);
+
+				}
+				else
+				{
+					alert(res.message);
+					this.getuserlist(this.username);
+					this.getgroupdetails(this.detailedgroup.groupname);
 				}
 				this.createnewgroupuser = false;
 				this.addnewgroupuser = false;
@@ -416,15 +516,19 @@ export class AccountComponent implements OnInit {
 				creator: this.username
 			}
 
-			this.httpClient.post < Member > ("http://localhost:3000/addusertogroup", newuserdetail).subscribe(res => {  
+			this.httpClient.post <any> ("http://localhost:3000/addusertogroup", newuserdetail).subscribe(res => {  
 
 
-				if (typeof (Storage) !== "undefined") {
-					this.userlist = res.userlist;
-					alert(res.notice);
-					this.groupDetail(this.detailedgroup.groupname);
-				} else {
-					alert('Cannot add User to group');
+				if (res.err) 
+				{
+					alert(res.err);
+
+				}
+				else
+				{
+					alert(res.message);
+					this.getuserlist(this.username);
+					this.getgroupdetails(this.detailedgroup.groupname);
 				}
 				this.createnewgroupuser = false;
 				this.addnewgroupuser = false;
@@ -444,12 +548,20 @@ export class AccountComponent implements OnInit {
 			groupname: this.detailedgroup.groupname,
 			username: this.rusername
 		};
-		this.httpClient.post < any > ("http://localhost:3000/removeuserfromgroup", removeuser).subscribe(res => {  
+		this.httpClient.post<any>("http://localhost:3000/removeuserfromgroup", removeuser).subscribe(res => {  
 
 
-			alert(res.notice);
-			this.groupDetail(this.detailedgroup.groupname);
+			if (res.err) 
+				{
+					alert(res.err);
 
+				}
+				else
+				{
+					alert(res.message);
+					this.getuserlist(this.username);
+					this.getgroupdetails(this.detailedgroup.groupname);
+				}
 		});
 	}
 
@@ -465,16 +577,18 @@ export class AccountComponent implements OnInit {
 		}
 		this.httpClient.post < any > ("http://localhost:3000/promotetogroupadmin", promoteduser).subscribe(res => {  
 
-			if (res.notice == "Done") {
-				alert("User promoted to group admin role");
-			} else {
-				alert("User does not seem to be part of the system");
-				this.userlist = this.userlist.filter(function (value) {
+			if (res.err) 
+				{
+					alert(res.err);
 
-					return value != username;
-
-				});
-			}
+				}
+				else
+				{
+					alert(res.message);
+					this.getuserlist(this.username);
+					this.getgroupdetails(this.detailedgroup.groupname);
+				}
+			
 
 
 		});
@@ -498,12 +612,15 @@ export class AccountComponent implements OnInit {
 
 			this.httpClient.post < any > ("http://localhost:3000/createchannel", newchannel).subscribe(res => {  
 
-				if (res.notice == "Done") {
-					alert("Channel created");
-					this.groupDetail(this.detailedgroup.groupname);
-				} else {
-					alert("Channel couldn't be created or may already exist");
-					this.groupDetail(this.detailedgroup.groupname);
+				if (res.err) 
+				{
+					alert(res.err);
+
+				}
+				else
+				{
+					alert(res.message);
+					this.getgroupdetails(this.detailedgroup.groupname);
 				}
 
 
@@ -526,14 +643,17 @@ export class AccountComponent implements OnInit {
 
 		this.httpClient.post < any > ("http://localhost:3000/deletechannel", deletechannel).subscribe(res => {  
 
-			if (res.notice == "Done") {
-				alert("Channel deleted");
-				this.groupDetail(this.detailedgroup.groupname);
-				console.log(this.detailedgroup.channels);
-			} else {
-				alert("Other admin has deleted the channel or the group");
-				this.groupDetail(this.detailedgroup.groupname);
-			}
+			if (res.err) 
+				{
+					alert(res.err);
+					this.getgroupdetails(this.detailedgroup.groupname);
+
+				}
+				else
+				{
+					alert(res.message);
+					this.getgroupdetails(this.detailedgroup.groupname);
+				}
 
 
 		});
@@ -552,11 +672,50 @@ export class AccountComponent implements OnInit {
 			}
 
 
-			this.httpClient.post < any > ("http://localhost:3000/addusertochannel", adduser).subscribe(res => {  
+			this.httpClient.post <any> ("http://localhost:3000/addusertochannel", adduser).subscribe(res => {  
 
-				alert(res.notice);
-				this.groupDetail(this.detailedgroup.groupname);
+				if (res.err) 
+				{
+					alert(res.err);
+					this.getgroupdetails(this.detailedgroup.groupname);
 
+				}
+				else
+				{
+					alert(res.message);
+					this.getgroupdetails(this.detailedgroup.groupname);
+				}
+
+
+			});
+		}
+
+
+	}
+
+	//remove a group member from a channel
+	removeUserFromChannel() {
+		if (this.rcusername != "" && this.removefromchannelname != "") {
+			var removeuser = {
+				username: this.rcusername,
+				groupname: this.detailedgroup.groupname,
+				channelname: this.removefromchannelname,
+			}
+
+
+			this.httpClient.post < any > ("http://localhost:3000/addusertochannel", removeuser).subscribe(res => {  
+
+				if (res.err) 
+				{
+					alert(res.err);
+					this.getgroupdetails(this.detailedgroup.groupname);
+
+				}
+				else
+				{
+					alert(res.message);
+					this.getgroupdetails(this.detailedgroup.groupname);
+				}
 
 			});
 		}
