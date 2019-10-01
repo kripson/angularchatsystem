@@ -11,31 +11,7 @@ import {
 import {FormsModule} from '@angular/forms';
 import {SocketService} from '../socket.service';
 
-// Interfaces for reply from server after a http request
-interface Users {
-	userlist: any;
-	notice: string;
-};
 
-interface Groups {
-	grouplist: any;
-	admingrouplist: any;
-	notice;
-};
-
-interface Group {
-	groupname: string,
-		isofadmin: boolean;
-	isofasis: boolean;
-	membercount: number;
-	channels: any;
-};
-
-
-interface Member {
-	userlist: any;
-	notice: string;
-}
 
 
 @Component({
@@ -118,14 +94,31 @@ export class AccountComponent implements OnInit {
 	channelnotice = "";
 
 
+//image sending and receiving
+
+	image:any;
+
 	constructor(private router: Router, private httpClient: HttpClient,private socketService:SocketService) {}
 
 	ngOnInit() {
 
-				this.socketService.getmessage((message)=>
+				this.socketService.getmessage((messages)=>
 			  {
-			  	alert(message);
-			  		this.messages = JSON.parse(message);
+
+			  		var serverresponse = JSON.parse(messages);
+			  		var image;
+
+			  		serverresponse.forEach((message,index)=>
+			  		{
+			  			if(message[1] !== "string")
+			  			{
+			  				
+			  				message[2] = 'data:image/jpeg;base64,' + message[2];
+			  			}
+
+			  		});
+
+			  		this.messages = serverresponse;
 			  });
 
 			  this.socketService.getchannelnotice((notice)=>
@@ -156,16 +149,63 @@ export class AccountComponent implements OnInit {
 		}
 	}
 
+	//setImage
+	setImage()
+	{
+		var input = event.target as HTMLInputElement;
+		this.image = input.files[0];
+	}
+
+	//Upload image
+
+	uploadImage()
+	{
+
+			if(this.image)
+			{
+						var body = 
+					{
+						username: this.username,
+						channelname:this.currentchannel,
+						groupname:this.detailedgroup.groupname,
+						image:this.image
+
+					}
+					this.socketService.uploadimage(body);
+
+			}
+			else
+			{
+
+				alert("Please choose a file to send");
+			}
+		
+			
+			
+		
+		
+
+	}
+
 	sendmessage()
 	{
-		var sendbody = {
+		if(this.message)
+		{
+			var sendbody = {
 
 			message:this.message,
+			username:this.username,
 			groupname:this.detailedgroup.groupname,
 			channelname: this.currentchannel
 		}
 
 			this.socketService.sendmessage(sendbody);
+		}
+		else
+		{
+			alert("Common say something");
+		}
+		
 					 
 
 	}
@@ -456,39 +496,7 @@ export class AccountComponent implements OnInit {
 	}
 
 
-  //getting group details via http request when user clicks on a group to see its details
-	groupDetail(group) {
-
-
-		var getgroup = {
-			requester: this.username,
-			groupname: group
-		}
-		this.httpClient.post < Group > ("http://localhost:3000/getgroupdetail", getgroup).subscribe(res => {  
-			if (res.membercount) {
-				if (typeof (Storage) !== "undefined") {
-					this.detailedgroup.groupname = res.groupname;
-					this.detailedgroup.isofadmin = res.isofadmin;
-					this.detailedgroup.isofasis = res.isofasis;
-					this.detailedgroup.isofadmin = res.isofadmin;
-					this.detailedgroup.membercount = res.membercount;
-					this.detailedgroup.channels = res.channels;
-
-				} else {
-					alert('Cannot get Group Detail');
-				}
-			} else {
-				alert("The group seems to be deleted");
-				this.grouplist = this.grouplist.filter(function (value) {
-
-					return value != res.groupname;
-
-				});
-			}
-		});
-
-
-	}
+  
   // New user creation function and adding user to the current viewing group
 	addNewUserToGroup() {
 		if (this.ngroupusername != "" && this.nofgroupasis != "" && this.ngroupage != "" && this.ngroupbirthdate != "" && this.ngroupemail != "" && this.ngrouppassword != "" && this.ngroupusername != "super") {
@@ -739,7 +747,7 @@ export class AccountComponent implements OnInit {
 			}
 
 
-			this.httpClient.post < any > ("http://localhost:3000/addusertochannel", removeuser).subscribe(res => {  
+			this.httpClient.post < any > ("http://localhost:3000/removeuserfromchannel", removeuser).subscribe(res => {  
 
 				if (res.err) 
 				{
@@ -754,6 +762,10 @@ export class AccountComponent implements OnInit {
 				}
 
 			});
+		}
+		else
+		{
+		alert("Please enter the username and select a channel");
 		}
 
 

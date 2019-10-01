@@ -104,7 +104,7 @@ module.exports = function(dbo,app)
                   {
                     if(member === requestbody.username)
                     {
-                      channel.members.splice(index,1);
+                      channels[channel].members.splice(index,1);
                     }
 
                   });
@@ -112,7 +112,7 @@ module.exports = function(dbo,app)
                   {
                     if(admin === requestbody.username)
                     {
-                      channel.admins.splice(index,1);
+                      channels[channel].admins.splice(index,1);
                     }
 
                   });

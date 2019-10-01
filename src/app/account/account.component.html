@@ -124,11 +124,22 @@
 
 
 <div id="chatbox" *ngIf="isinroom">
-
-	<p *ngFor = "let message of messages" >{{message}}
-	   	</p>
-	<input type="text" [(ngModel)]="message" name="message">
 	<h1>{{channelnotice}}</h1>
+	<br><br>
+
+	<div *ngFor = "let message of messages" >{{message[0]}}
+		<div *ngIf="message[1] !== 'string'; else elseBlock"><img style = "width:200px;height:200px" src="{{message[2]}}"></div>
+		
+		<ng-template #elseBlock>{{message[2]}}</ng-template>
+		<br><br>
+	</div>
+
+
+	<input type="text" [(ngModel)]="message" name="message">
+	
+	<input type="file" (change) ="setImage()" [(ngModel)]="image" name="image"><br><br>
+
+	<button (click) = "uploadImage()">Send an image</button>
 	<button (click) = "sendmessage()">Send message</button>
 	<button (click) = "leaveChannel()">Leave this channel</button>
 </div>
