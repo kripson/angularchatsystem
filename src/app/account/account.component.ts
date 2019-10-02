@@ -142,12 +142,12 @@ export class AccountComponent implements OnInit {
 			  		var reply = JSON.parse(notice);
 			  		if(reply.err)
 			  		{
-			  			//alert(reply.err);
+			  			alert(reply.err);
 			  			this.testmessage = reply.err;
 			  		}
 			  		else
 			  		{
-			  			//alert(reply.message)
+			  			alert(reply.message)
 			  			this.testmessage = reply.message;
 			  		}
 			  		
@@ -170,7 +170,7 @@ export class AccountComponent implements OnInit {
 
 
 			} catch (error) {
-				//alert("Please Login First");
+				alert("Please Login First");
 				this.router.navigateByUrl('login');
 			}
 		}
@@ -211,7 +211,7 @@ export class AccountComponent implements OnInit {
 			else
 			{
 
-				//alert("Please choose a file to send");
+				alert("Please choose a file to send");
 				this.testmessage = "Please choose a file to send";
 			}
 		
@@ -241,7 +241,7 @@ export class AccountComponent implements OnInit {
 			else
 			{
 
-				//alert("Please choose a file to upload as profile picture");
+				alert("Please choose a file to upload as profile picture");
 				this.testmessage = "Please choose a file to upload as profile picture";
 				
 			}
@@ -270,7 +270,7 @@ export class AccountComponent implements OnInit {
 		}
 		else
 		{
-			//alert("Common say something");
+			alert("Common say something");
 			this.testmessage = "Common say something";
 			
 		}
@@ -344,7 +344,7 @@ export class AccountComponent implements OnInit {
 
 		if (res.err) 
 				{
-					//alert(res.err);
+					alert(res.err);
 					this.testmessage = res.err;
 					this.getuserdetails(this.username);
 					this.getuserlist(this.username);
@@ -428,13 +428,13 @@ export class AccountComponent implements OnInit {
 
 				if (res.err) 
 				{
-					//alert(res.err);
+					alert(res.err);
 					this.testmessage = res.err;
 
 				}
 				else
 				{
-					//alert(res.message);
+					alert(res.message);
 					this.testmessage = res.message;
 				}
 					this.getuserlist(this.username);
@@ -448,7 +448,7 @@ export class AccountComponent implements OnInit {
 
 				});
 		} else {
-			//alert("Please fill out the form completely and username cant be super");
+			alert("Please fill out the form completely and username cant be super");
 			this.testmessage ="Please fill out the form completely and username cant be super";
 			
 		}
@@ -476,13 +476,13 @@ export class AccountComponent implements OnInit {
 			this.httpClient.post <any> ("http://localhost:3000/creategroup", ngroup).subscribe(res => { 
 				if (res.err) 
 				{
-					//alert(res.err);
+					alert(res.err);
 					this.testmessage = res.err;
 
 				}
 				else
 				{
-					//alert(res.message);
+					alert(res.message);
 					this.testmessage = res.message;
 				}
 					this.getuserdetails(this.username);
@@ -493,7 +493,7 @@ export class AccountComponent implements OnInit {
 			}
 			else 
 			{
-			//alert("Please enter a group name");
+			alert("Please enter a group name");
 			this.testmessage = "Please enter a group name";
 
 			}
@@ -509,13 +509,13 @@ export class AccountComponent implements OnInit {
 
 			if(res.err) 
 			{
-				//alert(res.err);
+				alert(res.err);
 				this.testmessage = res.err;
 
 			}
 			else
 			{
-				//alert(res.message);
+				alert(res.message);
 				this.testmessage = res.message;
 			}
 			this.getuserlist(this.username);
@@ -552,13 +552,13 @@ export class AccountComponent implements OnInit {
 
 			if (res.err) 
 				{
-					//alert(res.err);
+					alert(res.err);
 					this.testmessage = res.err;
 
 				}
 				else
 				{
-					//alert(res.message);
+					alert(res.message);
 					this.testmessage = res.message;
 				}
 
@@ -616,13 +616,13 @@ export class AccountComponent implements OnInit {
 
 				if (res.err) 
 				{
-					//alert(res.err);
+					alert(res.err);
 					this.testmessage = res.err;
 
 				}
 				else
 				{
-					//alert(res.message);
+					alert(res.message);
 					this.testmessage = res.message;
 					this.getuserlist(this.username);
 					this.getgroupdetails(this.detailedgroup.groupname);
@@ -640,7 +640,7 @@ export class AccountComponent implements OnInit {
 					
 			});
 		} else {
-			//alert("Please fill out the form completely");
+			alert("Please fill out the form completely");
 			this.testmessage = "Please fill out the form completely";
 
 		}
@@ -667,13 +667,13 @@ export class AccountComponent implements OnInit {
 
 				if (res.err) 
 				{
-					//alert(res.err);
+					alert(res.err);
 					this.testmessage = res.err;
 
 				}
 				else
 				{
-					//alert(res.message);
+					alert(res.message);
 					this.testmessage = res.message;
 					this.getuserlist(this.username);
 					this.getgroupdetails(this.detailedgroup.groupname);
@@ -685,7 +685,7 @@ export class AccountComponent implements OnInit {
 				
 			});
 		} else {
-			//alert("Please fill out the form properly");
+			alert("Please fill out the form properly");
 			this.testmessage = "Please fill out the form properly";
 
 		}
@@ -706,13 +706,13 @@ export class AccountComponent implements OnInit {
 
 			if (res.err) 
 				{
-					//alert(res.err);
+					alert(res.err);
 					this.testmessage = res.err;
 
 				}
 				else
 				{
-					//alert(res.message);
+					alert(res.message);
 					this.testmessage = res.message;
 					this.getuserlist(this.username);
 					this.getgroupdetails(this.detailedgroup.groupname);
@@ -735,13 +735,13 @@ export class AccountComponent implements OnInit {
 
 			if (res.err) 
 				{
-					//alert(res.err);
+					alert(res.err);
 					this.testmessage = res.err;
 
 				}
 				else
 				{
-					//alert(res.message);
+					alert(res.message);
 					this.testmessage = res.message;
 					this.getuserlist(this.username);
 					this.getgroupdetails(this.detailedgroup.groupname);
@@ -773,13 +773,13 @@ export class AccountComponent implements OnInit {
 
 				if (res.err) 
 				{
-					//alert(res.err);
+					alert(res.err);
 					this.testmessage = res.err;
 
 				}
 				else
 				{
-					//alert(res.message);
+					alert(res.message);
 					this.testmessage = res.message;
 					this.getgroupdetails(this.detailedgroup.groupname);
 					this.nchannelname = "";
@@ -788,7 +788,7 @@ export class AccountComponent implements OnInit {
 
 			});
 		} else {
-			//alert("Please insert a channel name");
+			alert("Please insert a channel name");
 			this.testmessage = "Please insert a channel name";
 
 		}
@@ -811,14 +811,14 @@ export class AccountComponent implements OnInit {
 
 			if (res.err) 
 				{
-					//alert(res.err);
+					alert(res.err);
 					this.testmessage = res.err;
 					this.getgroupdetails(this.detailedgroup.groupname);
 
 				}
 				else
 				{
-					//alert(res.message);
+					alert(res.message);
 					this.testmessage = res.message;
 					this.getgroupdetails(this.detailedgroup.groupname);
 				}
@@ -828,7 +828,7 @@ export class AccountComponent implements OnInit {
 	}
 	else
 	{
-		//alert("Please leave the channel first");
+		alert("Please leave the channel first");
 		this.testmessage = "Please leave the channel first";
 	}
 
@@ -851,7 +851,7 @@ export class AccountComponent implements OnInit {
 
 				if (res.err) 
 				{
-					//alert(res.err);
+					alert(res.err);
 					this.testmessage = res.err;
 					this.getgroupdetails(this.detailedgroup.groupname);
 					this.addtochannelname = "";
@@ -859,7 +859,7 @@ export class AccountComponent implements OnInit {
 				}
 				else
 				{
-					//alert(res.message);
+					alert(res.message);
 					this.testmessage = res.message;
 					this.getgroupdetails(this.detailedgroup.groupname);
 					this.cusername = ""; 
@@ -871,6 +871,7 @@ export class AccountComponent implements OnInit {
 		}
 		else
 		{
+			alert("Please select a channel and provide a valid username");
 			this.testmessage = "Please provide valid inputs";
 		}
 
@@ -891,7 +892,7 @@ export class AccountComponent implements OnInit {
 
 				if (res.err) 
 				{
-					//alert(res.err);
+					alert(res.err);
 					this.testmessage = res.err;
 					this.getgroupdetails(this.detailedgroup.groupname);
 					this.removefromchannelname = "";
@@ -899,7 +900,7 @@ export class AccountComponent implements OnInit {
 				}
 				else
 				{
-					//alert(res.message);
+					alert(res.message);
 					this.testmessage = res.message;
 					this.getgroupdetails(this.detailedgroup.groupname);
 					this.rcusername = "";
@@ -911,7 +912,7 @@ export class AccountComponent implements OnInit {
 		}
 		else
 		{
-		//alert("Please enter the username and select a channel");
+		alert("Please enter the username and select a channel");
 		this.testmessage = "Please enter the username and select a channel";
 		}
 
@@ -940,7 +941,7 @@ export class AccountComponent implements OnInit {
 		}
 		else
 		{
-			//alert("Please leave the current channel first");
+			alert("Please leave the current channel first");
 		}
 
 		

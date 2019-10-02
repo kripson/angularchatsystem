@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.httpClient.post<any>("http://localhost:3000/api/auth",body).subscribe(res => {
                if(res.err)
               {
-                //alert('Please enter valid login details');
+                alert('Please enter valid login details');
              
               }
                else
