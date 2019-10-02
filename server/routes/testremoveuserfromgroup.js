@@ -36,7 +36,6 @@ module.exports = function(dbo,app)
 
 
 
-      console.log('Part 1 cleared');
       if(usercheck)
       {
         var groupupdate = await new Promise((resolve,reject)=>
@@ -98,7 +97,7 @@ module.exports = function(dbo,app)
               }
 
 
-              console.log('Part 2 cleared');
+         
 
 
 

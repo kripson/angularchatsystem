@@ -14,6 +14,36 @@
 
 
 }
+
+#header
+{
+	background-color: rgb(51, 133, 255);
+	position: relative;
+	width: 100%;
+	height: 80px; 
+
+}
+#chatbox
+{
+	position: absolute;
+	left: 2em;
+	bottom: 0;
+	max-height: 660px;
+	box-shadow: 10px 10px 30px grey; 
+	min-width:500px;
+	border-radius: 5px;
+}
+
+#chatbox a:hover
+{
+	cursor:pointer;
+}
+
+#chatbox input[type="text"]
+{
+	height: 55px;
+	width: 100%;
+}
 #userlist
 {
 	position: absolute;
@@ -69,14 +99,23 @@
 	text-align: center;
 }
 
-
+#profileupdate
+{
+	position: absolute;
+	top:5em;
+	right:1em;
+	max-width: 300px;
+}
 #groupdetails 
 {
 	position: relative;
-	border:2px solid black;
 	box-shadow: 10px 10px 30px black;
+	border-radius: 5px;
 	overflow-x: scroll;
+	max-height: 750px;
+	overflow-y: scroll;
 	width: 70%;
+	left:10%;
 	padding: 1em;
 	margin-bottom:  2em;
 }
@@ -102,8 +141,18 @@
 	padding: 1em;
 	margin:2em 2em;
 	border-radius: 15px;
+	position: relative;
+	left: 8%;
 }
 
+#messagecontainer
+{
+	position: relative;
+	max-height: 400px;
+	overflow-x: scroll;
+	overflow-y: scroll;
+	padding: 2em;
+}
 #newgroupform
 {
 	box-shadow: 10px 10px 50px grey;
@@ -112,6 +161,8 @@
 	padding: 1em;
 	margin:2em 2em;
 	border-radius: 15px;
+	left: 8%;
+	position: relative;
 }
 
 #logout

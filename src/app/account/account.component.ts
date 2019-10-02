@@ -24,6 +24,13 @@ export class AccountComponent implements OnInit {
 	createnewgroupuser = false;
 	addnewgroupuser = false;
 
+
+
+
+		//testing purpose
+		testmessage = "";
+
+
 //users login details
 	username = "";
 	birthdate = "";
@@ -63,6 +70,7 @@ export class AccountComponent implements OnInit {
 	nofgroupasis: any = "";
 	nmembergrouplist = [];
 	ngroupvalid = true;
+
 // for adding existing user to group
 	groupusername = "";
 	ofgroupasis: any = "";
@@ -97,6 +105,7 @@ export class AccountComponent implements OnInit {
 //image sending and receiving
 
 	image:any;
+	profileimage:any;
 
 	constructor(private router: Router, private httpClient: HttpClient,private socketService:SocketService) {}
 
@@ -105,8 +114,8 @@ export class AccountComponent implements OnInit {
 				this.socketService.getmessage((messages)=>
 			  {
 
+
 			  		var serverresponse = JSON.parse(messages);
-			  		var image;
 
 			  		serverresponse.forEach((message,index)=>
 			  		{
@@ -115,6 +124,8 @@ export class AccountComponent implements OnInit {
 			  				
 			  				message[2] = 'data:image/jpeg;base64,' + message[2];
 			  			}
+			  			message[3] = 'data:image/jpeg;base64,' + message[3];
+			  			
 
 			  		});
 
@@ -124,6 +135,22 @@ export class AccountComponent implements OnInit {
 			  this.socketService.getchannelnotice((notice)=>
 			  {
 			  		this.channelnotice = notice;
+			  });
+
+			   this.socketService.getuploadreply((notice)=>
+			  {
+			  		var reply = JSON.parse(notice);
+			  		if(reply.err)
+			  		{
+			  			//alert(reply.err);
+			  			this.testmessage = reply.err;
+			  		}
+			  		else
+			  		{
+			  			//alert(reply.message)
+			  			this.testmessage = reply.message;
+			  		}
+			  		
 			  });
 
     //setting up page
@@ -143,7 +170,7 @@ export class AccountComponent implements OnInit {
 
 
 			} catch (error) {
-				alert("Please Login First");
+				//alert("Please Login First");
 				this.router.navigateByUrl('login');
 			}
 		}
@@ -154,6 +181,13 @@ export class AccountComponent implements OnInit {
 	{
 		var input = event.target as HTMLInputElement;
 		this.image = input.files[0];
+	}
+
+	//setImage
+	setProfile()
+	{
+		var input = event.target as HTMLInputElement;
+		this.profileimage = input.files[0];
 	}
 
 	//Upload image
@@ -177,7 +211,39 @@ export class AccountComponent implements OnInit {
 			else
 			{
 
-				alert("Please choose a file to send");
+				//alert("Please choose a file to send");
+				this.testmessage = "Please choose a file to send";
+			}
+		
+			
+			
+		
+		
+
+	}
+
+	//Upload image
+
+	uploadProfileImage()
+	{
+
+			if(this.profileimage)
+			{
+						var body = 
+					{
+						username: this.username,
+						image:this.profileimage
+
+					}
+					this.socketService.uploadprofileimage(body);
+
+			}
+			else
+			{
+
+				//alert("Please choose a file to upload as profile picture");
+				this.testmessage = "Please choose a file to upload as profile picture";
+				
 			}
 		
 			
@@ -198,12 +264,15 @@ export class AccountComponent implements OnInit {
 			groupname:this.detailedgroup.groupname,
 			channelname: this.currentchannel
 		}
+			
 
 			this.socketService.sendmessage(sendbody);
 		}
 		else
 		{
-			alert("Common say something");
+			//alert("Common say something");
+			this.testmessage = "Common say something";
+			
 		}
 		
 					 
@@ -275,7 +344,8 @@ export class AccountComponent implements OnInit {
 
 		if (res.err) 
 				{
-					alert(res.err);
+					//alert(res.err);
+					this.testmessage = res.err;
 					this.getuserdetails(this.username);
 					this.getuserlist(this.username);
 
@@ -337,7 +407,7 @@ export class AccountComponent implements OnInit {
 		if (this.nofgroupadmin != "" && this.nusername != "" && this.nage != "" && this.nbirthdate != "" && this.nemail != "" && this.npassword != "" && this.nusername != "super") {
 
 
-			if (this.nofgroupadmin == "true") {
+			if (this.nofgroupadmin === "true") {
 				this.nofgroupadmin = true;
 			} else {
 				this.nofgroupadmin = false;
@@ -358,18 +428,29 @@ export class AccountComponent implements OnInit {
 
 				if (res.err) 
 				{
-					alert(res.err);
+					//alert(res.err);
+					this.testmessage = res.err;
 
 				}
 				else
 				{
-					alert(res.message);
+					//alert(res.message);
+					this.testmessage = res.message;
 				}
 					this.getuserlist(this.username);
+					this.nusername = "";
+					this.nbirthdate = "";
+					this.nage = "";
+					this.nemail = "";
+					this.nofgroupadmin = "";
+					this.npassword = "";
+	
 
 				});
 		} else {
-			alert("Please fill out the form completely and username cant be super");
+			//alert("Please fill out the form completely and username cant be super");
+			this.testmessage ="Please fill out the form completely and username cant be super";
+			
 		}
 
 	}
@@ -395,21 +476,26 @@ export class AccountComponent implements OnInit {
 			this.httpClient.post <any> ("http://localhost:3000/creategroup", ngroup).subscribe(res => { 
 				if (res.err) 
 				{
-					alert(res.err);
+					//alert(res.err);
+					this.testmessage = res.err;
 
 				}
 				else
 				{
-					alert(res.message);
+					//alert(res.message);
+					this.testmessage = res.message;
 				}
 					this.getuserdetails(this.username);
+					this.ngroupname = "";
 
 				});
 
 			}
 			else 
 			{
-			alert("Please enter a group name");
+			//alert("Please enter a group name");
+			this.testmessage = "Please enter a group name";
+
 			}
 
 	}
@@ -423,12 +509,14 @@ export class AccountComponent implements OnInit {
 
 			if(res.err) 
 			{
-				alert(res.err);
+				//alert(res.err);
+				this.testmessage = res.err;
 
 			}
 			else
 			{
-				alert("User deleted");
+				//alert(res.message);
+				this.testmessage = res.message;
 			}
 			this.getuserlist(this.username);
 
@@ -464,12 +552,14 @@ export class AccountComponent implements OnInit {
 
 			if (res.err) 
 				{
-					alert(res.err);
+					//alert(res.err);
+					this.testmessage = res.err;
 
 				}
 				else
 				{
-					alert(res.message);
+					//alert(res.message);
+					this.testmessage = res.message;
 				}
 
 					if (this.detailedgroup.groupname) {
@@ -526,20 +616,33 @@ export class AccountComponent implements OnInit {
 
 				if (res.err) 
 				{
-					alert(res.err);
+					//alert(res.err);
+					this.testmessage = res.err;
 
 				}
 				else
 				{
-					alert(res.message);
+					//alert(res.message);
+					this.testmessage = res.message;
 					this.getuserlist(this.username);
 					this.getgroupdetails(this.detailedgroup.groupname);
+					this.ngroupusername = "";
+					this.ngroupbirthdate = "";
+					this.ngroupage = "";
+					this.ngroupemail = "";
+					this.ngrouppassword = "";
+					this.nofgroupasis = "";
+					this.nmembergrouplist = [];
+					this.ngroupvalid = true;
 				}
 				this.createnewgroupuser = false;
 				this.addnewgroupuser = false;
+					
 			});
 		} else {
-			alert("Please fill out the form completely");
+			//alert("Please fill out the form completely");
+			this.testmessage = "Please fill out the form completely";
+
 		}
 
 
@@ -564,20 +667,27 @@ export class AccountComponent implements OnInit {
 
 				if (res.err) 
 				{
-					alert(res.err);
+					//alert(res.err);
+					this.testmessage = res.err;
 
 				}
 				else
 				{
-					alert(res.message);
+					//alert(res.message);
+					this.testmessage = res.message;
 					this.getuserlist(this.username);
 					this.getgroupdetails(this.detailedgroup.groupname);
+					this.groupusername = "";
+					this.ofgroupasis = "";
 				}
 				this.createnewgroupuser = false;
 				this.addnewgroupuser = false;
+				
 			});
 		} else {
-			alert("Please fill out the form properly");
+			//alert("Please fill out the form properly");
+			this.testmessage = "Please fill out the form properly";
+
 		}
 
 
@@ -596,14 +706,17 @@ export class AccountComponent implements OnInit {
 
 			if (res.err) 
 				{
-					alert(res.err);
+					//alert(res.err);
+					this.testmessage = res.err;
 
 				}
 				else
 				{
-					alert(res.message);
+					//alert(res.message);
+					this.testmessage = res.message;
 					this.getuserlist(this.username);
 					this.getgroupdetails(this.detailedgroup.groupname);
+					this.rusername = "";
 				}
 		});
 	}
@@ -622,12 +735,14 @@ export class AccountComponent implements OnInit {
 
 			if (res.err) 
 				{
-					alert(res.err);
+					//alert(res.err);
+					this.testmessage = res.err;
 
 				}
 				else
 				{
-					alert(res.message);
+					//alert(res.message);
+					this.testmessage = res.message;
 					this.getuserlist(this.username);
 					this.getgroupdetails(this.detailedgroup.groupname);
 				}
@@ -658,19 +773,24 @@ export class AccountComponent implements OnInit {
 
 				if (res.err) 
 				{
-					alert(res.err);
+					//alert(res.err);
+					this.testmessage = res.err;
 
 				}
 				else
 				{
-					alert(res.message);
+					//alert(res.message);
+					this.testmessage = res.message;
 					this.getgroupdetails(this.detailedgroup.groupname);
+					this.nchannelname = "";
 				}
 
 
 			});
 		} else {
-			alert("Please insert a channel name");
+			//alert("Please insert a channel name");
+			this.testmessage = "Please insert a channel name";
+
 		}
 
 
@@ -679,6 +799,8 @@ export class AccountComponent implements OnInit {
 	//function for deleting a channel
 	deleteChannel(channel) {
 
+	if(this.currentchannel !== channel)
+	{
 		var deletechannel = {
 			groupname: this.detailedgroup.groupname,
 			channelname: channel,
@@ -689,18 +811,27 @@ export class AccountComponent implements OnInit {
 
 			if (res.err) 
 				{
-					alert(res.err);
+					//alert(res.err);
+					this.testmessage = res.err;
 					this.getgroupdetails(this.detailedgroup.groupname);
 
 				}
 				else
 				{
-					alert(res.message);
+					//alert(res.message);
+					this.testmessage = res.message;
 					this.getgroupdetails(this.detailedgroup.groupname);
 				}
 
 
 		});
+	}
+	else
+	{
+		//alert("Please leave the channel first");
+		this.testmessage = "Please leave the channel first";
+	}
+
 
 
 	}
@@ -720,18 +851,27 @@ export class AccountComponent implements OnInit {
 
 				if (res.err) 
 				{
-					alert(res.err);
+					//alert(res.err);
+					this.testmessage = res.err;
 					this.getgroupdetails(this.detailedgroup.groupname);
+					this.addtochannelname = "";
 
 				}
 				else
 				{
-					alert(res.message);
+					//alert(res.message);
+					this.testmessage = res.message;
 					this.getgroupdetails(this.detailedgroup.groupname);
+					this.cusername = ""; 
+					this.addtochannelname = "";
 				}
 
 
 			});
+		}
+		else
+		{
+			this.testmessage = "Please provide valid inputs";
 		}
 
 
@@ -751,21 +891,28 @@ export class AccountComponent implements OnInit {
 
 				if (res.err) 
 				{
-					alert(res.err);
+					//alert(res.err);
+					this.testmessage = res.err;
 					this.getgroupdetails(this.detailedgroup.groupname);
+					this.removefromchannelname = "";
 
 				}
 				else
 				{
-					alert(res.message);
+					//alert(res.message);
+					this.testmessage = res.message;
 					this.getgroupdetails(this.detailedgroup.groupname);
+					this.rcusername = "";
+					this.removefromchannelname = "";
+
 				}
 
 			});
 		}
 		else
 		{
-		alert("Please enter the username and select a channel");
+		//alert("Please enter the username and select a channel");
+		this.testmessage = "Please enter the username and select a channel";
 		}
 
 
@@ -777,33 +924,34 @@ export class AccountComponent implements OnInit {
 	channelDetails(channelname)
 	{
 
-		if(!this.isinroom)
+		if(this.isinroom === false)
 		{
 			this.currentchannel = channelname;
+			this.isinroom = true;
 
-		var joinrequest = 
-		{
+				var joinrequest = 
+				{
+					username:this.username,
+					channelname:channelname,
+					groupname:this.detailedgroup.groupname,
 
-			channelname:channelname,
-			groupname:this.detailedgroup.groupname,
-
-		}
+				};
 		this.socketService.joinchannel(joinrequest);
 		}
 		else
 		{
-			alert("Please leave the current channel first");
+			//alert("Please leave the current channel first");
 		}
-		this.isinroom = true;
 
 		
 
 	}
 
-	//join channel
+	//leave channel
 
 	leaveChannel()
 	{
+
 		this.isinroom = false;
 		var leaverequest = 
 		{
@@ -811,6 +959,7 @@ export class AccountComponent implements OnInit {
 			channelname:this.currentchannel,
 
 		}
+		this.currentchannel = "";
 		this.socketService.leavechannel(leaverequest);
 	}
 		

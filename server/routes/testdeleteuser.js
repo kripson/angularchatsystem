@@ -42,7 +42,6 @@ module.exports = function(dbo,app)
           dbo.collection("users").deleteOne(query, function(err, obj) 
           {
             if (err) throw err;
-            console.log("User removed");
             resolve({message:"User removed"});
           });
 

@@ -10,7 +10,8 @@ var url = "mongodb://localhost:27017/";
 const io = require('socket.io')(http);
 const PORT = 3000;
 
-// var users = JSON.parse(fs.readFileSync("./data/users.js",'utf-8'));
+
+
 
 
 app.use(cors()); // Add cors middleware to the express application
@@ -24,6 +25,8 @@ if(err)
 {
 	console.log(err);
 }
+
+
 
 var dbo = db.db("test1");
 
@@ -98,9 +101,13 @@ async function getchannelhistory(groupname,channelname)
 
   });
 });
+
   
   return history;
 }
+
+
+
 
 async function updatechannelhistory(groupname,channelname,message,username)
 {
@@ -138,8 +145,32 @@ chat.on('connection',(socket)=>
   socket.on('sendmessage',async function(messagebody)
   {
     var history = await updatechannelhistory(messagebody.groupname,messagebody.channelname,messagebody.message,messagebody.username);
-    
-    console.log(history);
+    var getpictures = await new Promise((resolve,reject)=>
+    {
+      if(history.length)
+      {
+          history.forEach((unit,index)=>
+      {
+        var username = unit[0];
+        dbo.collection("users").find({username:username}).toArray(function(err, result)
+            {
+              var user = result[0];
+              history[index].push(user.profilepicture.toString('base64'));
+              if(index === history.length -1 )
+              {
+                console.log(index);
+                console.log("called");
+                resolve('done');
+              }
+
+            });
+      });
+      }
+      else
+      {
+        resolve('done');
+      }
+    });
 
     chat.to(messagebody.channelname).emit('reply',JSON.stringify(history));
   });
@@ -148,7 +179,33 @@ chat.on('connection',(socket)=>
   {
     socket.join(joinrequest.channelname);
     var history = await getchannelhistory(joinrequest.groupname,joinrequest.channelname);
-    chat.to(joinrequest.channelname).emit('channelnotice',`A user connected to ${joinrequest.channelname}`);
+    var profilepictures = [];
+    var getpictures = await new Promise((resolve,reject)=>
+    {
+      if(history.length)
+      {
+          history.forEach((unit,index)=>
+      {
+        var username = unit[0];
+        dbo.collection("users").find({username:username}).toArray(function(err, result)
+            {
+              var user = result[0];
+              history[index].push(user.profilepicture.toString('base64'));
+              if(index === history.length -1 )
+              {
+                resolve('done');
+              }
+
+            });
+      });
+      }
+      else
+      {
+        resolve('done');
+      }
+    });
+
+    chat.to(joinrequest.channelname).emit('channelnotice',`${joinrequest.username} connected to ${joinrequest.channelname}`);
     chat.to(socket.id).emit('reply',JSON.stringify(history));
 
 
@@ -169,6 +226,36 @@ chat.on('connection',(socket)=>
       }
 
     });
+
+    var profilepictures = [];
+    var getpictures = await new Promise((resolve,reject)=>
+    {
+      if(history.length)
+      {
+          history.forEach((unit,index)=>
+      {
+        var username = unit[0];
+        dbo.collection("users").find({username:username}).toArray(function(err, result)
+            {
+              var user = result[0];
+              profilepictures.push(user.profilepicture.toString('base64'));
+              if(index === history.length -1 )
+              {
+                resolve('done');
+              }
+
+            });
+      });
+      }
+      else
+      {
+        resolve('done');
+      }
+    });
+    profilepictures.forEach((profile,index)=>
+    {
+      history[index].push(profile);
+    });
     
     chat.to(body.channelname).emit('reply',JSON.stringify(history));
   });
@@ -181,6 +268,47 @@ chat.on('connection',(socket)=>
       {
           chat.to(leaverequest.channelname).emit('channelnotice',`A user disconnected from the channel i.e ${leaverequest.channelname}`);
       });
+
+  });
+
+
+  socket.on('uploadprofileimage',async function(body)
+  {
+    var username = body.username;
+     var profileupdate = await new Promise((resolve,reject)=>
+
+      {
+
+        var query = { username:username};
+          dbo.collection("users").find(query).toArray(function(err, result)
+          {
+            if (err) throw err;
+
+            if(result.length !== 0)
+            {
+
+              var newvalues = { $set: {profilepicture: body.image}};
+              dbo.collection("users").updateOne(query, newvalues, function(err, res) {
+                        if (err) throw err;
+                        resolve({message:"Profile picture updated"});
+                      });
+            }
+            else
+            {
+              resolve({err:"sorry, The user does not exist or may have been deleted"});
+            }
+          });
+
+
+
+
+      });
+
+      chat.to(socket.id).emit('uploadreply',JSON.stringify(profileupdate)); 
+
+
+    
+
 
   });
 

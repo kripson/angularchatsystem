@@ -2,6 +2,10 @@ module.exports = function(dbo,app)
 	
 	{
 
+     var fs = require('fs');
+
+    var profilepicture = fs.readFileSync("./data/user.png");
+
     app.post('/createuser',async function(req,res)
   {
 
@@ -50,7 +54,8 @@ module.exports = function(dbo,app)
                                           admingrouplist:requestbody.admingrouplist,
                                           email:requestbody.email,
                                           password:requestbody.password,
-                                          valid:requestbody.valid
+                                          valid:requestbody.valid,
+                                          profilepicture:profilepicture
                         };
             dbo.collection("users").insertOne(newuser, function(err, result) {
             if (err) throw err;

@@ -17,7 +17,6 @@ module.exports = function(dbo,app)
           dbo.collection("groups").find(query).toArray(function(err, result)
           {
             if (err) throw err;
-            console.log(result[0]);
             if(result.length !== 0)
             {
               if(!result[0].channels.hasOwnProperty(requestbody.channelname))

@@ -2,6 +2,10 @@ module.exports = function(dbo,app)
 	
 	{
 
+    var fs = require('fs');
+
+    var profilepicture = fs.readFileSync("./data/user.png");
+
     app.post('/api/auth',async function(req,res)
   {
 
@@ -63,7 +67,7 @@ module.exports = function(dbo,app)
 
         dbo.createCollection("users", function(err, result) {
         if (err) throw err;
-        console.log("Collection created!");
+
         var first = {
                                           username:"super",
                                           birthdate:"00-00-0000",
@@ -73,15 +77,21 @@ module.exports = function(dbo,app)
                                           admingrouplist:[],
                                           email:"super@gmail.com",
                                           password:"super",
-                                          valid:true
-                        };
+                                          valid:true,
+                                          profilepicture:profilepicture
+                                                          
+                              };
             dbo.collection("users").insertOne(first, function(err, result) {
             if (err) throw err;
             if(requestbody.username === "super" && requestbody.password === "super")
             {
               resolve(first);
             }
-            resolve({err:"sorry, Your credentials don't match with any records"});
+            else
+            {
+              resolve({err:"sorry, Your credentials don't match with any records"});
+            }
+            
 
             })
           });

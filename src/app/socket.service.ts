@@ -6,7 +6,7 @@ import * as io from 'socket.io-client';
 export class SocketService {
 	private url = 'http://localhost:3000/chat';
 	private socket = io(this.url);
-	
+
   constructor() { }
 
   getmessage(next)
@@ -35,9 +35,19 @@ export class SocketService {
   	this.socket.emit('uploadimage',image);
   }
 
+  uploadprofileimage(image)
+  {
+  	this.socket.emit('uploadprofileimage',image);
+  }
+
   getchannelnotice(next)
   {
   	this.socket.on('channelnotice',data=>next(data));
+  }
+
+  getuploadreply(next)
+  {
+  	this.socket.on('uploadreply',data=>next(data));
   }
 
    getimage(next)

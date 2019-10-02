@@ -1,3 +1,6 @@
+
+<h1 id ="pageheading">Account</h1>
+<h1 id="testingmessage">{{testmessage}}</h1>
 <div id="center">
 	<h1> Account Page </h1>
 	<p><img src="https://img.icons8.com/bubbles/50/000000/user.png">{{username}}</p>
@@ -124,27 +127,39 @@
 
 
 <div id="chatbox" *ngIf="isinroom">
-	<h1>{{channelnotice}}</h1>
-	<br><br>
-
-	<div *ngFor = "let message of messages" >{{message[0]}}
+	<div id="header">
+	<a style="position: absolute;top: 0;right: 0;"(click) = "leaveChannel()"><img style = "width:45px;height:45px;" src="https://icon-library.net/images/close-icon-png/close-icon-png-19.jpg"></a>
+	<br>
+	<h4 style="text-align: center;color:white;">{{channelnotice}}</h4>
+</div>
+	<br>
+	<div id ="messagecontainer">
+	<div  *ngFor = "let message of messages" >
+		<img style="width:30px;height:30px;border-radius:30px" src = "{{message[3]}}">{{message[0]}}<br><br>
 		<div *ngIf="message[1] !== 'string'; else elseBlock"><img style = "width:200px;height:200px" src="{{message[2]}}"></div>
 		
-		<ng-template #elseBlock>{{message[2]}}</ng-template>
-		<br><br>
+		<ng-template #elseBlock><p style = "background-color: rgb(77, 148, 255);color:white;padding:1em;border-radius:0 15px 15px 15px; width:80%;">{{message[2]}}</p></ng-template>
+		<br>
 	</div>
-
-
-	<input type="text" [(ngModel)]="message" name="message">
-	
-	<input type="file" (change) ="setImage()" [(ngModel)]="image" name="image"><br><br>
-
-	<button (click) = "uploadImage()">Send an image</button>
-	<button (click) = "sendmessage()">Send message</button>
-	<button (click) = "leaveChannel()">Leave this channel</button>
 </div>
 
 
+	<input type="text" [(ngModel)]="message" placeholder = "Say Something..." name="message"><br><br>
+	<a style="position: relative;bottom: 5.2em;left: 27.75em;" (click) = "sendmessage()"><img src="https://img.icons8.com/color/48/000000/filled-sent.png"></a>
+	<a (click) = "uploadImage()"><img src="https://img.icons8.com/dusk/64/000000/add-image.png"></a>
+	
+	<input type="file" (change) ="setImage()" [(ngModel)]="image" name="image"><br><br>
+
+	
+	
+
+</div>
+
+<div id = "profileupdate">
+<label>Change your profile picture</label><br>
+<input type="file" (change) ="setProfile()" [(ngModel)]="profileimage" name="profileimage"><br><br>
+<button (click) = "uploadProfileImage()">Upload this image as profile picture</button>
+</div>
 
  <div id="logout" >
 	<img (click) = "logout()" src="https://img.icons8.com/bubbles/50/000000/exit.png">
