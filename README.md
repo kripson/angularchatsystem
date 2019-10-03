@@ -22,7 +22,6 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-
 # Software Frameworks Assignment 2
 
 
@@ -59,9 +58,13 @@ S5085319
 
 
 
+
+
 # Documentation
 
 Git layout
+
+Git Repo - [https://github.com/kripson/angularchatsystem.git](https://github.com/kripson/angularchatsystem.git)
 
 The repository consists of only one branch which is the master branch. The layout of the repository is identical to a regular project based on angular. The src folder consists of all the components that collectively form the user interface. The source code for node server is placed inside &quot;server&quot; folder with API routes in routes folder. The tests for testing routes are placed stored in &#39;test.js&#39; file in server folder. Mocha has been used to test API routes. The e2e src folder contains all the end to end testing files.
 
@@ -179,6 +182,10 @@ The client-server communication has been divided into two parts. The first part 
 1. getuserlist - Gets the list of user. Only super receives the list and others get an empty list. Usually called after creation of a new user.
 2. Getgroupdetails - Gets the details of the current group being viewed. Called after any changes made to the current group being worked with.
 3. Getuserdetails - Gets the details of a user from the database.
+
+**Database interaction**
+
+The database interaction with mongo db is asynchronous by nature. This can create problems during the communication between server and client. To simplify the process, the asynchronous interaction with database was changed to act in a asynchronous way by using promises.
 
 ## Further help
 
