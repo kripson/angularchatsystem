@@ -158,8 +158,6 @@ chat.on('connection',(socket)=>
               history[index].push(user.profilepicture.toString('base64'));
               if(index === history.length -1 )
               {
-                console.log(index);
-                console.log("called");
                 resolve('done');
               }
 

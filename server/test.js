@@ -34,7 +34,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/api/auth', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.username,"super");
-            console.log(body.username);
+         
                 
             done();
             });
@@ -55,7 +55,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/api/auth', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.err,"sorry, Your credentials don't match with any records");
-            console.log(body);
+            
                 
             done();
             });
@@ -119,7 +119,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/createuser', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.err,"User already exists");
-            console.log(body);
+        
                 
             done();
             });
@@ -164,7 +164,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/deleteuser', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.err,"User not found");
-            console.log(body);
+           
                 
             done();
             });
@@ -217,7 +217,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/creategroup', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.err,"Group already exists");
-            console.log(body);
+            
                 
             done();
             });
@@ -262,7 +262,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/deletegroup', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.err,"Group not found");
-            console.log(body);
+           
                 
             done();
             });
@@ -329,7 +329,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/createnewgroupuser', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.err,"User already exists");
-            console.log(body);
+           
                 
             done();
             });
@@ -378,7 +378,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/removeuserfromgroup', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.err,"Either the user or the group does not exist");
-            console.log(body);
+           
                 
             done();
             });
@@ -430,7 +430,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/addusertogroup', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.err,"User does not exist/ User is already a member");
-            console.log(body);
+           
                 
             done();
             });
@@ -488,7 +488,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/createchannel', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.err,"Group is deleted or the channel already exists");
-            console.log(body);
+           
                 
             done();
             });
@@ -543,7 +543,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/addusertochannel', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.err,"User is already a member of the channel or the channel is deleted");
-            console.log(body);
+            
                 
             done();
             });
@@ -571,7 +571,7 @@ describe('Server test', function() {
 
             request.post('http://localhost:3000/removeuserfromchannel', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
-            assert.equal(body.message,"User removed to the channel");
+            assert.equal(body.message,"User removed from the channel");
                 
             done();
             });
@@ -598,7 +598,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/removeuserfromchannel', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.err,"User is not a member of the channel or the channel does not exist");
-            console.log(body);
+           
                 
             done();
             });
@@ -651,7 +651,7 @@ describe('Server test', function() {
             request.post('http://localhost:3000/deletechannel', { json: requestbody }, (err, res, body) => {
             if (err) { return done(err)};
             assert.equal(body.err,"Channel not found");
-            console.log(body);
+           
                 
             done();
             });

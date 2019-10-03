@@ -22,7 +22,7 @@ import {CommonModule} from '@angular/common';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [SocketService],
+  providers: [AppRoutingModule,SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

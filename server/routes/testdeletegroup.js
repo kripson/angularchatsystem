@@ -7,7 +7,7 @@ module.exports = function(dbo,app)
 
 
       requestbody = req.body;
-
+      //checking if group exists
       var groupcheck = await new Promise((resolve,reject)=>
 
       {
@@ -89,7 +89,7 @@ module.exports = function(dbo,app)
               var newvalues = { $set: {grouplist: new_grouplist, admingrouplist: new_admingrouplist } };
               dbo.collection("users").updateOne(query, newvalues, function(err, res) {
                         if (err) throw err;
-                        if(user === result.pop())
+                        if(user === result[result.length -1 ])
                         {
                           resolve("done");
                         }

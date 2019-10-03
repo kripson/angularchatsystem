@@ -9,7 +9,7 @@ module.exports = function(dbo,app)
       requestbody = req.body;
 
 		
-
+      //check if user is present and send details or error
       var getuserdetails = await new Promise((resolve,reject)=>
 
       {

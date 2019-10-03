@@ -20,6 +20,8 @@ import {SocketService} from '../socket.service';
 	styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
+
+
   //flags to show buttons
 	createnewgroupuser = false;
 	addnewgroupuser = false;
@@ -183,14 +185,14 @@ export class AccountComponent implements OnInit {
 		this.image = input.files[0];
 	}
 
-	//setImage
+	//setProfile
 	setProfile()
 	{
 		var input = event.target as HTMLInputElement;
 		this.profileimage = input.files[0];
 	}
 
-	//Upload image
+	//send image in chat
 
 	uploadImage()
 	{
@@ -222,7 +224,7 @@ export class AccountComponent implements OnInit {
 
 	}
 
-	//Upload image
+	//Upload profile image
 
 	uploadProfileImage()
 	{
@@ -252,7 +254,7 @@ export class AccountComponent implements OnInit {
 		
 
 	}
-
+	//sending message using socket service
 	sendmessage()
 	{
 		if(this.message)

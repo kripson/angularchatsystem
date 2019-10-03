@@ -7,7 +7,7 @@ module.exports = function(dbo,app)
 
 
       requestbody = req.body;
-
+      //check if user is present
 		var usercheck = await new Promise((resolve,reject)=>
 
       {
@@ -96,7 +96,6 @@ module.exports = function(dbo,app)
                 }
 
               });
-              console.log(channels);
               for(var channel in channels)
               {
                     channels[channel].members.forEach((member,index)=>
@@ -122,7 +121,7 @@ module.exports = function(dbo,app)
               dbo.collection("groups").updateOne(query, newvalues, function(err, res) {
                         if (err) throw err;
 
-                        if(group === result.pop())
+                        if(group === result[result.length -1])
                         {
                           resolve("done");
                         }
@@ -140,7 +139,6 @@ module.exports = function(dbo,app)
   {
     var userdeletion = {err:"User not found"};
   }
-      console.log(userdeletion);
       res.send(userdeletion);
   });
 };

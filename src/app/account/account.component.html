@@ -1,12 +1,14 @@
 
-<h1 id ="pageheading">Account</h1>
-<h1 id="testingmessage">{{testmessage}}</h1>
+<h4 id ="pageheading">Account</h4>
+<h4 id="testingmessage">{{testmessage}}</h4>
 <div id="center">
+	<div>
 	<h1> Account Page </h1>
 	<p><img src="https://img.icons8.com/bubbles/50/000000/user.png">{{username}}</p>
 	<p><img src="https://img.icons8.com/cute-clipart/64/000000/birthday-cake.png">{{birthdate}}</p>
 	<p>Age: {{age}}</p>
 	<p>Email:{{email}}</p>
+</div>
  </div>
 
 
@@ -14,7 +16,7 @@
  <div id="userlist" *ngIf = "userlist.length">
 	<h3><img src="https://img.icons8.com/bubbles/50/000000/user.png"> Users List</h3>
 	<ul>
-	   <li *ngFor = "let user of userlist">{{user}}<br><button id = "{{user}}"(click) = "deleteUser(user)">Delete this user</button><button (click) = "promoteToGroupAdmin(user)">Promote to Group Admin</button></li>
+	   <li *ngFor = "let user of userlist">{{user}}<br><button id = "{{user}}"(click) = "deleteUser(user)">Delete this user</button><button (click) = "promoteToGroupAdmin(user)">Promote</button></li>
 	</ul>
  </div>
 
@@ -32,11 +34,14 @@
 
 
  <div id="groupdetails" *ngIf="detailedgroup.groupname">
-	<h1>Group Details</h1>
-	<h1>{{detailedgroup.groupname}}</h1>
+ 	<div id="grouphead">
+	<h2>{{detailedgroup.groupname}}</h2>
 	<h2><img src="https://img.icons8.com/dusk/64/000000/groups.png">{{detailedgroup.membercount }} member/s </h2>
-	<ul>
-	   <li *ngFor = "let channel of detailedgroup.channels"><a  (click) = "channelDetails(channel)">{{channel}}</a>
+	</div>
+	<br>
+	<ul id = "channellist">
+		<h4>Current channels</h4>
+	   <li *ngFor = "let channel of detailedgroup.channels"><a  (click) = "channelDetails(channel)">{{channel}}    </a>
 		  <button (click) = "deleteChannel(channel)" *ngIf="detailedgroup.isofadmin">Delete Channel</button>
 	   </li>
 	</ul>
@@ -102,7 +107,7 @@
  <br><br>
 
  <div id="newuserform" *ngIf="username == 'super'">
-	<h1> Create A New User Here<img src="https://img.icons8.com/bubbles/50/000000/user.png"></h1>
+	<h2>New User Form<img src="https://img.icons8.com/bubbles/50/000000/user.png"></h2>
 	<form>
 	   <input type="text" [(ngModel)]="nusername" name="nusername" placeholder="username" required><br><br>
 	   <input type="text" [(ngModel)]="nbirthdate" name="nbirthdate" placeholder="birthdate" required><br><br>
@@ -117,7 +122,7 @@
  <br><br>
 
  <div id="newgroupform" *ngIf="ofgroupadmin">
-	<h1> Create A New group Here<img src="https://img.icons8.com/dusk/64/000000/groups.png"></h1>
+	<h2> New group form<img src="https://img.icons8.com/dusk/64/000000/groups.png"></h2>
 	<form>
 	   <input type="text" [(ngModel)]="ngroupname" name="ngroupname" placeholder="groupname" ><br><br>
 	   <button (click) = "createNewGroup()">Submit</button>
@@ -145,7 +150,7 @@
 
 
 	<input type="text" [(ngModel)]="message" placeholder = "Say Something..." name="message"><br><br>
-	<a style="position: relative;bottom: 5.2em;left: 27.75em;" (click) = "sendmessage()"><img src="https://img.icons8.com/color/48/000000/filled-sent.png"></a>
+	<a style="position: relative;bottom: 6em;left: 27.25em;" (click) = "sendmessage()"><img src="https://img.icons8.com/color/48/000000/filled-sent.png"></a>
 	<a (click) = "uploadImage()"><img src="https://img.icons8.com/dusk/64/000000/add-image.png"></a>
 	
 	<input type="file" (change) ="setImage()" [(ngModel)]="image" name="image"><br><br>
@@ -155,10 +160,12 @@
 
 </div>
 
+
+
 <div id = "profileupdate">
-<label>Change your profile picture</label><br>
+<img style = "width: 80px;height: 80px;"src="https://d33v4339jhl8k0.cloudfront.net/docs/assets/59f9ae61042863319924181d/images/5a28531a2c7d3a1a640ca94b/file-eesqBFuUGp.png"><br><br>
 <input type="file" (change) ="setProfile()" [(ngModel)]="profileimage" name="profileimage"><br><br>
-<button (click) = "uploadProfileImage()">Upload this image as profile picture</button>
+<button (click) = "uploadProfileImage()">Upload photo</button>
 </div>
 
  <div id="logout" >

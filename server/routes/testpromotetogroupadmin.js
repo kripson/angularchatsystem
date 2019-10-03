@@ -9,7 +9,7 @@ module.exports = function(dbo,app)
       requestbody = req.body;
 
 		
-
+      //promote if user is present
       var promotetogroupadmin = await new Promise((resolve,reject)=>
 
       {

@@ -8,7 +8,7 @@ module.exports = function(dbo,app)
 
       requestbody = req.body;
 
-
+      //check if user is present
       var usercheck = await new Promise((resolve,reject)=>
 
       {
@@ -38,6 +38,7 @@ module.exports = function(dbo,app)
 
       if(usercheck)
       {
+        //checking if group exists
         var groupupdate = await new Promise((resolve,reject)=>
 
       {
@@ -139,7 +140,7 @@ module.exports = function(dbo,app)
                                           var newvalues = { $set: {grouplist: new_grouplist, admingrouplist: new_admingrouplist } };
                                           dbo.collection("users").updateOne(query, newvalues, function(err, res) {
                                                     if (err) throw err;
-                                                    console.log('Part 3 cleared');
+                                                    
                                                     resolve({message:"User removed from group"});
                                                   });
 

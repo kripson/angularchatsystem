@@ -8,7 +8,7 @@ module.exports = function(dbo,app)
 
       requestbody = req.body;
 
-
+      //checking if group and channel exist
       var groupcheck = await new Promise((resolve,reject)=>
 
       {

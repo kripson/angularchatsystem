@@ -62,6 +62,7 @@ module.exports = function(dbo,app)
     }
     else
     {
+      //if super not present create super user
       var usercheck = await new Promise((resolve,reject)=>
       {
 

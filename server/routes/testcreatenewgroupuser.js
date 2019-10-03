@@ -12,7 +12,7 @@ module.exports = function(dbo,app)
 
       requestbody = req.body;
 
-
+      //check if user is present
       var usercheck = await new Promise((resolve,reject)=>
 
       {

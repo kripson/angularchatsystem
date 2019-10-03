@@ -9,7 +9,7 @@ module.exports = function(dbo,app)
       requestbody = req.body;
 
 
-    
+    //checking if group exists
       var groupcheck = await new Promise((resolve,reject)=>
 
       {
@@ -69,7 +69,7 @@ module.exports = function(dbo,app)
                       var newvalues = { $set: {channels: channels } };
                       dbo.collection("groups").updateOne(query, newvalues, function(err, res) {
 
-                        resolve({message: "User removed to the channel"});
+                        resolve({message: "User removed from the channel"});
 
                     });
                     });
