@@ -6,7 +6,7 @@ var path = require('path');
 var cors = require('cors'); //import the cors package. 
 
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
+var url = "mongodb+srv://super:super@cluster0.6vjsc.mongodb.net/angularchatsystem?retryWrites=true&w=majority";
 const io = require('socket.io')(http);
 const PORT = 3000;
 
